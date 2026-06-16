@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowLeft, FlaskConical, Atom, Play, Trash2, Plus, X,
@@ -28,21 +28,80 @@ const CATEGORY_COLORS: Record<string, string> = {
 type MobileTab = 'chemicals' | 'lab' | 'ai';
 
 export default function FreeLabPage() {
-  const [searchQuery, setSearchQuery]         = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [expandedChemical, setExpandedChemical] = useState<string | null>(null);
-  const [isRunning, setIsRunning]             = useState(false);
-  const [chemTab, setChemTab]                 = useState<'chemicals' | 'equipment'>('chemicals');
-  const [mobileTab, setMobileTab]             = useState<MobileTab>('lab');
-  /* desktop: left panel collapsed? */
-  const [leftOpen, setLeftOpen]               = useState(true);
-  const [rightOpen, setRightOpen]             = useState(true);
+  const [searchQuery, setSearchQuery]             = useState("");
+  const [selectedCategory, setSelectedCategory]   = useState<string>('all');
+  const [expandedChemical, setExpandedChemical]   = useState<string | null>(null);
+  const [isRunning, setIsRunning]                 = useState(false);
+  const [chemTab, setChemTab]                     = useState<'chemicals' | 'equipment'>('chemicals');
+  const [mobileTab, setMobileTab]                 = useState<MobileTab>('lab');
+  const [leftOpen, setLeftOpen]                   = useState(true);
+  const [rightOpen, setRightOpen]                 = useState(true);
+
+  // Equipment interaction state
+  const [isHeating, setIsHeating]   = useState(false);
+  const [isStirring, setIsStirring] = useState(false);
+  const [buretteVol, setBuretteVol] = useState(50);
+  const [isDripping, setIsDripping] = useState(false);
 
   const {
     selectedChemicals, selectedEquipment, currentReaction,
     addChemical, removeChemical, addEquipment, removeEquipment,
     setCurrentReaction, addMessage, incrementExperiments, addDiscoveredReaction, addXP,
   } = useLabStore();
+
+  // Reset equipment state when equipment is removed
+  useEffect(() => {
+    const hasHeat = selectedEquipment.some(id => ['bunsen_burner', 'hot_plate'].includes(id));
+    if (!hasHeat) setIsHeating(false);
+    if (!selectedEquipment.includes('magnetic_stirrer')) setIsStirring(false);
+    if (!selectedEquipment.includes('burette')) { setBuretteVol(50); setIsDripping(false); }
+  }, [selectedEquipment]);
+
+  // Derived flags for active equipment
+  const hasHeat       = selectedEquipment.some(id => ['bunsen_burner', 'hot_plate'].includes(id));
+  const hasBurette    = selectedEquipment.includes('burette');
+  const hasStirrer    = selectedEquipment.includes('magnetic_stirrer');
+  const hasPH         = selectedEquipment.includes('ph_meter');
+  const hasThermo     = selectedEquipment.includes('thermometer');
+  const hasConductivity = selectedEquipment.includes('conductivity_meter');
+  const hasBalance    = selectedEquipment.includes('balance');
+
+  // Live instrument readings
+  function calcPH(): number {
+    if (currentReaction?.pHChange !== null && currentReaction?.pHChange !== undefined) {
+      return currentReaction.pHChange as number;
+    }
+    const vals = selectedChemicals
+      .map(id => CHEMICALS.find(c => c.id === id)?.properties.pH)
+      .filter((v): v is number => v !== undefined);
+    return vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 7;
+  }
+  function calcTemp(): number {
+    let t = 25;
+    if (currentReaction?.isExothermic) t += 35;
+    else if (currentReaction && selectedChemicals.length > 0) t -= 5;
+    if (isHeating) t += 25;
+    return Math.min(500, Math.max(0, Math.round(t)));
+  }
+  function calcConductivity(): number {
+    const ionic = selectedChemicals.filter(id => {
+      const c = CHEMICALS.find(ch => ch.id === id);
+      return c && ['acid', 'base', 'salt'].includes(c.category);
+    }).length;
+    return ionic * 280;
+  }
+  function calcMass(): number {
+    return selectedChemicals
+      .map(id => CHEMICALS.find(c => c.id === id)?.molecularWeight ?? 0)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  const pH   = calcPH();
+  const temp = calcTemp();
+  const cond = calcConductivity();
+  const mass = calcMass();
+
+  const showInstruments = (hasPH || hasThermo || hasConductivity || hasBalance) && selectedChemicals.length > 0;
 
   const filteredChemicals = CHEMICALS.filter(c => {
     const q = searchQuery.toLowerCase();
@@ -63,8 +122,23 @@ export default function FreeLabPage() {
     addDiscoveredReaction([...selectedChemicals].sort().join('+'));
     addMessage({ role: 'assistant', content: `Reaction: ${result.equation}\n\n${result.description}\n\nObservations: ${result.observations.join(', ')}` });
     setIsRunning(false);
-    setMobileTab('lab');         // jump back to lab view after running
+    setMobileTab('lab');
   }, [selectedChemicals, setCurrentReaction, incrementExperiments, addXP, addDiscoveredReaction, addMessage]);
+
+  const handleDrip = useCallback(() => {
+    if (buretteVol <= 0 || isDripping) return;
+    setIsDripping(true);
+    const newVol = Math.max(0, buretteVol - 1);
+    setBuretteVol(newVol);
+    const added = 50 - newVol;
+    if (added % 5 === 0 || newVol === 0) {
+      const msg = newVol === 0
+        ? `All 50 mL of titrant added. Refill burette to continue.`
+        : `${added} mL of titrant added. Volume remaining: ${newVol} mL.`;
+      addMessage({ role: 'assistant', content: msg });
+    }
+    setTimeout(() => setIsDripping(false), 500);
+  }, [buretteVol, isDripping, addMessage]);
 
   const selectedChemicalObjects = selectedChemicals
     .map(id => CHEMICALS.find(c => c.id === id))
@@ -168,8 +242,12 @@ export default function FreeLabPage() {
 
       {chemTab === 'equipment' && (
         <div className="flex-1 overflow-y-auto p-3 space-y-1.5">
+          <p className="text-xs text-slate-500 pb-2">Select equipment to activate instruments and tools in the lab.</p>
           {EQUIPMENT.map(eq => {
             const isSel = selectedEquipment.includes(eq.id);
+            const isActive =
+              (eq.id === 'bunsen_burner' || eq.id === 'hot_plate') ? isHeating :
+              eq.id === 'magnetic_stirrer' ? isStirring : false;
             return (
               <div key={eq.id} className="rounded-lg p-2.5 cursor-pointer transition-all"
                 style={{
@@ -179,11 +257,16 @@ export default function FreeLabPage() {
                 onClick={() => isSel ? removeEquipment(eq.id) : addEquipment(eq.id)}>
                 <div className="flex items-center gap-2">
                   <span className="text-xl">{eq.icon}</span>
-                  <div>
+                  <div className="flex-1 min-w-0">
                     <div className="text-xs font-semibold text-white">{eq.name}</div>
                     <div className="text-xs text-slate-400 capitalize">{eq.category}</div>
                   </div>
-                  {isSel && <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400" />}
+                  {isSel && (
+                    <div className="flex items-center gap-1">
+                      {isActive && <span className="text-xs text-emerald-400 font-medium">ON</span>}
+                      <div className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -210,25 +293,183 @@ export default function FreeLabPage() {
         </div>
       )}
 
-      {/* Reaction vessel */}
+      {/* Instrument readings bar */}
+      {showInstruments && (
+        <div className="px-4 py-2 flex flex-wrap gap-2 border-b border-indigo-500/10 flex-shrink-0"
+          style={{ background: 'rgba(10,14,26,0.6)' }}>
+          {hasPH && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+              style={{ background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.3)' }}>
+              <span className="text-sm">📊</span>
+              <span className="text-xs text-slate-400">pH</span>
+              <span className="text-sm font-mono font-bold text-white">{pH.toFixed(1)}</span>
+              <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(15,23,42,0.8)' }}>
+                <div className="h-full rounded-full transition-all duration-700"
+                  style={{
+                    width: `${(pH / 14) * 100}%`,
+                    background: pH < 3 ? '#ef4444' : pH < 6 ? '#f97316' : pH < 8 ? '#10b981' : pH < 11 ? '#6366f1' : '#8b5cf6',
+                  }} />
+              </div>
+            </div>
+          )}
+          {hasThermo && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+              style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
+              <span className="text-sm">🌡️</span>
+              <span className="text-xs text-slate-400">Temp</span>
+              <span className="text-sm font-mono font-bold"
+                style={{ color: temp > 60 ? '#f87171' : temp < 20 ? '#93c5fd' : '#fcd34d' }}>
+                {temp}°C
+              </span>
+            </div>
+          )}
+          {hasConductivity && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+              style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)' }}>
+              <span className="text-sm">⚡</span>
+              <span className="text-xs text-slate-400">Cond.</span>
+              <span className="text-sm font-mono font-bold text-amber-300">{cond} mS/cm</span>
+            </div>
+          )}
+          {hasBalance && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+              style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)' }}>
+              <span className="text-sm">⚖️</span>
+              <span className="text-xs text-slate-400">Avg MW</span>
+              <span className="text-sm font-mono font-bold text-emerald-300">{mass.toFixed(1)} g/mol</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Main reaction area */}
       <div className="flex-1 flex flex-col items-center justify-center p-4 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, rgba(10,14,26,0.95) 0%, rgba(15,23,42,0.9) 100%)' }}>
         <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-        <ReactionVessel reaction={currentReaction} chemicals={selectedChemicals} isRunning={isRunning} />
 
-        <button onClick={handleRunReaction}
-          disabled={selectedChemicals.length < 2 || isRunning}
-          className="mt-5 flex items-center gap-2 px-7 py-3 rounded-xl font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{
-            background: selectedChemicals.length >= 2 ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'rgba(30,41,59,0.6)',
-            boxShadow:  selectedChemicals.length >= 2 ? '0 0 30px rgba(99,102,241,0.3)' : 'none',
-          }}>
-          <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
-          {isRunning ? 'Simulating…' : 'Run Reaction'}
-        </button>
+        {/* Lab bench with burette + flask side by side */}
+        <div className="relative z-10 flex items-end justify-center gap-8">
 
-        {selectedChemicals.length < 2 && (
-          <p className="mt-3 text-slate-500 text-sm text-center">Add at least 2 chemicals to run a reaction</p>
+          {/* Burette (shown when burette equipment selected) */}
+          {hasBurette && (
+            <div className="flex flex-col items-center gap-1 pb-4">
+              <div className="text-xs text-slate-400 font-mono mb-1"
+                style={{ color: buretteVol < 10 ? '#fca5a5' : '#94a3b8' }}>
+                {buretteVol.toFixed(0)} mL
+              </div>
+              <svg width="36" height="140" viewBox="0 0 36 140" className="overflow-visible">
+                {/* Burette body */}
+                <rect x="13" y="2" width="10" height="110" rx="3"
+                  fill="rgba(99,102,241,0.05)" stroke="rgba(99,102,241,0.5)" strokeWidth="1.5" />
+                {/* Liquid in burette */}
+                <clipPath id="burette-clip">
+                  <rect x="13.5" y="2.5" width="9" height="109" rx="2" />
+                </clipPath>
+                <rect x="13.5" y={111.5 - buretteVol * 1.09} width="9" height={buretteVol * 1.09}
+                  fill="rgba(99,102,241,0.4)"
+                  clipPath="url(#burette-clip)"
+                  style={{ transition: 'all 0.4s ease' }} />
+                {/* Graduation marks */}
+                {[22, 44, 66, 88].map((y, i) => (
+                  <g key={y}>
+                    <line x1="18" y1={y} x2="23" y2={y} stroke="rgba(99,102,241,0.5)" strokeWidth="1" />
+                    <text x="25" y={y + 3} fontSize="5" fill="rgba(148,163,184,0.7)">{(i + 1) * 10}</text>
+                  </g>
+                ))}
+                {/* Stopcock */}
+                <rect x="11" y="112" width="14" height="5" rx="2"
+                  fill="rgba(99,102,241,0.3)" stroke="rgba(99,102,241,0.6)" strokeWidth="1" />
+                {/* Tip */}
+                <path d="M16 117 L20 117 L18 132 Z"
+                  fill="rgba(99,102,241,0.3)" stroke="rgba(99,102,241,0.5)" strokeWidth="1" />
+                {/* Drip drop */}
+                {isDripping && (
+                  <ellipse cx="18" cy="135" rx="2.5" ry="3.5"
+                    fill="rgba(99,102,241,0.7)"
+                    style={{ animation: 'bubble-rise 0.5s ease-in forwards' }} />
+                )}
+              </svg>
+              <button
+                onClick={handleDrip}
+                disabled={buretteVol <= 0}
+                className="mt-1 text-xs px-3 py-1.5 rounded-lg font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc' }}>
+                Drip
+              </button>
+              {buretteVol <= 0 && (
+                <button onClick={() => setBuretteVol(50)}
+                  className="text-xs px-2 py-1 rounded-md transition-all"
+                  style={{ background: 'rgba(16,185,129,0.15)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.3)' }}>
+                  Refill
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Main flask area */}
+          <div className="relative">
+            {/* Flame under flask when heating */}
+            {isHeating && (
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-0"
+                style={{ filter: 'blur(1px)' }}>
+                <span className="text-2xl animate-pulse" style={{ animationDuration: '0.4s' }}>🔥</span>
+                <span className="text-xl animate-pulse" style={{ animationDuration: '0.3s', animationDelay: '0.1s' }}>🔥</span>
+                <span className="text-2xl animate-pulse" style={{ animationDuration: '0.5s', animationDelay: '0.05s' }}>🔥</span>
+              </div>
+            )}
+
+            <div className="relative z-10">
+              <ReactionVessel reaction={currentReaction} chemicals={selectedChemicals} isRunning={isRunning} />
+            </div>
+
+            {/* Stirring indicator at bottom of flask */}
+            {isStirring && (
+              <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20">
+                <div className="w-14 h-2 rounded-full animate-spin"
+                  style={{ background: 'rgba(6,182,212,0.6)', animationDuration: '0.4s' }} />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Action buttons row */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-5 z-10 relative">
+          {hasHeat && (
+            <button onClick={() => setIsHeating(v => !v)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{
+                background: isHeating ? 'rgba(239,68,68,0.2)' : 'rgba(30,41,59,0.6)',
+                border: isHeating ? '1px solid rgba(239,68,68,0.5)' : '1px solid rgba(99,102,241,0.2)',
+                color: isHeating ? '#fca5a5' : '#94a3b8',
+              }}>
+              🔥 {isHeating ? 'Stop Heat' : 'Start Heat'}
+            </button>
+          )}
+          {hasStirrer && (
+            <button onClick={() => setIsStirring(v => !v)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{
+                background: isStirring ? 'rgba(6,182,212,0.2)' : 'rgba(30,41,59,0.6)',
+                border: isStirring ? '1px solid rgba(6,182,212,0.5)' : '1px solid rgba(99,102,241,0.2)',
+                color: isStirring ? '#67e8f9' : '#94a3b8',
+              }}>
+              🌀 {isStirring ? 'Stop Stirring' : 'Start Stirring'}
+            </button>
+          )}
+          <button onClick={handleRunReaction}
+            disabled={selectedChemicals.length < 2 || isRunning}
+            className="flex items-center gap-2 px-7 py-2.5 rounded-xl font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: selectedChemicals.length >= 2 ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'rgba(30,41,59,0.6)',
+              boxShadow:  selectedChemicals.length >= 2 ? '0 0 30px rgba(99,102,241,0.3)' : 'none',
+            }}>
+            <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
+            {isRunning ? 'Simulating…' : 'Run Reaction'}
+          </button>
+        </div>
+
+        {selectedChemicals.length < 2 && !hasBurette && (
+          <p className="mt-3 text-slate-500 text-sm text-center z-10 relative">Add at least 2 chemicals to run a reaction</p>
         )}
       </div>
 
@@ -261,12 +502,24 @@ export default function FreeLabPage() {
           {selectedEquipment.map(id => {
             const eq = EQUIPMENT.find(e => e.id === id);
             if (!eq) return null;
+            const isOn =
+              (id === 'bunsen_burner' || id === 'hot_plate') ? isHeating :
+              id === 'magnetic_stirrer' ? isStirring :
+              id === 'burette' ? true : false;
             return (
-              <div key={id} className="flex-shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-lg"
-                style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)' }}>
+              <div key={id} className="flex-shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-lg cursor-pointer transition-all"
+                style={{
+                  background: isOn ? 'rgba(16,185,129,0.15)' : 'rgba(16,185,129,0.08)',
+                  border: isOn ? '1px solid rgba(16,185,129,0.4)' : '1px solid rgba(16,185,129,0.2)',
+                }}
+                onClick={() => {
+                  if (id === 'bunsen_burner' || id === 'hot_plate') setIsHeating(v => !v);
+                  else if (id === 'magnetic_stirrer') setIsStirring(v => !v);
+                }}>
                 <span className="text-base">{eq.icon}</span>
                 <span className="text-xs text-slate-300 whitespace-nowrap">{eq.name}</span>
-                <button onClick={() => removeEquipment(id)} className="text-slate-500 hover:text-red-400">
+                {isOn && <span className="text-xs text-emerald-400 font-bold">●</span>}
+                <button onClick={e => { e.stopPropagation(); removeEquipment(id); }} className="text-slate-500 hover:text-red-400 ml-1">
                   <X className="w-3 h-3" />
                 </button>
               </div>
@@ -360,7 +613,7 @@ export default function FreeLabPage() {
       {/* ── Main area ── */}
       <div className="flex-1 flex overflow-hidden min-h-0">
 
-        {/* ── LEFT PANEL (desktop always, mobile hidden) ── */}
+        {/* ── LEFT PANEL (desktop) ── */}
         <div className={`
           hidden lg:flex flex-col flex-shrink-0 border-r border-indigo-500/15 overflow-hidden
           transition-all duration-300
@@ -370,10 +623,10 @@ export default function FreeLabPage() {
           {leftOpen && ChemicalPanel}
         </div>
 
-        {/* ── CENTER (desktop always) / MOBILE TAB CONTENT ── */}
+        {/* ── CENTER / MOBILE TAB CONTENT ── */}
         <div className="flex-1 overflow-hidden min-w-0">
 
-          {/* Mobile: show one tab at a time */}
+          {/* Mobile: one tab at a time */}
           <div className="lg:hidden h-full flex flex-col overflow-hidden"
             style={{ background: 'rgba(10,14,26,0.9)' }}>
             {mobileTab === 'chemicals' && ChemicalPanel}

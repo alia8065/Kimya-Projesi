@@ -1,0 +1,446 @@
+export interface Chemical {
+  id: string;
+  formula: string;
+  name: string;
+  nameTr: string;
+  color: string;
+  state: 'solid' | 'liquid' | 'gas' | 'aqueous';
+  hazard: 'safe' | 'low' | 'medium' | 'high';
+  hazardLabel: string;
+  pH?: number;
+  density?: number;
+  molarMass: number;
+  description: string;
+  uses: string[];
+  category: 'acid' | 'base' | 'salt' | 'organic' | 'metal' | 'gas' | 'indicator' | 'solvent';
+  properties: { label: string; value: string }[];
+}
+
+export const CHEMICALS: Chemical[] = [
+  {
+    id: 'hcl',
+    formula: 'HCl',
+    name: 'Hydrochloric Acid',
+    nameTr: 'Hidroklorik Asit',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'high',
+    hazardLabel: 'Corrosive',
+    pH: 1,
+    molarMass: 36.46,
+    description: 'Strong mineral acid widely used in industry and laboratories.',
+    uses: ['pH adjustment', 'Metal cleaning', 'Food processing'],
+    category: 'acid',
+    properties: [
+      { label: 'Boiling Point', value: '110°C (20% sol.)' },
+      { label: 'Density', value: '1.18 g/mL' },
+      { label: 'pKa', value: '-6.3' },
+    ],
+  },
+  {
+    id: 'h2so4',
+    formula: 'H₂SO₄',
+    name: 'Sulfuric Acid',
+    nameTr: 'Sülfürik Asit',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'high',
+    hazardLabel: 'Corrosive / Oxidizing',
+    pH: 0,
+    molarMass: 98.08,
+    description: 'Strong diprotic acid, one of the most important industrial chemicals.',
+    uses: ['Battery acid', 'Fertilizer production', 'Chemical synthesis'],
+    category: 'acid',
+    properties: [
+      { label: 'Boiling Point', value: '337°C' },
+      { label: 'Density', value: '1.84 g/mL' },
+      { label: 'pKa1', value: '-3.0' },
+    ],
+  },
+  {
+    id: 'naoh',
+    formula: 'NaOH',
+    name: 'Sodium Hydroxide',
+    nameTr: 'Sodyum Hidroksit',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'high',
+    hazardLabel: 'Corrosive',
+    pH: 14,
+    molarMass: 40.00,
+    description: 'Strong base also known as lye or caustic soda.',
+    uses: ['Soap making', 'Paper production', 'Drain cleaner'],
+    category: 'base',
+    properties: [
+      { label: 'Melting Point', value: '318°C' },
+      { label: 'Density', value: '2.13 g/cm³' },
+      { label: 'pKb', value: '-0.56' },
+    ],
+  },
+  {
+    id: 'koh',
+    formula: 'KOH',
+    name: 'Potassium Hydroxide',
+    nameTr: 'Potasyum Hidroksit',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'high',
+    hazardLabel: 'Corrosive',
+    pH: 14,
+    molarMass: 56.11,
+    description: 'Strong base used in making soft soaps and as an electrolyte.',
+    uses: ['Soft soap production', 'Alkaline batteries', 'CO₂ absorption'],
+    category: 'base',
+    properties: [
+      { label: 'Melting Point', value: '360°C' },
+      { label: 'Density', value: '2.04 g/cm³' },
+    ],
+  },
+  {
+    id: 'agno3',
+    formula: 'AgNO₃',
+    name: 'Silver Nitrate',
+    nameTr: 'Gümüş Nitrat',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'medium',
+    hazardLabel: 'Oxidizing / Toxic',
+    pH: 5.5,
+    molarMass: 169.87,
+    description: 'Versatile silver salt used as a precursor to other silver compounds.',
+    uses: ['Photography', 'Antiseptic', 'Analytical chemistry (Cl⁻ test)'],
+    category: 'salt',
+    properties: [
+      { label: 'Melting Point', value: '212°C' },
+      { label: 'Density', value: '4.35 g/cm³' },
+    ],
+  },
+  {
+    id: 'cuso4',
+    formula: 'CuSO₄',
+    name: 'Copper(II) Sulfate',
+    nameTr: 'Bakır(II) Sülfat',
+    color: '#1a7abf',
+    state: 'aqueous',
+    hazard: 'medium',
+    hazardLabel: 'Harmful',
+    pH: 3.5,
+    molarMass: 159.61,
+    description: 'Blue crystalline salt used as fungicide and in electroplating.',
+    uses: ['Electroplating', 'Fungicide', 'Chemical analysis'],
+    category: 'salt',
+    properties: [
+      { label: 'Color', value: 'Bright blue' },
+      { label: 'Density', value: '3.60 g/cm³ (anhydrous)' },
+    ],
+  },
+  {
+    id: 'nacl',
+    formula: 'NaCl',
+    name: 'Sodium Chloride',
+    nameTr: 'Sodyum Klorür',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'safe',
+    hazardLabel: 'Non-hazardous',
+    pH: 7,
+    molarMass: 58.44,
+    description: 'Common table salt, essential electrolyte for biological systems.',
+    uses: ['Food seasoning', 'Electrolyte solution', 'Chemical synthesis'],
+    category: 'salt',
+    properties: [
+      { label: 'Melting Point', value: '801°C' },
+      { label: 'Density', value: '2.16 g/cm³' },
+    ],
+  },
+  {
+    id: 'ethanol',
+    formula: 'C₂H₅OH',
+    name: 'Ethanol',
+    nameTr: 'Etanol',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'low',
+    hazardLabel: 'Flammable',
+    pH: 7.33,
+    molarMass: 46.07,
+    description: 'Simple alcohol, solvent and antiseptic agent.',
+    uses: ['Solvent', 'Antiseptic', 'Fuel'],
+    category: 'organic',
+    properties: [
+      { label: 'Boiling Point', value: '78.4°C' },
+      { label: 'Density', value: '0.789 g/mL' },
+    ],
+  },
+  {
+    id: 'methanol',
+    formula: 'CH₃OH',
+    name: 'Methanol',
+    nameTr: 'Metanol',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'high',
+    hazardLabel: 'Toxic / Flammable',
+    pH: 7.4,
+    molarMass: 32.04,
+    description: 'Simplest alcohol, toxic industrial solvent.',
+    uses: ['Fuel additive', 'Solvent', 'Antifreeze'],
+    category: 'organic',
+    properties: [
+      { label: 'Boiling Point', value: '64.7°C' },
+      { label: 'Density', value: '0.792 g/mL' },
+    ],
+  },
+  {
+    id: 'ch3cooh',
+    formula: 'CH₃COOH',
+    name: 'Acetic Acid',
+    nameTr: 'Asetik Asit',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'low',
+    hazardLabel: 'Flammable / Irritant',
+    pH: 3,
+    molarMass: 60.05,
+    description: 'Weak organic acid found in vinegar.',
+    uses: ['Vinegar', 'Chemical synthesis', 'Solvent'],
+    category: 'acid',
+    properties: [
+      { label: 'Boiling Point', value: '118°C' },
+      { label: 'pKa', value: '4.76' },
+    ],
+  },
+  {
+    id: 'h2o',
+    formula: 'H₂O',
+    name: 'Distilled Water',
+    nameTr: 'Damıtılmış Su',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'safe',
+    hazardLabel: 'Non-hazardous',
+    pH: 7,
+    molarMass: 18.02,
+    description: 'Universal solvent, essential for all life.',
+    uses: ['Solvent', 'Reaction medium', 'Cleaning'],
+    category: 'solvent',
+    properties: [
+      { label: 'Boiling Point', value: '100°C' },
+      { label: 'Density', value: '1.00 g/mL' },
+    ],
+  },
+  {
+    id: 'nh3',
+    formula: 'NH₃',
+    name: 'Ammonia',
+    nameTr: 'Amonyak',
+    color: 'transparent',
+    state: 'aqueous',
+    hazard: 'medium',
+    hazardLabel: 'Toxic / Irritant',
+    pH: 11,
+    molarMass: 17.03,
+    description: 'Weak base with pungent smell, important industrial chemical.',
+    uses: ['Fertilizer', 'Cleaning agent', 'Refrigerant'],
+    category: 'base',
+    properties: [
+      { label: 'Boiling Point', value: '-33°C' },
+      { label: 'pKb', value: '4.75' },
+    ],
+  },
+  {
+    id: 'phenolphthalein',
+    formula: 'C₂₀H₁₄O₄',
+    name: 'Phenolphthalein',
+    nameTr: 'Fenolftalein',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'low',
+    hazardLabel: 'Irritant',
+    molarMass: 318.33,
+    description: 'Acid-base indicator, colorless in acid, pink/magenta in base.',
+    uses: ['Acid-base titration indicator', 'pH testing'],
+    category: 'indicator',
+    properties: [
+      { label: 'Color (acid)', value: 'Colorless' },
+      { label: 'Color (base)', value: 'Pink/Magenta' },
+      { label: 'pH range', value: '8.2 – 10.0' },
+    ],
+  },
+  {
+    id: 'methyl_orange',
+    formula: 'C₁₄H₁₄N₃NaO₃S',
+    name: 'Methyl Orange',
+    nameTr: 'Metil Turuncu',
+    color: '#ff8800',
+    state: 'liquid',
+    hazard: 'low',
+    hazardLabel: 'Irritant',
+    molarMass: 327.33,
+    description: 'Acid-base indicator, red in acid, yellow in base.',
+    uses: ['Titration indicator', 'pH testing'],
+    category: 'indicator',
+    properties: [
+      { label: 'Color (acid)', value: 'Red' },
+      { label: 'Color (base)', value: 'Yellow' },
+      { label: 'pH range', value: '3.1 – 4.4' },
+    ],
+  },
+  {
+    id: 'cucl2',
+    formula: 'CuCl₂',
+    name: 'Copper(II) Chloride',
+    nameTr: 'Bakır(II) Klorür',
+    color: '#3ca0c8',
+    state: 'aqueous',
+    hazard: 'medium',
+    hazardLabel: 'Harmful',
+    pH: 4,
+    molarMass: 134.45,
+    description: 'Blue-green salt used in electrochemistry and as a catalyst.',
+    uses: ['Electrochemistry', 'Catalyst', 'Wood preservative'],
+    category: 'salt',
+    properties: [
+      { label: 'Color', value: 'Blue-green' },
+      { label: 'Density', value: '3.39 g/cm³' },
+    ],
+  },
+  {
+    id: 'fecl3',
+    formula: 'FeCl₃',
+    name: 'Iron(III) Chloride',
+    nameTr: 'Demir(III) Klorür',
+    color: '#8b4513',
+    state: 'aqueous',
+    hazard: 'medium',
+    hazardLabel: 'Irritant',
+    pH: 3,
+    molarMass: 162.20,
+    description: 'Yellow-brown salt used in water treatment and as a Lewis acid.',
+    uses: ['Water treatment', 'Etching', 'Catalyst'],
+    category: 'salt',
+    properties: [
+      { label: 'Color', value: 'Yellow-brown' },
+      { label: 'Density', value: '2.90 g/cm³' },
+    ],
+  },
+  {
+    id: 'h2o2',
+    formula: 'H₂O₂',
+    name: 'Hydrogen Peroxide',
+    nameTr: 'Hidrojen Peroksit',
+    color: 'transparent',
+    state: 'liquid',
+    hazard: 'medium',
+    hazardLabel: 'Oxidizing / Irritant',
+    pH: 6,
+    molarMass: 34.01,
+    description: 'Mild antiseptic and bleaching agent.',
+    uses: ['Bleaching', 'Disinfection', 'Oxidizer'],
+    category: 'solvent',
+    properties: [
+      { label: 'Boiling Point', value: '150°C' },
+      { label: 'Density', value: '1.45 g/mL' },
+    ],
+  },
+];
+
+export interface Reaction {
+  reagents: string[];
+  products: string[];
+  equation: string;
+  description: string;
+  colorChange?: string;
+  gasFormed?: string;
+  precipitate?: string;
+  temperatureChange?: 'exothermic' | 'endothermic' | 'none';
+  phChange?: number;
+  type: 'acid-base' | 'precipitation' | 'redox' | 'combustion' | 'decomposition' | 'synthesis';
+}
+
+export const REACTIONS: Reaction[] = [
+  {
+    reagents: ['hcl', 'naoh'],
+    products: ['NaCl', 'H₂O'],
+    equation: 'HCl + NaOH → NaCl + H₂O',
+    description: 'Acid-base neutralization reaction. The strong acid reacts with the strong base to form salt and water. The solution becomes neutral (pH ≈ 7). This is an exothermic reaction.',
+    temperatureChange: 'exothermic',
+    phChange: 7,
+    type: 'acid-base',
+  },
+  {
+    reagents: ['h2so4', 'naoh'],
+    products: ['Na₂SO₄', 'H₂O'],
+    equation: 'H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O',
+    description: 'Neutralization of sulfuric acid with sodium hydroxide, producing sodium sulfate and water.',
+    temperatureChange: 'exothermic',
+    phChange: 7,
+    type: 'acid-base',
+  },
+  {
+    reagents: ['agno3', 'nacl'],
+    products: ['AgCl↓', 'NaNO₃'],
+    equation: 'AgNO₃ + NaCl → AgCl↓ + NaNO₃',
+    description: 'Silver nitrate reacts with sodium chloride to form a white precipitate of silver chloride (AgCl). This is used as a test for chloride ions.',
+    precipitate: 'White (AgCl)',
+    temperatureChange: 'none',
+    type: 'precipitation',
+  },
+  {
+    reagents: ['hcl', 'naoh', 'phenolphthalein'],
+    products: ['NaCl', 'H₂O'],
+    equation: 'HCl + NaOH → NaCl + H₂O',
+    description: 'Acid-base titration with phenolphthalein indicator. The solution turns from colorless to pink at the equivalence point when base exceeds acid.',
+    colorChange: 'Colorless → Pink (at endpoint)',
+    temperatureChange: 'exothermic',
+    phChange: 7,
+    type: 'acid-base',
+  },
+  {
+    reagents: ['cuso4', 'naoh'],
+    products: ['Cu(OH)₂↓', 'Na₂SO₄'],
+    equation: 'CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄',
+    description: 'Copper(II) sulfate reacts with sodium hydroxide to form a blue precipitate of copper(II) hydroxide.',
+    precipitate: 'Blue (Cu(OH)₂)',
+    colorChange: 'Blue → Light blue precipitate',
+    temperatureChange: 'none',
+    type: 'precipitation',
+  },
+  {
+    reagents: ['hcl', 'h2o'],
+    products: ['H₃O⁺', 'Cl⁻'],
+    equation: 'HCl + H₂O → H₃O⁺ + Cl⁻',
+    description: 'Hydrochloric acid fully dissociates in water, making it a strong acid.',
+    temperatureChange: 'exothermic',
+    phChange: 1,
+    type: 'acid-base',
+  },
+  {
+    reagents: ['ch3cooh', 'naoh'],
+    products: ['CH₃COONa', 'H₂O'],
+    equation: 'CH₃COOH + NaOH → CH₃COONa + H₂O',
+    description: 'Weak acid-strong base neutralization producing sodium acetate (a buffer salt).',
+    temperatureChange: 'exothermic',
+    phChange: 8.7,
+    type: 'acid-base',
+  },
+  {
+    reagents: ['h2o2'],
+    products: ['H₂O', 'O₂↑'],
+    equation: '2H₂O₂ → 2H₂O + O₂↑',
+    description: 'Decomposition of hydrogen peroxide into water and oxygen gas. Catalysts (like MnO₂) speed this up dramatically.',
+    gasFormed: 'O₂',
+    temperatureChange: 'exothermic',
+    type: 'decomposition',
+  },
+];
+
+export function findReaction(selectedChemicals: string[]): Reaction | null {
+  for (const reaction of REACTIONS) {
+    const allPresent = reaction.reagents.every(r => selectedChemicals.includes(r));
+    if (allPresent && selectedChemicals.length >= reaction.reagents.length) {
+      return reaction;
+    }
+  }
+  return null;
+}

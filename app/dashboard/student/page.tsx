@@ -89,7 +89,7 @@ export default function StudentDashboard() {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4">
           {STATS.map((stat, i) => (
             <div key={i} className="rounded-xl p-4 text-center"
               style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
@@ -100,14 +100,14 @@ export default function StudentDashboard() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
           {/* Badges */}
           <div>
             <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
               <Award className="w-5 h-5 text-amber-400" />
               Badges ({earnedBadges.length}/{BADGES.length})
             </h2>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
               {BADGES.map(badge => {
                 const earned = badges.includes(badge.id);
                 return (
@@ -191,7 +191,7 @@ export default function StudentDashboard() {
         </div>
 
         {/* Quick actions */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           <Link href="/free-lab"
             className="flex items-center gap-4 p-5 rounded-xl transition-all group"
             style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}

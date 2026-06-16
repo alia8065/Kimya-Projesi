@@ -64,7 +64,7 @@ export default function GradePage({ params }: Props) {
           <div className="flex items-center gap-4 mb-4">
             <div className="text-4xl">{gradeData.icon}</div>
             <div>
-              <h1 className="text-3xl font-black text-white">{gradeData.name}</h1>
+              <h1 className="text-2xl sm:text-3xl font-black text-white">{gradeData.name}</h1>
               <p className="text-slate-400">{gradeData.description}</p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function GradePage({ params }: Props) {
         </div>
 
         {/* Topics grid */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           {gradeData.topics.map((topic, index) => {
             const topicProgress = progress.find(p => p.gradeId === gradeId && p.topicId === topic.id);
             const isCompleted = topicProgress?.experimentDone;

@@ -56,7 +56,7 @@ export default function TeacherDashboard() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-10 space-y-8">
         {/* Overview cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { label: 'Total Students', value: totalStudents, icon: <Users className="w-5 h-5 text-indigo-400" />, color: '#6366f1' },
             { label: 'Active Today', value: activeToday, icon: <TrendingUp className="w-5 h-5 text-emerald-400" />, color: '#10b981' },
@@ -75,74 +75,77 @@ export default function TeacherDashboard() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Students table */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
               <Users className="w-5 h-5 text-indigo-400" />
               Student Progress
             </h2>
+            {/* Scrollable table wrapper for tablet/mobile */}
             <div className="rounded-xl overflow-hidden"
               style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-indigo-500/10">
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">Student</th>
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">Grade</th>
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">XP</th>
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">Topics</th>
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">Avg Score</th>
-                    <th className="text-left text-xs text-slate-400 px-4 py-3 font-medium">Last Active</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {MOCK_STUDENTS.map((student, i) => {
-                    const grade = CURRICULUM[student.grade];
-                    const totalTopics = grade?.topics.length || 0;
-                    return (
-                      <tr key={student.id} className="border-b border-indigo-500/5 hover:bg-indigo-500/5 transition-colors">
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                              style={{ background: `hsl(${i * 60}, 70%, 40%)` }}>
-                              {student.name[0]}
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[540px]">
+                  <thead>
+                    <tr className="border-b border-indigo-500/10">
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium">Student</th>
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium">Grade</th>
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium">XP</th>
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium">Topics</th>
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium">Score</th>
+                      <th className="text-left text-xs text-slate-400 px-3 py-3 font-medium hidden sm:table-cell">Active</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {MOCK_STUDENTS.map((student, i) => {
+                      const grade = CURRICULUM[student.grade];
+                      const totalTopics = grade?.topics.length || 0;
+                      return (
+                        <tr key={student.id} className="border-b border-indigo-500/5 hover:bg-indigo-500/5 transition-colors">
+                          <td className="px-3 py-3">
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+                                style={{ background: `hsl(${i * 60}, 70%, 40%)` }}>
+                                {student.name[0]}
+                              </div>
+                              <span className="text-sm text-white font-medium whitespace-nowrap">{student.name}</span>
                             </div>
-                            <span className="text-sm text-white font-medium">{student.name}</span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 text-sm text-slate-300">
-                          <span className="px-2 py-0.5 rounded-full text-xs"
-                            style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
-                            {grade?.shortName || student.grade}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-sm text-white font-semibold">{student.xp.toLocaleString()}</td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-white">{student.completedTopics}/{totalTopics}</span>
-                            <div className="flex-1 h-1.5 rounded-full bg-slate-700/50 w-12">
-                              <div className="h-full rounded-full bg-emerald-500"
-                                style={{ width: `${(student.completedTopics / Math.max(1, totalTopics)) * 100}%` }} />
+                          </td>
+                          <td className="px-3 py-3">
+                            <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap"
+                              style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
+                              {grade?.shortName || student.grade}
+                            </span>
+                          </td>
+                          <td className="px-3 py-3 text-sm text-white font-semibold whitespace-nowrap">{student.xp.toLocaleString()}</td>
+                          <td className="px-3 py-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-white whitespace-nowrap">{student.completedTopics}/{totalTopics}</span>
+                              <div className="h-1.5 rounded-full bg-slate-700/50 w-10 flex-shrink-0">
+                                <div className="h-full rounded-full bg-emerald-500"
+                                  style={{ width: `${(student.completedTopics / Math.max(1, totalTopics)) * 100}%` }} />
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="text-sm font-semibold"
-                            style={{ color: student.avgScore >= 80 ? '#6ee7b7' : student.avgScore >= 60 ? '#fcd34d' : '#fca5a5' }}>
-                            {student.avgScore}%
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-xs text-slate-400">
-                          <div className="flex items-center gap-1.5">
-                            <div className={`w-1.5 h-1.5 rounded-full ${student.lastActive.includes('m') || student.lastActive.includes('h') ? 'bg-emerald-400' : 'bg-slate-600'}`} />
-                            {student.lastActive}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                          </td>
+                          <td className="px-3 py-3">
+                            <span className="text-sm font-semibold"
+                              style={{ color: student.avgScore >= 80 ? '#6ee7b7' : student.avgScore >= 60 ? '#fcd34d' : '#fca5a5' }}>
+                              {student.avgScore}%
+                            </span>
+                          </td>
+                          <td className="px-3 py-3 text-xs text-slate-400 hidden sm:table-cell">
+                            <div className="flex items-center gap-1.5">
+                              <div className={`w-1.5 h-1.5 rounded-full ${student.lastActive.includes('m') || student.lastActive.includes('h') ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                              {student.lastActive}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 

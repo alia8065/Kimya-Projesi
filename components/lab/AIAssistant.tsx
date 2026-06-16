@@ -99,7 +99,7 @@ export default function AIAssistant({ context, className = "", isOpen = true, on
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: '200px', maxHeight: '400px' }}>
+      <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: '150px' }}>
         {chatHistory.length === 0 ? (
           <div className="text-center py-6">
             <Bot className="w-10 h-10 text-indigo-400 mx-auto mb-3" />

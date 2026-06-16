@@ -78,7 +78,7 @@ export default function HomePage() {
             <div className="text-xs text-indigo-400">Virtual Chemistry Laboratory</div>
           </div>
         </div>
-        <nav className="hidden md:flex items-center gap-6 text-sm text-slate-400">
+        <nav className="hidden lg:flex items-center gap-6 text-sm text-slate-400">
           <Link href="/free-lab" className="hover:text-white transition-colors">Free Lab</Link>
           <Link href="/curriculum" className="hover:text-white transition-colors">Curriculum</Link>
           <Link href="/dashboard/student" className="hover:text-white transition-colors">Dashboard</Link>
@@ -98,7 +98,7 @@ export default function HomePage() {
           <Zap className="w-3 h-3" />
           AI-Powered Chemistry Education
         </div>
-        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-tight">
           <span className="text-white">Virtual </span>
           <span className="text-gradient-primary">Chemistry</span>
           <br />
@@ -110,7 +110,7 @@ export default function HomePage() {
         </p>
 
         {/* Stats */}
-        <div className="flex justify-center gap-8 mb-16">
+        <div className="flex justify-center gap-5 sm:gap-8 mb-16">
           {STATS.map((s, i) => (
             <div key={i} className="text-center">
               <div className="text-2xl font-black text-gradient-primary">{s.value}</div>
@@ -128,7 +128,7 @@ export default function HomePage() {
             <p className="text-slate-400">Two completely separate learning experiences</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-6">
             {/* FREE LAB Card */}
             <Link href="/free-lab"
               onMouseEnter={() => setHoveredMode('free')}
@@ -145,7 +145,7 @@ export default function HomePage() {
 
               <div className="h-1.5 w-full" style={{ background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa)' }} />
 
-              <div className="p-10">
+              <div className="p-6 sm:p-10">
                 <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-8 float-animation"
                   style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.3), rgba(139,92,246,0.2))', border: '1px solid rgba(99,102,241,0.3)' }}>
                   <FlaskConical className="w-10 h-10 text-indigo-400" />
@@ -156,7 +156,7 @@ export default function HomePage() {
                   OPTION 1
                 </div>
 
-                <h3 className="text-3xl font-black text-white mb-4">Free Laboratory</h3>
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Free Laboratory</h3>
                 <p className="text-slate-400 leading-relaxed mb-8 text-base">
                   Explore chemistry freely and create your own experiments. Mix chemicals, observe reactions,
                   and ask our AI tutor anything. No restrictions — pure exploration.
@@ -201,7 +201,7 @@ export default function HomePage() {
 
               <div className="h-1.5 w-full" style={{ background: 'linear-gradient(90deg, #10b981, #06b6d4, #0ea5e9)' }} />
 
-              <div className="p-10">
+              <div className="p-6 sm:p-10">
                 <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-8 float-animation"
                   style={{ animationDelay: '1s', background: 'linear-gradient(135deg, rgba(16,185,129,0.3), rgba(6,182,212,0.2))', border: '1px solid rgba(16,185,129,0.3)' }}>
                   <BookOpen className="w-10 h-10 text-emerald-400" />
@@ -212,7 +212,7 @@ export default function HomePage() {
                   OPTION 2
                 </div>
 
-                <h3 className="text-3xl font-black text-white mb-4">Curriculum Laboratory</h3>
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Curriculum Laboratory</h3>
                 <p className="text-slate-400 leading-relaxed mb-8 text-base">
                   Follow chemistry experiments based on your grade level. Structured learning with theory,
                   interactive experiments, quizzes, and AI guidance — all aligned to the curriculum.
@@ -248,7 +248,7 @@ export default function HomePage() {
       <section className="relative z-10 px-6 py-16 border-t border-indigo-500/10">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-center text-white mb-12">Platform Features</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {FEATURES.map((f, i) => (
               <div key={i} className="glass-card rounded-xl p-6">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-indigo-400"

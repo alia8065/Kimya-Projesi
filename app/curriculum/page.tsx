@@ -85,9 +85,9 @@ export default function CurriculumPage() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 30px ${colors.glow}`; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 rgba(0,0,0,0)`; }}>
 
-                <div className="p-6 flex items-center gap-6">
+                <div className="p-5 sm:p-6 flex items-center gap-4 sm:gap-6">
                   {/* Icon */}
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl"
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl sm:text-3xl"
                     style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${colors.border}` }}>
                     {grade.icon}
                   </div>

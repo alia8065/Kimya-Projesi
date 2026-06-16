@@ -87,43 +87,44 @@ export default function TopicPage({ params }: Props) {
       <div className="fixed inset-0 grid-bg opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-indigo-500/15 px-6 py-3"
+      <header className="relative z-10 border-b border-indigo-500/15 px-4 py-3"
         style={{ background: 'rgba(10,14,26,0.98)', backdropFilter: 'blur(16px)' }}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href={`/curriculum/${gradeId}`} className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm">
+        {/* Top row: back + title */}
+        <div className="flex items-center justify-between gap-2 mb-2 sm:mb-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <Link href={`/curriculum/${gradeId}`} className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm flex-shrink-0">
               <ArrowLeft className="w-4 h-4" />
-              {grade?.shortName}
+              <span className="hidden sm:inline">{grade?.shortName}</span>
             </Link>
-            <div className="w-px h-4 bg-slate-600" />
-            <span className="text-lg">{topic.icon}</span>
-            <span className="font-semibold text-white text-sm">{topic.name}</span>
-            {topicProgress?.experimentDone && <CheckCircle className="w-4 h-4 text-emerald-400" />}
+            <div className="w-px h-4 bg-slate-600 hidden sm:block" />
+            <span className="text-base sm:text-lg flex-shrink-0">{topic.icon}</span>
+            <span className="font-semibold text-white text-sm truncate">{topic.name}</span>
+            {topicProgress?.experimentDone && <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />}
           </div>
+        </div>
 
-          {/* Section navigation */}
-          <div className="flex items-center gap-1">
-            {SECTIONS.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setActiveSection(s.id)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                style={{
-                  background: activeSection === s.id ? `${s.color}20` : 'transparent',
-                  border: activeSection === s.id ? `1px solid ${s.color}50` : '1px solid transparent',
-                  color: activeSection === s.id ? s.color : '#94a3b8',
-                }}>
-                {s.icon}
-                {s.label}
-              </button>
-            ))}
-          </div>
+        {/* Section navigation — scrolls horizontally on mobile */}
+        <div className="flex items-center gap-1 overflow-x-auto sm:mt-0 mt-2 pb-0.5 sm:pb-0 sm:justify-end sm:absolute sm:top-3 sm:right-4">
+          {SECTIONS.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActiveSection(s.id)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex-shrink-0"
+              style={{
+                background: activeSection === s.id ? `${s.color}20` : 'transparent',
+                border: activeSection === s.id ? `1px solid ${s.color}50` : '1px solid transparent',
+                color: activeSection === s.id ? s.color : '#94a3b8',
+              }}>
+              {s.icon}
+              <span className="hidden sm:inline">{s.label}</span>
+            </button>
+          ))}
         </div>
       </header>
 
       <div className="relative z-10 flex flex-1 overflow-hidden">
         {/* Main content */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
           {/* THEORY SECTION */}
           {activeSection === 'theory' && (
             <div className="max-w-3xl mx-auto">
@@ -132,7 +133,7 @@ export default function TopicPage({ params }: Props) {
                   <BookOpen className="w-3.5 h-3.5" />
                   THEORY
                 </div>
-                <h1 className="text-3xl font-black text-white mb-3">{topic.name}</h1>
+                <h1 className="text-2xl sm:text-3xl font-black text-white mb-3">{topic.name}</h1>
                 <p className="text-slate-400 leading-relaxed">{topic.description}</p>
               </div>
 
@@ -195,7 +196,7 @@ export default function TopicPage({ params }: Props) {
               </div>
 
               {/* Chemicals and equipment */}
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 <div className="rounded-xl p-4" style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(16,185,129,0.2)' }}>
                   <div className="text-xs text-emerald-400 font-medium mb-3">CHEMICALS NEEDED</div>
                   <div className="space-y-2">

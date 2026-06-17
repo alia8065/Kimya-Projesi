@@ -876,7 +876,7 @@ export default function FreeLabPage() {
             onClick={() => { selectedChemicals.forEach(id => removeChemical(id)); setCurrentReaction(null); setTitrantVol(0); setTitrationDone(false); setIndicatorAdded(false); }}
             className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-red-400 hover:text-red-300 transition-colors"
             style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-            <Trash2 className="w-3.5 h-3.5" /><span className="hidden sm:inline">Clear</span>
+            <Trash2 className="w-3.5 h-3.5" /><span className="hidden sm:inline">Effacer</span>
           </button>
         </div>
       </header>

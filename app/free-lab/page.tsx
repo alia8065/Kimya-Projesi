@@ -98,14 +98,18 @@ export default function FreeLabPage() {
   const [buretteVol, setBuretteVol] = useState(50);
   const [isDripping, setIsDripping] = useState(false);
 
-  /* ── Amount control (mL per chemical, default 25) ── */
+  /* ── Amount control (mmol per chemical, default 2.5) ── */
   const [amounts, setAmounts] = useState<Record<string, number>>({});
-  const getAmt  = (id: string) => amounts[id] ?? 25;
+  const getAmt  = (id: string) => amounts[id] ?? 2.5;    // mmol
   const setAmt  = useCallback((id: string, val: number) => {
-    setAmounts(p => ({ ...p, [id]: Math.max(1, Math.min(250, Math.round(val))) }));
+    const clamped = Math.max(0.1, Math.min(50, +val.toFixed(1)));
+    setAmounts(p => ({ ...p, [id]: isNaN(clamped) ? 2.5 : clamped }));
   }, []);
   const changeAmt = useCallback((id: string, delta: number) => {
-    setAmounts(p => ({ ...p, [id]: Math.max(1, Math.min(250, (p[id] ?? 25) + delta)) }));
+    setAmounts(p => {
+      const cur = p[id] ?? 2.5;
+      return { ...p, [id]: Math.max(0.1, Math.min(50, +(cur + delta).toFixed(1))) };
+    });
   }, []);
 
   /* ── Titration state ── */
@@ -169,27 +173,25 @@ export default function FreeLabPage() {
     return selectedChemicals.map(id => CHEMICALS.find(c => c.id === id)?.molecularWeight ?? 0).reduce((a, b) => a + b, 0);
   }
 
-  /* Titration pH calculation */
+  /* Titration pH calculation — amounts now in mmol, titrantVol in mL at 0.1 M */
   function titrationPH(volAdded: number): number {
     const analyteId = selectedChemicals[0];
     if (!analyteId) return 7;
-    const analyteAmt = getAmt(analyteId);
+    const mmol       = getAmt(analyteId);         // mmol of analyte
+    const molAnalyte = mmol / 1000;               // mol
+    const analyteVolMl = mmol / 0.1;              // mL of analyte at 0.1 M (= mmol×10)
     const analytePH  = CHEMICALS.find(c => c.id === analyteId)?.properties.pH ?? 7;
     const isAcid     = analytePH < 7;
-    const conc = 0.1;
-    const molAnalyte = analyteAmt * conc / 1000;
-    const molTitrant = volAdded  * conc / 1000;
-    const totalVol   = (analyteAmt + volAdded) / 1000;
+    const molTitrant = volAdded * 0.1 / 1000;     // mL titrant × 0.1 M = mol
+    const totalVol   = (analyteVolMl + volAdded) / 1000;  // L
     if (isAcid) {
-      if (molTitrant < molAnalyte - 1e-5) {
+      if (molTitrant < molAnalyte - 1e-5)
         return Math.min(6.9, -Math.log10(Math.max(1e-14, (molAnalyte - molTitrant) / totalVol)));
-      }
       if (molTitrant <= molAnalyte + 1e-5) return 7.0;
       return Math.min(14, 14 + Math.log10(Math.max(1e-14, (molTitrant - molAnalyte) / totalVol)));
     } else {
-      if (molTitrant < molAnalyte - 1e-5) {
+      if (molTitrant < molAnalyte - 1e-5)
         return Math.max(7.1, 14 + Math.log10(Math.max(1e-14, (molAnalyte - molTitrant) / totalVol)));
-      }
       if (molTitrant <= molAnalyte + 1e-5) return 7.0;
       return Math.max(0, -Math.log10(Math.max(1e-14, (molTitrant - molAnalyte) / totalVol)));
     }
@@ -201,8 +203,10 @@ export default function FreeLabPage() {
   const curMass = calcMass();
 
   const titPH    = titrationPH(titrantVol);
-  const eqVol    = selectedChemicals.length > 0 ? getAmt(selectedChemicals[0]) : 25;
+  // Equivalence vol (mL titrant at 0.1 M) = mmol_analyte × 10
+  const eqVol    = selectedChemicals.length > 0 ? getAmt(selectedChemicals[0]) * 10 : 25;
   const nearEq   = titrantVol > 0 && Math.abs(titrantVol - eqVol) < 0.6;
+  const totalMmol = selectedChemicals.reduce((s, id) => s + getAmt(id), 0);
   const indColor = !indicatorAdded
     ? 'rgba(200,220,255,0.18)'
     : titPH < 8.2 ? 'rgba(200,220,255,0.18)' : 'rgba(236,72,153,0.55)';
@@ -404,18 +408,16 @@ export default function FreeLabPage() {
           style={{ background: 'rgba(10,14,26,0.7)' }}>
           <div className="flex items-center gap-2 mb-2">
             <Droplets className="w-3.5 h-3.5 text-indigo-400" />
-            <span className="text-xs text-slate-400 font-medium">Miktar Ayarı</span>
-            <span className="text-xs text-slate-600">— mL girerek veya +/− ile mol miktarını belirle</span>
+            <span className="text-xs font-semibold text-slate-300">Miktar (mmol)</span>
+            <span className="text-xs text-slate-600">— her madde için mol sayısını ayarla</span>
           </div>
           <div className="flex flex-wrap gap-3">
             {selectedChemicalObjects.map(chem => {
-              const ml   = getAmt(chem.id);
-              const mol  = +(ml * 0.1 / 1000).toFixed(4);   // 0.1 M × mL / 1000 → mol
-              const mmol = +(ml * 0.1).toFixed(2);           // mmol
+              const mmol = getAmt(chem.id);
+              const mol  = (mmol / 1000).toFixed(4);
               return (
                 <div key={chem.id} className="flex flex-col gap-1.5 px-3 py-2 rounded-xl"
-                  style={{ background: 'rgba(15,23,42,0.95)', border: '1px solid rgba(99,102,241,0.35)', minWidth: 170 }}>
-                  {/* Header row */}
+                  style={{ background: 'rgba(15,23,42,0.95)', border: '1px solid rgba(99,102,241,0.35)', minWidth: 160 }}>
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-sm text-indigo-300">{chem.formula}</span>
                     <button onClick={() => removeChemical(chem.id)}
@@ -423,33 +425,31 @@ export default function FreeLabPage() {
                       <X className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  {/* Volume input row */}
+                  {/* mmol input */}
                   <div className="flex items-center gap-1.5">
-                    <button onClick={() => changeAmt(chem.id, -5)}
-                      className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-base transition-all"
-                      style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.3)', color: '#a5b4fc' }}>
+                    <button onClick={() => changeAmt(chem.id, -0.5)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-lg transition-all active:scale-95"
+                      style={{ background: 'rgba(99,102,241,0.25)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc' }}>
                       −
                     </button>
                     <div className="relative flex-1">
                       <input
-                        type="number" min={1} max={250} step={1}
-                        value={ml}
+                        type="number" min={0.1} max={50} step={0.5}
+                        value={mmol}
                         onChange={e => setAmt(chem.id, Number(e.target.value))}
-                        className="w-full px-2 py-1 rounded-lg text-center text-sm font-mono font-bold text-white outline-none transition-all"
-                        style={{ background: 'rgba(30,41,59,0.8)', border: '1px solid rgba(99,102,241,0.4)' }}
+                        className="w-full px-2 py-1.5 rounded-lg text-center text-base font-mono font-bold text-white outline-none"
+                        style={{ background: 'rgba(30,41,59,0.8)', border: '1px solid rgba(99,102,241,0.5)' }}
                       />
-                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-500 pointer-events-none">mL</span>
                     </div>
-                    <button onClick={() => changeAmt(chem.id, +5)}
-                      className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-base transition-all"
-                      style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.3)', color: '#a5b4fc' }}>
+                    <button onClick={() => changeAmt(chem.id, +0.5)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-lg transition-all active:scale-95"
+                      style={{ background: 'rgba(99,102,241,0.25)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc' }}>
                       +
                     </button>
                   </div>
-                  {/* Mol display */}
-                  <div className="flex justify-between text-xs px-0.5">
-                    <span className="text-slate-500">{mmol} <span className="text-slate-600">mmol</span></span>
-                    <span className="text-indigo-400 font-mono font-bold">{mol} <span className="text-slate-500">mol</span></span>
+                  <div className="flex justify-between items-center text-xs px-0.5">
+                    <span className="text-emerald-400 font-semibold">{mmol} mmol</span>
+                    <span className="text-slate-500">{mol} mol</span>
                   </div>
                 </div>
               );
@@ -551,7 +551,7 @@ export default function FreeLabPage() {
                 <TitFlask color={indColor} glow={indGlow} />
                 <span className="text-xs text-slate-500">Erlenmeyer</span>
                 <span className="text-xs text-indigo-400 font-mono">
-                  {selectedChemicals[0] ? CHEMICALS.find(c => c.id === selectedChemicals[0])?.formula ?? 'Analyte' : 'Analyte'} ({getAmt(selectedChemicals[0] ?? '')} mL)
+                  {selectedChemicals[0] ? CHEMICALS.find(c => c.id === selectedChemicals[0])?.formula ?? 'Analyte' : 'Analyte'} ({getAmt(selectedChemicals[0] ?? '')} mmol)
                 </span>
               </div>
 
@@ -592,7 +592,7 @@ export default function FreeLabPage() {
                   {' · '}pH = <span className="font-mono font-bold text-white">{titPH.toFixed(2)}</span>
                 </div>
                 <div className="text-xs text-slate-400 mt-1">
-                  Concentration of analyte = {(getAmt(selectedChemicals[0] ?? '') * 0.1 / titrantVol * 1000).toFixed(3)} mol/L
+                  Analyte: {getAmt(selectedChemicals[0] ?? '').toFixed(1)} mmol · Titrant used: {titrantVol.toFixed(1)} mL
                 </div>
               </div>
             )}
@@ -646,9 +646,9 @@ export default function FreeLabPage() {
             {/* Titration info panel */}
             <div className="relative z-10 w-full max-w-sm grid grid-cols-3 gap-2 text-center">
               {[
-                { label: 'Analyte vol.', value: `${getAmt(selectedChemicals[0] ?? '')} mL` },
-                { label: 'Titrant added', value: `${titrantVol.toFixed(1)} mL` },
-                { label: 'Eq. volume', value: `~${getAmt(selectedChemicals[0] ?? '')} mL` },
+                { label: 'Analyte', value: `${getAmt(selectedChemicals[0] ?? '').toFixed(1)} mmol` },
+                { label: 'Titrant', value: `${titrantVol.toFixed(1)} mL` },
+                { label: 'Eq. vol.', value: `~${eqVol.toFixed(0)} mL` },
               ].map(({ label, value }) => (
                 <div key={label} className="rounded-lg p-2"
                   style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
@@ -696,7 +696,7 @@ export default function FreeLabPage() {
                 </div>
               )}
               <div className="relative z-10">
-                <ReactionVessel reaction={currentReaction} chemicals={selectedChemicals} isRunning={isRunning} />
+                <ReactionVessel reaction={currentReaction} chemicals={selectedChemicals} isRunning={isRunning} totalMmol={totalMmol} />
               </div>
               {isStirring && (
                 <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20">

@@ -8,6 +8,7 @@ interface ReactionVesselProps {
   reaction: ReactionResult | null;
   chemicals: string[];
   isRunning?: boolean;
+  totalMmol?: number;
 }
 
 const COLOR_MAP: Record<string, string> = {
@@ -26,7 +27,7 @@ const COLOR_MAP: Record<string, string> = {
   'pale blue': 'rgba(147,197,253,0.3)',
 };
 
-export default function ReactionVessel({ reaction, chemicals, isRunning = false }: ReactionVesselProps) {
+export default function ReactionVessel({ reaction, chemicals, isRunning = false, totalMmol }: ReactionVesselProps) {
   const [bubbles, setBubbles] = useState<{ id: number; left: string; delay: string }[]>([]);
   const [showFlash, setShowFlash] = useState(false);
 
@@ -52,12 +53,17 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false 
   }, [reaction]);
 
   const liquidColor = reaction?.colorChange
-    ? COLOR_MAP[reaction.colorChange.toLowerCase()] || 'rgba(200,220,255,0.2)'
+    ? COLOR_MAP[reaction.colorChange.toLowerCase()] || 'rgba(200,220,255,0.4)'
     : chemicals.length > 0
-      ? 'rgba(200,220,255,0.1)'
+      ? 'rgba(147,197,253,0.35)'
       : 'rgba(100,150,255,0.05)';
 
-  const liquidHeight = chemicals.length > 0 ? '50%' : '0%';
+  // Flask fill level: y position of liquid surface
+  // Maps 0–50 mmol to the full flask height range (108=empty bottom, 51=near full)
+  const mmol = totalMmol ?? (chemicals.length > 0 ? 2.5 : 0);
+  const fillY = chemicals.length > 0
+    ? Math.max(51, Math.round(108 - (Math.min(mmol, 50) / 50) * 57))
+    : 110;
 
   return (
     <div className="relative flex flex-col items-center">
@@ -87,7 +93,7 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false 
           )}
           {chemicals.length > 0 && (
             <rect
-              x="0" y="60" width="100" height="60"
+              x="0" y={fillY} width="100" height={120 - fillY}
               fill={liquidColor}
               clipPath="url(#flask-clip)"
               style={{ transition: 'fill 1s ease, y 0.5s ease' }}
@@ -97,9 +103,10 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false 
           {/* Liquid surface */}
           {chemicals.length > 0 && (
             <ellipse
-              cx="50" cy="60" rx="23" ry="4"
+              cx="50" cy={fillY} rx="23" ry="4"
               fill={liquidColor}
               clipPath="url(#flask-clip)"
+              style={{ transition: 'cy 0.5s ease' }}
             />
           )}
 

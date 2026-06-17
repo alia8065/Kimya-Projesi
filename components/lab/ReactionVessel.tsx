@@ -163,21 +163,21 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false,
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
               style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
               <Thermometer className="w-3 h-3 text-red-400" />
-              <span className="text-red-300">Exothermic - Heat Released</span>
+              <span className="text-red-300">Exothermique - Chaleur libérée</span>
             </div>
           )}
           {reaction.precipitate && (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
               style={{ background: 'rgba(248,250,252,0.05)', border: '1px solid rgba(248,250,252,0.2)' }}>
               <Droplets className="w-3 h-3 text-slate-300" />
-              <span className="text-slate-300">Precipitate: {reaction.precipitate}</span>
+              <span className="text-slate-300">Précipité : {reaction.precipitate}</span>
             </div>
           )}
           {reaction.gasProduced && (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
               style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)' }}>
               <Wind className="w-3 h-3 text-blue-400" />
-              <span className="text-blue-300">Gas: {reaction.gasProduced}↑</span>
+              <span className="text-blue-300">Gaz : {reaction.gasProduced}↑</span>
             </div>
           )}
           {reaction.pHChange !== null && (
@@ -193,7 +193,7 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false,
       {chemicals.length === 0 && !isRunning && (
         <div className="mt-4 text-center">
           <FlaskConical className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-          <p className="text-slate-600 text-xs">Add chemicals to begin</p>
+          <p className="text-slate-600 text-xs">Ajoutez des produits chimiques pour commencer</p>
         </div>
       )}
 
@@ -201,7 +201,7 @@ export default function ReactionVessel({ reaction, chemicals, isRunning = false,
       {chemicals.length >= 2 && !reaction && (
         <div className="mt-2 flex items-center gap-2 text-xs text-amber-400">
           <AlertTriangle className="w-3 h-3" />
-          <span>Click &apos;Run Reaction&apos; to simulate</span>
+          <span>Cliquez sur &apos;Lancer la réaction&apos; pour simuler</span>
         </div>
       )}
     </div>

@@ -46,135 +46,135 @@ export interface GradeLevel {
 export const CURRICULUM: Record<string, GradeLevel> = {
   hazirlık: {
     id: 'hazirlık',
-    name: 'Preparation Class',
-    shortName: 'Prep',
+    name: 'Classe préparatoire',
+    shortName: 'Prép.',
     color: '#8b5cf6',
     icon: '📚',
-    description: 'Introduction to chemistry fundamentals and laboratory basics',
+    description: 'Introduction aux fondamentaux de la chimie et aux bases du laboratoire',
     topics: [
       {
         id: 'matter',
-        name: 'Matter and Properties',
-        description: 'Understanding what matter is and its physical and chemical properties',
+        name: 'La matière et ses propriétés',
+        description: 'Comprendre ce qu\'est la matière et ses propriétés physiques et chimiques',
         icon: '⚛️',
         theory: {
           sections: [
             {
-              title: 'What is Matter?',
-              content: 'Matter is anything that has mass and takes up space. Everything around us — air, water, rocks, and living things — is made of matter. Matter is composed of tiny particles called atoms and molecules.'
+              title: 'Qu\'est-ce que la matière ?',
+              content: 'La matière est tout ce qui a une masse et occupe un espace. Tout ce qui nous entoure — l\'air, l\'eau, les roches et les êtres vivants — est constitué de matière. La matière est composée de minuscules particules appelées atomes et molécules.'
             },
             {
-              title: 'Physical Properties',
-              content: 'Physical properties can be observed without changing the chemical composition of matter. Examples include: color, odor, density, melting point, boiling point, hardness, and conductivity.'
+              title: 'Propriétés physiques',
+              content: 'Les propriétés physiques peuvent être observées sans modifier la composition chimique de la matière. Exemples : couleur, odeur, densité, point de fusion, point d\'ébullition, dureté et conductivité.'
             },
             {
-              title: 'Chemical Properties',
-              content: 'Chemical properties describe how a substance changes into a different substance. Examples: flammability (burns in air), reactivity with acids, ability to rust (oxidation), and decomposition.'
+              title: 'Propriétés chimiques',
+              content: 'Les propriétés chimiques décrivent comment une substance se transforme en une substance différente. Exemples : inflammabilité (brûle dans l\'air), réactivité avec les acides, capacité à rouiller (oxydation) et décomposition.'
             },
-            { title: 'Density Formula', content: 'Density = Mass / Volume', formula: 'ρ = m/V (g/cm³)' }
+            { title: 'Formule de la densité', content: 'Densité = Masse / Volume', formula: 'ρ = m/V (g/cm³)' }
           ]
         },
         experiments: [{
           id: 'density_exp',
-          name: 'Measuring Density',
-          description: 'Measure density of different substances using analytical balance and graduated cylinder',
+          name: 'Mesure de la densité',
+          description: 'Mesurer la densité de différentes substances à l\'aide d\'une balance analytique et d\'une éprouvette graduée',
           chemicals: ['h2o'],
           equipment: ['balance', 'beaker', 'volumetric_flask'],
-          steps: ['Measure the mass of the empty beaker', 'Add 50 mL of water to the beaker', 'Measure the total mass', 'Calculate density using ρ = m/V', 'Repeat with different liquids'],
-          expectedObservations: 'Water has density ~1 g/cm³. Denser liquids sink in water, lighter ones float.'
+          steps: ['Mesurer la masse du bécher vide', 'Ajouter 50 mL d\'eau dans le bécher', 'Mesurer la masse totale', 'Calculer la densité en utilisant ρ = m/V', 'Répéter avec différents liquides'],
+          expectedObservations: 'L\'eau a une densité d\'environ 1 g/cm³. Les liquides plus denses coulent dans l\'eau, les plus légers flottent.'
         }],
         quiz: [
-          { id: 'q1', question: 'Which of the following is a physical property?', type: 'multiple-choice', options: ['Flammability', 'Boiling point', 'Reactivity with acid', 'Oxidation'], answer: 1, explanation: 'Boiling point is a physical property because it can be observed without changing the chemical composition.' },
-          { id: 'q2', question: 'Matter is defined as anything with mass and volume.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Matter is anything that has mass and occupies space (volume).' },
-          { id: 'q3', question: 'If an object has mass 50g and volume 25cm³, what is its density?', type: 'multiple-choice', options: ['0.5 g/cm³', '2 g/cm³', '75 g/cm³', '25 g/cm³'], answer: 1, explanation: 'Density = mass/volume = 50/25 = 2 g/cm³' },
-          { id: 'q4', question: 'Iron rusting is an example of a chemical property.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Rusting involves iron reacting with oxygen to form iron oxide — a chemical change.' }
+          { id: 'q1', question: 'Laquelle des propriétés suivantes est une propriété physique ?', type: 'multiple-choice', options: ['Inflammabilité', 'Point d\'ébullition', 'Réactivité avec un acide', 'Oxydation'], answer: 1, explanation: 'Le point d\'ébullition est une propriété physique car il peut être observé sans modifier la composition chimique.' },
+          { id: 'q2', question: 'La matière est définie comme tout ce qui a une masse et un volume.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La matière est tout ce qui a une masse et occupe un espace (volume).' },
+          { id: 'q3', question: 'Si un objet a une masse de 50 g et un volume de 25 cm³, quelle est sa densité ?', type: 'multiple-choice', options: ['0,5 g/cm³', '2 g/cm³', '75 g/cm³', '25 g/cm³'], answer: 1, explanation: 'Densité = masse/volume = 50/25 = 2 g/cm³' },
+          { id: 'q4', question: 'La rouille du fer est un exemple de propriété chimique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La rouille implique une réaction du fer avec l\'oxygène pour former de l\'oxyde de fer — une transformation chimique.' }
         ]
       },
       {
         id: 'states_of_matter',
-        name: 'States of Matter',
-        description: 'Solid, liquid, gas — and the transitions between them',
+        name: 'États de la matière',
+        description: 'Solide, liquide, gaz — et les transitions entre eux',
         icon: '💧',
         theory: {
           sections: [
-            { title: 'Three States of Matter', content: 'Matter exists in three common states: solid (fixed shape and volume), liquid (fixed volume, takes container shape), and gas (fills entire container). A fourth state — plasma — exists at very high temperatures.' },
-            { title: 'Particle Theory', content: 'In solids, particles vibrate in fixed positions. In liquids, particles move freely but stay close together. In gases, particles move rapidly and are far apart.' },
-            { title: 'Phase Changes', content: 'Melting: solid → liquid. Freezing: liquid → solid. Evaporation: liquid → gas. Condensation: gas → liquid. Sublimation: solid → gas directly. Deposition: gas → solid directly.' },
-            { title: 'Phase Change Energy', content: 'Melting requires heat (endothermic). Freezing releases heat (exothermic). The temperature stays constant during a phase change — all energy goes into breaking intermolecular forces.', formula: 'Q = mL (latent heat)' }
+            { title: 'Les trois états de la matière', content: 'La matière existe dans trois états communs : solide (forme et volume fixes), liquide (volume fixe, prend la forme du récipient) et gaz (remplit entièrement le récipient). Un quatrième état — le plasma — existe à très haute température.' },
+            { title: 'Théorie des particules', content: 'Dans les solides, les particules vibrent à des positions fixes. Dans les liquides, les particules se déplacent librement mais restent proches les unes des autres. Dans les gaz, les particules se déplacent rapidement et sont éloignées les unes des autres.' },
+            { title: 'Changements de phase', content: 'Fusion : solide → liquide. Solidification : liquide → solide. Évaporation : liquide → gaz. Condensation : gaz → liquide. Sublimation : solide → gaz directement. Déposition : gaz → solide directement.' },
+            { title: 'Énergie lors des changements de phase', content: 'La fusion nécessite de la chaleur (endothermique). La solidification libère de la chaleur (exothermique). La température reste constante lors d\'un changement de phase — toute l\'énergie sert à rompre les forces intermoléculaires.', formula: 'Q = mL (chaleur latente)' }
           ]
         },
         experiments: [{
           id: 'phase_change_exp',
-          name: 'Observing Phase Changes',
-          description: 'Heat water and observe phase transitions at different temperatures',
+          name: 'Observation des changements de phase',
+          description: 'Chauffer de l\'eau et observer les transitions de phase à différentes températures',
           chemicals: ['h2o'],
           equipment: ['beaker', 'hot_plate', 'thermometer'],
-          steps: ['Fill beaker with 100 mL water', 'Place thermometer in water', 'Heat on hot plate', 'Record temperature every 30 seconds', 'Observe when water starts boiling', 'Note temperature remains constant during boiling'],
-          expectedObservations: 'Water temperature rises steadily until 100°C, then stays constant while boiling occurs.'
+          steps: ['Remplir le bécher avec 100 mL d\'eau', 'Placer le thermomètre dans l\'eau', 'Chauffer sur la plaque chauffante', 'Relever la température toutes les 30 secondes', 'Observer quand l\'eau commence à bouillir', 'Noter que la température reste constante pendant l\'ébullition'],
+          expectedObservations: 'La température de l\'eau monte régulièrement jusqu\'à 100 °C, puis reste constante pendant l\'ébullition.'
         }],
         quiz: [
-          { id: 'q1', question: 'What happens to particle movement when a solid melts?', type: 'multiple-choice', options: ['Particles stop moving', 'Particles move more freely', 'Particles become smaller', 'No change occurs'], answer: 1, explanation: 'When a solid melts, energy breaks intermolecular bonds, allowing particles to move more freely as a liquid.' },
-          { id: 'q2', question: 'During boiling, temperature continues to rise steadily.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! During a phase change (boiling), temperature remains constant because all heat energy breaks intermolecular bonds.' },
-          { id: 'q3', question: 'Which process is endothermic?', type: 'multiple-choice', options: ['Freezing', 'Condensation', 'Melting', 'Deposition'], answer: 2, explanation: 'Melting is endothermic — it requires heat energy to break the bonds holding the solid structure together.' },
-          { id: 'q4', question: 'Sublimation occurs when a solid converts directly to a gas.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Dry ice (CO₂) is a classic example of sublimation — it goes directly from solid to gas.' }
+          { id: 'q1', question: 'Que se passe-t-il pour le mouvement des particules quand un solide fond ?', type: 'multiple-choice', options: ['Les particules s\'arrêtent de bouger', 'Les particules se déplacent plus librement', 'Les particules deviennent plus petites', 'Aucun changement ne se produit'], answer: 1, explanation: 'Lorsqu\'un solide fond, l\'énergie rompt les liaisons intermoléculaires, permettant aux particules de se déplacer plus librement sous forme de liquide.' },
+          { id: 'q2', question: 'Pendant l\'ébullition, la température continue de monter régulièrement.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Lors d\'un changement de phase (ébullition), la température reste constante car toute l\'énergie thermique rompt les liaisons intermoléculaires.' },
+          { id: 'q3', question: 'Quel processus est endothermique ?', type: 'multiple-choice', options: ['Solidification', 'Condensation', 'Fusion', 'Déposition'], answer: 2, explanation: 'La fusion est endothermique — elle nécessite de l\'énergie thermique pour rompre les liaisons maintenant la structure solide.' },
+          { id: 'q4', question: 'La sublimation se produit lorsqu\'un solide se convertit directement en gaz.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La glace sèche (CO₂) est un exemple classique de sublimation — elle passe directement de l\'état solide à l\'état gazeux.' }
         ]
       },
       {
         id: 'lab_safety',
-        name: 'Laboratory Safety',
-        description: 'Essential safety rules and procedures for the chemistry lab',
+        name: 'Sécurité au laboratoire',
+        description: 'Règles et procédures de sécurité essentielles pour le laboratoire de chimie',
         icon: '🛡️',
         theory: {
           sections: [
-            { title: 'Why Safety Matters', content: 'Chemistry laboratories contain hazardous chemicals, open flames, and fragile glassware. Understanding and following safety rules prevents accidents and protects everyone in the lab.' },
-            { title: 'Personal Protective Equipment (PPE)', content: 'Always wear: safety goggles (eye protection), lab coat or apron, closed-toe shoes, and gloves when handling corrosive or toxic chemicals. Never wear loose clothing near open flames.' },
-            { title: 'Chemical Hazard Symbols', content: 'Hazard symbols warn about chemical dangers: Skull & Crossbones (toxic), Flame (flammable), Corrosion (corrosive), Exclamation mark (irritant), Environment (eco-toxic), Biohazard (biological risk).' },
-            { title: 'Emergency Procedures', content: 'If acid spills on skin: immediately flush with plenty of water for 15+ minutes. If chemicals enter eyes: use eyewash station for 15 minutes. In case of fire: use fire extinguisher or fire blanket. Always report accidents to the teacher.' }
+            { title: 'Pourquoi la sécurité est importante', content: 'Les laboratoires de chimie contiennent des produits chimiques dangereux, des flammes nues et de la verrerie fragile. Comprendre et respecter les règles de sécurité prévient les accidents et protège toutes les personnes présentes dans le laboratoire.' },
+            { title: 'Équipements de protection individuelle (EPI)', content: 'Toujours porter : lunettes de protection (protection des yeux), blouse ou tablier de laboratoire, chaussures fermées, et gants lors de la manipulation de produits chimiques corrosifs ou toxiques. Ne jamais porter de vêtements amples près de flammes nues.' },
+            { title: 'Symboles de danger chimique', content: 'Les symboles de danger avertissent des dangers chimiques : Tête de mort (toxique), Flamme (inflammable), Corrosion (corrosif), Point d\'exclamation (irritant), Environnement (éco-toxique), Biohazard (risque biologique).' },
+            { title: 'Procédures d\'urgence', content: 'Si de l\'acide se renverse sur la peau : rincer immédiatement avec beaucoup d\'eau pendant 15 minutes ou plus. Si des produits chimiques pénètrent dans les yeux : utiliser la station de lavage oculaire pendant 15 minutes. En cas d\'incendie : utiliser l\'extincteur ou la couverture anti-feu. Toujours signaler les accidents à l\'enseignant.' }
           ]
         },
         experiments: [{
           id: 'safety_quiz',
-          name: 'Lab Safety Identification',
-          description: 'Identify hazard symbols and appropriate safety responses',
+          name: 'Identification de la sécurité au laboratoire',
+          description: 'Identifier les symboles de danger et les réponses de sécurité appropriées',
           chemicals: ['hcl', 'naoh'],
           equipment: ['beaker'],
-          steps: ['Examine hazard labels on containers', 'Identify each safety symbol', 'Practice proper PPE procedure', 'Review chemical disposal methods', 'Locate emergency equipment in lab'],
-          expectedObservations: 'Understanding that each chemical has specific hazards that require specific precautions.'
+          steps: ['Examiner les étiquettes de danger sur les récipients', 'Identifier chaque symbole de sécurité', 'Pratiquer la procédure EPI appropriée', 'Réviser les méthodes d\'élimination des produits chimiques', 'Localiser les équipements d\'urgence dans le laboratoire'],
+          expectedObservations: 'Comprendre que chaque produit chimique présente des dangers spécifiques nécessitant des précautions spécifiques.'
         }],
         quiz: [
-          { id: 'q1', question: 'What should you do first if acid splashes in your eyes?', type: 'multiple-choice', options: ['Rub eyes gently', 'Use eyewash station for 15 minutes', 'Apply eye drops', 'Inform teacher first'], answer: 1, explanation: 'Immediately use the eyewash station for at least 15 minutes. Time is critical when acids contact eyes!' },
-          { id: 'q2', question: 'You must wear safety goggles at all times in the chemistry lab.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Goggles protect your eyes from splashes, fumes, and broken glass — always required.' },
-          { id: 'q3', question: 'Which symbol indicates a flammable chemical?', type: 'multiple-choice', options: ['Skull and crossbones', 'Flame symbol', 'Exclamation mark', 'Biohazard symbol'], answer: 1, explanation: 'The flame symbol (🔥) indicates a flammable substance — keep away from heat sources and open flames.' },
-          { id: 'q4', question: 'It is safe to smell chemicals by waving fumes toward your nose.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True — this technique is called "wafting" and is the safe way to detect odors. Never inhale directly from containers.' }
+          { id: 'q1', question: 'Que faut-il faire en premier si de l\'acide éclabousse vos yeux ?', type: 'multiple-choice', options: ['Se frotter doucement les yeux', 'Utiliser la station de lavage oculaire pendant 15 minutes', 'Appliquer des gouttes ophtalmiques', 'Informer l\'enseignant en premier'], answer: 1, explanation: 'Utiliser immédiatement la station de lavage oculaire pendant au moins 15 minutes. Le temps est critique lorsque des acides entrent en contact avec les yeux !' },
+          { id: 'q2', question: 'Vous devez porter des lunettes de protection à tout moment dans le laboratoire de chimie.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Les lunettes protègent vos yeux des éclaboussures, des vapeurs et du verre brisé — toujours obligatoires.' },
+          { id: 'q3', question: 'Quel symbole indique un produit chimique inflammable ?', type: 'multiple-choice', options: ['Tête de mort', 'Symbole de flamme', 'Point d\'exclamation', 'Symbole biohazard'], answer: 1, explanation: 'Le symbole de flamme (🔥) indique une substance inflammable — tenir à l\'écart des sources de chaleur et des flammes nues.' },
+          { id: 'q4', question: 'Il est sans danger de sentir les produits chimiques en agitant les vapeurs vers son nez.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai — cette technique s\'appelle « effluvage » et c\'est la façon sûre de détecter les odeurs. Ne jamais inhaler directement depuis les récipients.' }
         ]
       },
       {
         id: 'mixtures',
-        name: 'Mixtures and Separation',
-        description: 'Types of mixtures and methods to separate their components',
+        name: 'Mélanges et séparation',
+        description: 'Types de mélanges et méthodes pour séparer leurs composants',
         icon: '🌀',
         theory: {
           sections: [
-            { title: 'Pure Substances vs. Mixtures', content: 'A pure substance has a fixed composition (element or compound). A mixture contains two or more substances combined without chemical reaction. Mixtures can be separated by physical means.' },
-            { title: 'Homogeneous Mixtures (Solutions)', content: 'In a homogeneous mixture, components are uniformly distributed. Examples: saltwater, air, brass. The solute dissolves in the solvent. NaCl + H₂O → saltwater solution.' },
-            { title: 'Heterogeneous Mixtures', content: 'In a heterogeneous mixture, components are visibly different. Examples: sand and water, oil and water, granite. Components can often be separated by simple physical methods.' },
-            { title: 'Separation Methods', content: 'Filtration: separates insoluble solids from liquids. Evaporation: removes solvent to recover dissolved solid. Distillation: separates liquids by boiling point. Chromatography: separates by solubility. Decanting: pour off liquid from settled solid.' }
+            { title: 'Corps purs vs. mélanges', content: 'Un corps pur a une composition fixe (élément ou composé). Un mélange contient deux substances ou plus combinées sans réaction chimique. Les mélanges peuvent être séparés par des moyens physiques.' },
+            { title: 'Mélanges homogènes (solutions)', content: 'Dans un mélange homogène, les composants sont uniformément distribués. Exemples : eau salée, air, laiton. Le soluté se dissout dans le solvant. NaCl + H₂O → solution d\'eau salée.' },
+            { title: 'Mélanges hétérogènes', content: 'Dans un mélange hétérogène, les composants sont visiblement différents. Exemples : sable et eau, huile et eau, granite. Les composants peuvent souvent être séparés par des méthodes physiques simples.' },
+            { title: 'Méthodes de séparation', content: 'Filtration : sépare les solides insolubles des liquides. Évaporation : retire le solvant pour récupérer le solide dissous. Distillation : sépare les liquides par point d\'ébullition. Chromatographie : sépare par solubilité. Décantation : verser le liquide depuis le solide déposé.' }
           ]
         },
         experiments: [{
           id: 'separation_exp',
-          name: 'Separating a Salt-Sand Mixture',
-          description: 'Use filtration and evaporation to separate NaCl and sand',
+          name: 'Séparation d\'un mélange sel-sable',
+          description: 'Utiliser la filtration et l\'évaporation pour séparer NaCl et le sable',
           chemicals: ['nacl', 'h2o'],
           equipment: ['beaker', 'hot_plate', 'watch_glass'],
-          steps: ['Mix salt and sand together', 'Add water and stir to dissolve salt', 'Filter through filter paper to remove sand', 'Evaporate water from filtrate on hot plate', 'Observe white salt crystals remaining'],
-          expectedObservations: 'Sand collects on filter paper. After evaporation, pure white NaCl crystals remain.'
+          steps: ['Mélanger le sel et le sable ensemble', 'Ajouter de l\'eau et remuer pour dissoudre le sel', 'Filtrer avec du papier filtre pour enlever le sable', 'Évaporer l\'eau du filtrat sur la plaque chauffante', 'Observer les cristaux blancs de sel restants'],
+          expectedObservations: 'Le sable se recueille sur le papier filtre. Après évaporation, il reste des cristaux purs de NaCl blanc.'
         }],
         quiz: [
-          { id: 'q1', question: 'Which method separates salt from water?', type: 'multiple-choice', options: ['Filtration', 'Distillation', 'Evaporation', 'Decanting'], answer: 2, explanation: 'Evaporation removes water as vapor, leaving salt crystals behind.' },
-          { id: 'q2', question: 'Saltwater is a homogeneous mixture.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Saltwater is a solution — the salt (NaCl) is uniformly distributed throughout the water.' },
-          { id: 'q3', question: 'What separation technique uses paper to separate pigments?', type: 'multiple-choice', options: ['Filtration', 'Distillation', 'Chromatography', 'Centrifugation'], answer: 2, explanation: 'Chromatography separates mixtures based on how far components travel through paper based on their solubility.' },
-          { id: 'q4', question: 'Filtration can separate dissolved salt from water.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! Dissolved salt passes through filter paper. You need evaporation or distillation to separate it.' }
+          { id: 'q1', question: 'Quelle méthode permet de séparer le sel de l\'eau ?', type: 'multiple-choice', options: ['Filtration', 'Distillation', 'Évaporation', 'Décantation'], answer: 2, explanation: 'L\'évaporation retire l\'eau sous forme de vapeur, laissant des cristaux de sel.' },
+          { id: 'q2', question: 'L\'eau salée est un mélange homogène.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! L\'eau salée est une solution — le sel (NaCl) est uniformément distribué dans toute l\'eau.' },
+          { id: 'q3', question: 'Quelle technique de séparation utilise du papier pour séparer des pigments ?', type: 'multiple-choice', options: ['Filtration', 'Distillation', 'Chromatographie', 'Centrifugation'], answer: 2, explanation: 'La chromatographie sépare les mélanges selon la distance parcourue par les composants sur du papier en fonction de leur solubilité.' },
+          { id: 'q4', question: 'La filtration peut séparer le sel dissous de l\'eau.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Le sel dissous passe à travers le papier filtre. Il faut l\'évaporation ou la distillation pour le séparer.' }
         ]
       }
     ]
@@ -182,97 +182,97 @@ export const CURRICULUM: Record<string, GradeLevel> = {
 
   grade9: {
     id: 'grade9',
-    name: 'Grade 9 Chemistry',
-    shortName: 'Grade 9',
+    name: 'Chimie de 3e',
+    shortName: '3e',
     color: '#6366f1',
     icon: '🔬',
-    description: 'Atomic theory, periodic table, chemical bonds, and reactions',
+    description: 'Théorie atomique, tableau périodique, liaisons chimiques et réactions',
     topics: [
       {
         id: 'atom',
-        name: 'Atomic Structure',
-        description: 'The structure of atoms: protons, neutrons, electrons, and atomic models',
+        name: 'Structure atomique',
+        description: 'La structure des atomes : protons, neutrons, électrons et modèles atomiques',
         icon: '⚛️',
         theory: {
           sections: [
-            { title: 'The Atom', content: 'Atoms are the basic building blocks of matter. Each atom has a nucleus (protons + neutrons) surrounded by electrons. Protons have positive charge (+1), neutrons have no charge, electrons have negative charge (-1).' },
-            { title: 'Atomic Number and Mass', content: 'Atomic number (Z) = number of protons. This uniquely identifies an element. Mass number (A) = protons + neutrons. Electrons equal protons in a neutral atom.', formula: 'A = Z + N (where N = neutron number)' },
-            { title: 'Electron Configuration', content: 'Electrons occupy energy levels (shells). First shell: max 2 electrons. Second shell: max 8. Third shell: max 18. Valence electrons (outermost shell) determine chemical behavior.' },
-            { title: 'Bohr Model vs. Quantum Model', content: 'Bohr model: electrons in circular orbits at fixed distances. More accurate quantum model: electrons exist in probability regions called orbitals (s, p, d, f). Both models are useful for different purposes.' }
+            { title: 'L\'atome', content: 'Les atomes sont les éléments de base de la matière. Chaque atome possède un noyau (protons + neutrons) entouré d\'électrons. Les protons ont une charge positive (+1), les neutrons n\'ont pas de charge, les électrons ont une charge négative (-1).' },
+            { title: 'Numéro atomique et masse', content: 'Numéro atomique (Z) = nombre de protons. Cela identifie de manière unique un élément. Nombre de masse (A) = protons + neutrons. Les électrons sont égaux aux protons dans un atome neutre.', formula: 'A = Z + N (où N = nombre de neutrons)' },
+            { title: 'Configuration électronique', content: 'Les électrons occupent des niveaux d\'énergie (couches). Première couche : 2 électrons max. Deuxième couche : 8 max. Troisième couche : 18 max. Les électrons de valence (couche externe) déterminent le comportement chimique.' },
+            { title: 'Modèle de Bohr vs. modèle quantique', content: 'Modèle de Bohr : électrons sur des orbites circulaires à distances fixes. Modèle quantique plus précis : les électrons existent dans des régions de probabilité appelées orbitales (s, p, d, f). Les deux modèles sont utiles à des fins différentes.' }
           ]
         },
         experiments: [{
           id: 'flame_test',
-          name: 'Flame Test',
-          description: 'Identify metal ions by the color of flame they produce',
+          name: 'Test à la flamme',
+          description: 'Identifier les ions métalliques par la couleur de la flamme qu\'ils produisent',
           chemicals: ['nacl', 'cuso4'],
           equipment: ['bunsen_burner', 'test_tube'],
-          steps: ['Prepare dilute solutions of different metal salts', 'Dip wire loop in solution', 'Hold in blue flame of Bunsen burner', 'Observe and record flame color', 'Repeat with different salts'],
-          expectedObservations: 'NaCl → bright yellow, CuSO₄ → blue-green, KCl → lilac/violet'
+          steps: ['Préparer des solutions diluées de différents sels métalliques', 'Tremper une boucle en fil dans la solution', 'Tenir dans la flamme bleue du bec Bunsen', 'Observer et noter la couleur de la flamme', 'Répéter avec différents sels'],
+          expectedObservations: 'NaCl → jaune vif, CuSO₄ → bleu-vert, KCl → lilas/violet'
         }],
         quiz: [
-          { id: 'q1', question: 'An element has atomic number 11. How many protons does it have?', type: 'multiple-choice', options: ['10', '11', '12', '22'], answer: 1, explanation: 'The atomic number IS the number of protons. Na (sodium) has atomic number 11, so it has 11 protons.' },
-          { id: 'q2', question: 'Neutrons have a negative charge.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! Neutrons have NO charge (neutral). Protons are positive, electrons are negative.' },
-          { id: 'q3', question: 'An atom of carbon (Z=6, A=12) has how many neutrons?', type: 'multiple-choice', options: ['6', '12', '18', '4'], answer: 0, explanation: 'Neutrons = A - Z = 12 - 6 = 6 neutrons' },
-          { id: 'q4', question: 'Valence electrons determine an element\'s chemical behavior.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Valence electrons are in the outermost shell and participate in chemical bonding.' }
+          { id: 'q1', question: 'Un élément a le numéro atomique 11. Combien de protons possède-t-il ?', type: 'multiple-choice', options: ['10', '11', '12', '22'], answer: 1, explanation: 'Le numéro atomique EST le nombre de protons. Na (sodium) a le numéro atomique 11, donc il possède 11 protons.' },
+          { id: 'q2', question: 'Les neutrons ont une charge négative.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Les neutrons n\'ont AUCUNE charge (neutres). Les protons sont positifs, les électrons sont négatifs.' },
+          { id: 'q3', question: 'Un atome de carbone (Z=6, A=12) possède combien de neutrons ?', type: 'multiple-choice', options: ['6', '12', '18', '4'], answer: 0, explanation: 'Neutrons = A - Z = 12 - 6 = 6 neutrons' },
+          { id: 'q4', question: 'Les électrons de valence déterminent le comportement chimique d\'un élément.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Les électrons de valence se trouvent sur la couche externe et participent aux liaisons chimiques.' }
         ]
       },
       {
         id: 'periodic_table',
-        name: 'Periodic Table',
-        description: 'Organization of elements: groups, periods, and periodic trends',
+        name: 'Tableau périodique',
+        description: 'Organisation des éléments : groupes, périodes et tendances périodiques',
         icon: '📊',
         theory: {
           sections: [
-            { title: 'Organization of the Periodic Table', content: 'Elements are arranged by increasing atomic number. Periods (rows) indicate energy levels. Groups (columns) contain elements with similar chemical properties and the same number of valence electrons.' },
-            { title: 'Periodic Trends', content: 'Atomic radius: increases down a group, decreases across a period. Electronegativity: increases across a period and up a group. Ionization energy: increases across a period and up a group.' },
-            { title: 'Element Families', content: 'Group 1: Alkali metals (very reactive). Group 2: Alkaline earth metals. Groups 3-12: Transition metals. Group 17: Halogens (reactive nonmetals). Group 18: Noble gases (inert).' },
-            { title: 'Metals vs. Nonmetals', content: 'Metals: shiny, ductile, malleable, good conductors. Located left of periodic table. Nonmetals: dull, brittle, poor conductors. Located right side. Metalloids (semimetals): on the stair-step boundary.' }
+            { title: 'Organisation du tableau périodique', content: 'Les éléments sont classés par numéro atomique croissant. Les périodes (lignes) indiquent les niveaux d\'énergie. Les groupes (colonnes) contiennent des éléments aux propriétés chimiques similaires et au même nombre d\'électrons de valence.' },
+            { title: 'Tendances périodiques', content: 'Rayon atomique : augmente dans un groupe, diminue au sein d\'une période. Électronégativité : augmente au sein d\'une période et vers le haut d\'un groupe. Énergie d\'ionisation : augmente au sein d\'une période et vers le haut d\'un groupe.' },
+            { title: 'Familles d\'éléments', content: 'Groupe 1 : métaux alcalins (très réactifs). Groupe 2 : métaux alcalino-terreux. Groupes 3-12 : métaux de transition. Groupe 17 : halogènes (non-métaux réactifs). Groupe 18 : gaz nobles (inertes).' },
+            { title: 'Métaux vs. non-métaux', content: 'Métaux : brillants, ductiles, malléables, bons conducteurs. Situés à gauche du tableau périodique. Non-métaux : ternes, cassants, mauvais conducteurs. Situés à droite. Métalloïdes (semi-métaux) : sur la frontière en escalier.' }
           ]
         },
         experiments: [{
           id: 'reactivity_series',
-          name: 'Metal Reactivity Series',
-          description: 'Compare reactivity of different metals with acid',
+          name: 'Série de réactivité des métaux',
+          description: 'Comparer la réactivité de différents métaux avec un acide',
           chemicals: ['hcl', 'mg', 'zn', 'fe', 'cu'],
           equipment: ['test_tube', 'beaker'],
-          steps: ['Add equal amounts of HCl to 4 test tubes', 'Add small piece of each metal to separate tubes', 'Observe bubble production rate', 'Record reactivity order', 'Compare with theoretical reactivity series'],
-          expectedObservations: 'Mg reacts vigorously (rapid bubbles), Zn moderately, Fe slowly, Cu has no reaction. Confirms activity series: Mg > Zn > Fe > Cu'
+          steps: ['Ajouter des quantités égales de HCl dans 4 tubes à essais', 'Ajouter un petit morceau de chaque métal dans des tubes séparés', 'Observer le taux de production de bulles', 'Enregistrer l\'ordre de réactivité', 'Comparer avec la série de réactivité théorique'],
+          expectedObservations: 'Mg réagit vigoureusement (bulles rapides), Zn modérément, Fe lentement, Cu ne réagit pas. Confirme la série d\'activité : Mg > Zn > Fe > Cu'
         }],
         quiz: [
-          { id: 'q1', question: 'Elements in the same group have similar properties because they have:', type: 'multiple-choice', options: ['Same mass number', 'Same number of valence electrons', 'Same atomic radius', 'Same period number'], answer: 1, explanation: 'Elements in the same group (column) have the same number of valence electrons, giving them similar chemical properties.' },
-          { id: 'q2', question: 'Noble gases are highly reactive.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! Noble gases have complete outer electron shells, making them extremely stable and largely unreactive.' },
-          { id: 'q3', question: 'As you move left to right across a period, atomic radius generally:', type: 'multiple-choice', options: ['Increases', 'Decreases', 'Stays the same', 'First increases then decreases'], answer: 1, explanation: 'Atomic radius decreases left to right because more protons pull electrons closer while adding electrons to the same shell.' },
-          { id: 'q4', question: 'Halogens are found in Group 17 of the periodic table.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Group 17 contains fluorine, chlorine, bromine, iodine, and astatine — all halogens.' }
+          { id: 'q1', question: 'Les éléments d\'un même groupe ont des propriétés similaires car ils ont :', type: 'multiple-choice', options: ['Le même nombre de masse', 'Le même nombre d\'électrons de valence', 'Le même rayon atomique', 'Le même numéro de période'], answer: 1, explanation: 'Les éléments d\'un même groupe (colonne) ont le même nombre d\'électrons de valence, ce qui leur confère des propriétés chimiques similaires.' },
+          { id: 'q2', question: 'Les gaz nobles sont très réactifs.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Les gaz nobles ont des couches électroniques externes complètes, ce qui les rend extrêmement stables et largement inertes.' },
+          { id: 'q3', question: 'En se déplaçant de gauche à droite au sein d\'une période, le rayon atomique :', type: 'multiple-choice', options: ['Augmente', 'Diminue', 'Reste le même', 'Augmente d\'abord puis diminue'], answer: 1, explanation: 'Le rayon atomique diminue de gauche à droite car plus de protons attirent les électrons plus près tout en ajoutant des électrons à la même couche.' },
+          { id: 'q4', question: 'Les halogènes se trouvent dans le groupe 17 du tableau périodique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Le groupe 17 contient le fluor, le chlore, le brome, l\'iode et l\'astate — tous des halogènes.' }
         ]
       },
       {
         id: 'acids_bases',
-        name: 'Acids and Bases',
-        description: 'Properties of acids and bases, pH scale, and neutralization',
+        name: 'Acides et bases',
+        description: 'Propriétés des acides et des bases, échelle de pH et neutralisation',
         icon: '⚗️',
         theory: {
           sections: [
-            { title: 'Arrhenius Definition', content: 'Acids release H⁺ ions in water. Bases release OH⁻ ions in water. Example: HCl → H⁺ + Cl⁻ (acid); NaOH → Na⁺ + OH⁻ (base).' },
-            { title: 'Bronsted-Lowry Definition', content: 'Acid = proton (H⁺) donor. Base = proton acceptor. This is broader than Arrhenius — it includes reactions in non-aqueous solvents.' },
-            { title: 'pH Scale', content: 'pH = -log[H⁺]. Scale runs from 0-14. pH < 7: acidic. pH = 7: neutral (pure water). pH > 7: basic. Each unit = 10× difference in [H⁺].', formula: 'pH = -log₁₀[H⁺]' },
-            { title: 'Neutralization', content: 'Acid + Base → Salt + Water. Example: HCl + NaOH → NaCl + H₂O. This is exothermic — heat is released. The equivalence point is reached when moles of acid = moles of base.', formula: 'H⁺ + OH⁻ → H₂O' }
+            { title: 'Définition d\'Arrhenius', content: 'Les acides libèrent des ions H⁺ dans l\'eau. Les bases libèrent des ions OH⁻ dans l\'eau. Exemple : HCl → H⁺ + Cl⁻ (acide) ; NaOH → Na⁺ + OH⁻ (base).' },
+            { title: 'Définition de Brønsted-Lowry', content: 'Acide = donneur de proton (H⁺). Base = accepteur de proton. Cette définition est plus large qu\'Arrhenius — elle inclut les réactions dans des solvants non aqueux.' },
+            { title: 'Échelle de pH', content: 'pH = -log[H⁺]. L\'échelle va de 0 à 14. pH < 7 : acide. pH = 7 : neutre (eau pure). pH > 7 : basique. Chaque unité = 10× de différence en [H⁺].', formula: 'pH = -log₁₀[H⁺]' },
+            { title: 'Neutralisation', content: 'Acide + Base → Sel + Eau. Exemple : HCl + NaOH → NaCl + H₂O. C\'est une réaction exothermique — de la chaleur est libérée. Le point d\'équivalence est atteint quand les moles d\'acide = les moles de base.', formula: 'H⁺ + OH⁻ → H₂O' }
           ]
         },
         experiments: [{
           id: 'neutralization',
-          name: 'Acid-Base Neutralization',
-          description: 'Neutralize HCl with NaOH using phenolphthalein indicator',
+          name: 'Neutralisation acide-base',
+          description: 'Neutraliser HCl avec NaOH en utilisant la phénolphtaléine comme indicateur',
           chemicals: ['hcl', 'naoh', 'phenolphthalein'],
           equipment: ['beaker', 'burette', 'erlenmeyer'],
-          steps: ['Add 25 mL HCl to Erlenmeyer flask', 'Add 3 drops phenolphthalein indicator', 'Fill burette with NaOH solution', 'Add NaOH dropwise, swirling', 'Stop at first permanent pink color', 'Record volume NaOH used'],
-          expectedObservations: 'Solution is colorless in acid. Turns persistent pink at equivalence point when NaOH neutralizes HCl.'
+          steps: ['Ajouter 25 mL de HCl dans le flacon Erlenmeyer', 'Ajouter 3 gouttes d\'indicateur phénolphtaléine', 'Remplir la burette avec la solution de NaOH', 'Ajouter NaOH goutte à goutte en agitant', 'Arrêter à la première couleur rose persistante', 'Noter le volume de NaOH utilisé'],
+          expectedObservations: 'La solution est incolore dans l\'acide. Devient rose persistant au point d\'équivalence quand NaOH neutralise HCl.'
         }],
         quiz: [
-          { id: 'q1', question: 'A solution with pH = 3 is:', type: 'multiple-choice', options: ['Basic', 'Neutral', 'Acidic', 'Alkaline'], answer: 2, explanation: 'pH < 7 indicates an acidic solution. pH = 3 means [H⁺] = 10⁻³ mol/L — quite acidic.' },
-          { id: 'q2', question: 'Neutralization always produces water and a salt.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Acid + Base → Salt + Water is the general formula for neutralization reactions.' },
-          { id: 'q3', question: 'Which indicator turns pink in basic solution?', type: 'multiple-choice', options: ['Litmus (red)', 'Universal indicator', 'Phenolphthalein', 'Methyl orange'], answer: 2, explanation: 'Phenolphthalein is colorless in acid but turns pink/magenta in basic solutions (pH > 8.2).' },
-          { id: 'q4', question: 'Strong acids fully dissociate in water.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Strong acids like HCl and H₂SO₄ fully dissociate: HCl → H⁺ + Cl⁻ (100% dissociation).' }
+          { id: 'q1', question: 'Une solution de pH = 3 est :', type: 'multiple-choice', options: ['Basique', 'Neutre', 'Acide', 'Alcaline'], answer: 2, explanation: 'Un pH < 7 indique une solution acide. pH = 3 signifie [H⁺] = 10⁻³ mol/L — assez acide.' },
+          { id: 'q2', question: 'La neutralisation produit toujours de l\'eau et un sel.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Acide + Base → Sel + Eau est la formule générale des réactions de neutralisation.' },
+          { id: 'q3', question: 'Quel indicateur devient rose en solution basique ?', type: 'multiple-choice', options: ['Tournesol (rouge)', 'Indicateur universel', 'Phénolphtaléine', 'Orange de méthyle'], answer: 2, explanation: 'La phénolphtaléine est incolore en milieu acide mais devient rose/magenta en solution basique (pH > 8,2).' },
+          { id: 'q4', question: 'Les acides forts se dissocient complètement dans l\'eau.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Les acides forts comme HCl et H₂SO₄ se dissocient complètement : HCl → H⁺ + Cl⁻ (dissociation à 100 %).' }
         ]
       }
     ]
@@ -280,97 +280,97 @@ export const CURRICULUM: Record<string, GradeLevel> = {
 
   grade10: {
     id: 'grade10',
-    name: 'Grade 10 Chemistry',
-    shortName: 'Grade 10',
+    name: 'Chimie de 2nde',
+    shortName: '2nde',
     color: '#10b981',
     icon: '🔭',
-    description: 'Solutions, gas laws, thermochemistry, and equilibrium',
+    description: 'Solutions, lois des gaz, thermochimie et équilibre',
     topics: [
       {
         id: 'solutions',
-        name: 'Solutions and Concentration',
-        description: 'Types of solutions, concentration calculations, and colligative properties',
+        name: 'Solutions et concentration',
+        description: 'Types de solutions, calculs de concentration et propriétés colligatives',
         icon: '💧',
         theory: {
           sections: [
-            { title: 'Solutions', content: 'A solution is a homogeneous mixture of solute (dissolved substance) and solvent (dissolving medium). Water is called the "universal solvent" because it dissolves many substances.' },
-            { title: 'Molarity', content: 'Molarity (M) = moles of solute / liters of solution. Used to express concentration in mol/L (molar, M).', formula: 'M = n/V (mol/L)' },
-            { title: 'Colligative Properties', content: 'Properties that depend on the number of solute particles, not their identity: boiling point elevation, freezing point depression, osmotic pressure, vapor pressure lowering.' },
-            { title: 'Dilution', content: 'When diluting a solution, moles of solute stay constant: C₁V₁ = C₂V₂', formula: 'C₁V₁ = C₂V₂' }
+            { title: 'Solutions', content: 'Une solution est un mélange homogène de soluté (substance dissoute) et de solvant (milieu de dissolution). L\'eau est appelée le « solvant universel » car elle dissout de nombreuses substances.' },
+            { title: 'Molarité', content: 'Molarité (M) = moles de soluté / litres de solution. Utilisée pour exprimer la concentration en mol/L (molaire, M).', formula: 'M = n/V (mol/L)' },
+            { title: 'Propriétés colligatives', content: 'Propriétés qui dépendent du nombre de particules de soluté, non de leur nature : élévation du point d\'ébullition, abaissement du point de congélation, pression osmotique, abaissement de la pression de vapeur.' },
+            { title: 'Dilution', content: 'Lors de la dilution d\'une solution, les moles de soluté restent constantes : C₁V₁ = C₂V₂', formula: 'C₁V₁ = C₂V₂' }
           ]
         },
         experiments: [{
           id: 'molarity_exp',
-          name: 'Preparing a 1 M NaCl Solution',
-          description: 'Accurately prepare a standard molar solution',
+          name: 'Préparation d\'une solution de NaCl à 1 M',
+          description: 'Préparer avec précision une solution molaire standard',
           chemicals: ['nacl', 'h2o'],
           equipment: ['balance', 'volumetric_flask', 'beaker'],
-          steps: ['Calculate mass of NaCl needed: 58.44 g for 1L of 1M', 'Weigh exactly 58.44 g NaCl', 'Dissolve in ~800 mL distilled water in beaker', 'Transfer to 1L volumetric flask', 'Add distilled water to the 1L mark', 'Stopper and invert several times to mix'],
-          expectedObservations: 'Clear colorless solution. Exact concentration = 1.000 M NaCl'
+          steps: ['Calculer la masse de NaCl nécessaire : 58,44 g pour 1 L de 1 M', 'Peser exactement 58,44 g de NaCl', 'Dissoudre dans environ 800 mL d\'eau distillée dans un bécher', 'Transvaser dans une fiole jaugée de 1 L', 'Ajouter de l\'eau distillée jusqu\'au trait de 1 L', 'Boucher et retourner plusieurs fois pour mélanger'],
+          expectedObservations: 'Solution claire et incolore. Concentration exacte = 1,000 M NaCl'
         }],
         quiz: [
-          { id: 'q1', question: 'What is the molarity of a solution containing 4 mol NaOH in 2 L?', type: 'multiple-choice', options: ['0.5 M', '2 M', '6 M', '8 M'], answer: 1, explanation: 'M = moles/volume = 4 mol / 2 L = 2 M' },
-          { id: 'q2', question: 'Adding solute to water raises its boiling point.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! This is boiling point elevation — a colligative property. Saltwater boils above 100°C.' },
-          { id: 'q3', question: 'The formula for dilution is:', type: 'multiple-choice', options: ['M₁+M₂ = V₁+V₂', 'C₁V₁ = C₂V₂', 'n = CV', 'C = n/V²'], answer: 1, explanation: 'C₁V₁ = C₂V₂: initial concentration × initial volume = final concentration × final volume.' },
-          { id: 'q4', question: 'Molarity is measured in mol/L.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Molarity (M) = moles of solute per liter of solution, written as mol/L or M.' }
+          { id: 'q1', question: 'Quelle est la molarité d\'une solution contenant 4 mol de NaOH dans 2 L ?', type: 'multiple-choice', options: ['0,5 M', '2 M', '6 M', '8 M'], answer: 1, explanation: 'M = moles/volume = 4 mol / 2 L = 2 M' },
+          { id: 'q2', question: 'Ajouter un soluté à l\'eau élève son point d\'ébullition.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! C\'est l\'élévation du point d\'ébullition — une propriété colligative. L\'eau salée bout au-dessus de 100 °C.' },
+          { id: 'q3', question: 'La formule de dilution est :', type: 'multiple-choice', options: ['M₁+M₂ = V₁+V₂', 'C₁V₁ = C₂V₂', 'n = CV', 'C = n/V²'], answer: 1, explanation: 'C₁V₁ = C₂V₂ : concentration initiale × volume initial = concentration finale × volume final.' },
+          { id: 'q4', question: 'La molarité est mesurée en mol/L.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La molarité (M) = moles de soluté par litre de solution, écrite mol/L ou M.' }
         ]
       },
       {
         id: 'thermochemistry',
-        name: 'Thermochemistry',
-        description: 'Energy changes in chemical reactions: exothermic, endothermic, Hess\'s Law',
+        name: 'Thermochimie',
+        description: 'Changements d\'énergie dans les réactions chimiques : exothermique, endothermique, loi de Hess',
         icon: '🔥',
         theory: {
           sections: [
-            { title: 'Exothermic Reactions', content: 'Exothermic reactions release energy (heat) to the surroundings. ΔH < 0. Examples: combustion, neutralization, many oxidation reactions. The products have lower energy than the reactants.' },
-            { title: 'Endothermic Reactions', content: 'Endothermic reactions absorb energy from surroundings. ΔH > 0. Examples: photosynthesis, thermal decomposition, dissolving NH₄NO₃. Products have higher energy than reactants.' },
-            { title: 'Enthalpy Calculations', content: 'q = mcΔT where q = heat, m = mass, c = specific heat capacity (4.18 J/g°C for water), ΔT = temperature change.', formula: 'q = mcΔT' },
-            { title: "Hess's Law", content: "The total enthalpy change is independent of the pathway. If a reaction can be expressed as sum of other reactions, ΔH_total = ΣΔH_steps. This allows calculation of ΔH for reactions that can't be measured directly.", formula: 'ΔH_rxn = ΣΔH_products - ΣΔH_reactants' }
+            { title: 'Réactions exothermiques', content: 'Les réactions exothermiques libèrent de l\'énergie (chaleur) vers le milieu. ΔH < 0. Exemples : combustion, neutralisation, nombreuses réactions d\'oxydation. Les produits ont une énergie inférieure à celle des réactifs.' },
+            { title: 'Réactions endothermiques', content: 'Les réactions endothermiques absorbent de l\'énergie du milieu. ΔH > 0. Exemples : photosynthèse, décomposition thermique, dissolution de NH₄NO₃. Les produits ont une énergie supérieure à celle des réactifs.' },
+            { title: 'Calculs d\'enthalpie', content: 'q = mcΔT où q = chaleur, m = masse, c = capacité thermique massique (4,18 J/g°C pour l\'eau), ΔT = variation de température.', formula: 'q = mcΔT' },
+            { title: 'Loi de Hess', content: 'La variation d\'enthalpie totale est indépendante du chemin suivi. Si une réaction peut être exprimée comme la somme d\'autres réactions, ΔH_total = ΣΔH_étapes. Cela permet de calculer ΔH pour des réactions qui ne peuvent pas être mesurées directement.', formula: 'ΔH_rxn = ΣΔH_products - ΣΔH_reactants' }
           ]
         },
         experiments: [{
           id: 'calorimetry_exp',
-          name: 'Calorimetry of Neutralization',
-          description: 'Measure heat released during HCl + NaOH neutralization',
+          name: 'Calorimétrie de neutralisation',
+          description: 'Mesurer la chaleur libérée lors de la neutralisation HCl + NaOH',
           chemicals: ['hcl', 'naoh', 'h2o'],
           equipment: ['beaker', 'thermometer'],
-          steps: ['Measure 50 mL of 1M HCl', 'Record initial temperature', 'Add 50 mL of 1M NaOH', 'Stir and record maximum temperature', 'Calculate ΔT', 'Calculate heat: q = mcΔT', 'Calculate molar enthalpy ΔH'],
-          expectedObservations: 'Temperature rises approximately 5-7°C. Reaction is exothermic (ΔH ≈ -57 kJ/mol).'
+          steps: ['Mesurer 50 mL de HCl à 1 M', 'Relever la température initiale', 'Ajouter 50 mL de NaOH à 1 M', 'Agiter et relever la température maximale', 'Calculer ΔT', 'Calculer la chaleur : q = mcΔT', 'Calculer l\'enthalpie molaire ΔH'],
+          expectedObservations: 'La température augmente d\'environ 5 à 7 °C. La réaction est exothermique (ΔH ≈ -57 kJ/mol).'
         }],
         quiz: [
-          { id: 'q1', question: 'An exothermic reaction has:', type: 'multiple-choice', options: ['ΔH > 0', 'ΔH = 0', 'ΔH < 0', 'ΔH > 1'], answer: 2, explanation: 'Exothermic reactions release heat, so ΔH is negative (energy decreases in system, goes to surroundings).' },
-          { id: 'q2', question: 'Photosynthesis is an exothermic process.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! Photosynthesis is endothermic — plants absorb light energy to convert CO₂ and H₂O into glucose.' },
-          { id: 'q3', question: 'Using q = mcΔT with m=100g, c=4.18, ΔT=5°C, what is q?', type: 'multiple-choice', options: ['2090 J', '209 J', '20900 J', '20.9 J'], answer: 0, explanation: 'q = 100 × 4.18 × 5 = 2090 J = 2.09 kJ' },
-          { id: 'q4', question: 'Hess\'s Law states that enthalpy is a state function.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: "True! Hess's Law works because enthalpy depends only on initial and final states, not the path taken." }
+          { id: 'q1', question: 'Une réaction exothermique a :', type: 'multiple-choice', options: ['ΔH > 0', 'ΔH = 0', 'ΔH < 0', 'ΔH > 1'], answer: 2, explanation: 'Les réactions exothermiques libèrent de la chaleur, donc ΔH est négatif (l\'énergie diminue dans le système, va vers le milieu).' },
+          { id: 'q2', question: 'La photosynthèse est un processus exothermique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! La photosynthèse est endothermique — les plantes absorbent de l\'énergie lumineuse pour convertir le CO₂ et H₂O en glucose.' },
+          { id: 'q3', question: 'En utilisant q = mcΔT avec m=100 g, c=4,18, ΔT=5 °C, quelle est la valeur de q ?', type: 'multiple-choice', options: ['2090 J', '209 J', '20900 J', '20,9 J'], answer: 0, explanation: 'q = 100 × 4,18 × 5 = 2090 J = 2,09 kJ' },
+          { id: 'q4', question: 'La loi de Hess affirme que l\'enthalpie est une fonction d\'état.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La loi de Hess fonctionne car l\'enthalpie dépend uniquement des états initial et final, et non du chemin suivi.' }
         ]
       },
       {
         id: 'reaction_rates',
-        name: 'Reaction Rates',
-        description: 'Factors affecting how fast chemical reactions occur',
+        name: 'Cinétique chimique',
+        description: 'Facteurs influençant la vitesse à laquelle les réactions chimiques se produisent',
         icon: '⚡',
         theory: {
           sections: [
-            { title: 'Reaction Rate', content: 'Reaction rate = change in concentration / change in time. Measured by how quickly reactants are consumed or products form.', formula: 'rate = Δ[A]/Δt' },
-            { title: 'Factors Affecting Rate', content: '1. Concentration: more reactant → more collisions → faster rate. 2. Temperature: higher T → more kinetic energy → more effective collisions. 3. Surface area: more exposed surface → more reaction sites. 4. Catalyst: lowers activation energy, increases rate.' },
-            { title: 'Collision Theory', content: 'For a reaction to occur, particles must collide with sufficient energy (activation energy) and correct orientation. Only a fraction of collisions are effective.' },
-            { title: 'Activation Energy', content: 'The minimum energy required for a reaction to occur. Catalysts provide an alternative pathway with lower activation energy, increasing the reaction rate without being consumed.', formula: 'Ea = activation energy (kJ/mol)' }
+            { title: 'Vitesse de réaction', content: 'Vitesse de réaction = variation de concentration / variation de temps. Mesurée par la rapidité avec laquelle les réactifs sont consommés ou les produits se forment.', formula: 'vitesse = Δ[A]/Δt' },
+            { title: 'Facteurs influençant la vitesse', content: '1. Concentration : plus de réactif → plus de collisions → vitesse plus élevée. 2. Température : T plus élevée → plus d\'énergie cinétique → plus de collisions efficaces. 3. Surface de contact : plus grande surface exposée → plus de sites de réaction. 4. Catalyseur : abaisse l\'énergie d\'activation, augmente la vitesse.' },
+            { title: 'Théorie des collisions', content: 'Pour qu\'une réaction se produise, les particules doivent entrer en collision avec une énergie suffisante (énergie d\'activation) et une orientation correcte. Seulement une fraction des collisions est efficace.' },
+            { title: 'Énergie d\'activation', content: 'L\'énergie minimale requise pour qu\'une réaction se produise. Les catalyseurs offrent une voie alternative avec une énergie d\'activation plus faible, augmentant la vitesse de réaction sans être consommés.', formula: 'Ea = énergie d\'activation (kJ/mol)' }
           ]
         },
         experiments: [{
           id: 'rate_experiment',
-          name: 'Effect of Concentration on Rate',
-          description: 'Compare reaction rates of CaCO₃ with different HCl concentrations',
+          name: 'Effet de la concentration sur la vitesse',
+          description: 'Comparer les vitesses de réaction de CaCO₃ avec différentes concentrations de HCl',
           chemicals: ['hcl', 'caco3', 'h2o'],
           equipment: ['beaker', 'thermometer'],
-          steps: ['Prepare 1M, 0.5M, and 0.1M HCl solutions', 'Add equal amounts of CaCO₃ chips to each', 'Observe bubble rate (CO₂ production)', 'Time how long reaction takes', 'Compare rates'],
-          expectedObservations: '1M HCl produces rapid bubbling. 0.5M is moderate. 0.1M is very slow. Rate is proportional to concentration.'
+          steps: ['Préparer des solutions de HCl à 1 M, 0,5 M et 0,1 M', 'Ajouter des quantités égales de morceaux de CaCO₃ à chacune', 'Observer la vitesse de production de bulles (CO₂)', 'Chronométrer la durée de la réaction', 'Comparer les vitesses'],
+          expectedObservations: 'HCl à 1 M produit des bulles rapides. 0,5 M est modéré. 0,1 M est très lent. La vitesse est proportionnelle à la concentration.'
         }],
         quiz: [
-          { id: 'q1', question: 'Which factor does NOT directly affect reaction rate?', type: 'multiple-choice', options: ['Temperature', 'Concentration', 'Color of solution', 'Surface area'], answer: 2, explanation: 'Color itself doesn\'t affect rate. The other three directly influence collision frequency and energy.' },
-          { id: 'q2', question: 'A catalyst is consumed during a chemical reaction.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! A catalyst speeds up a reaction by lowering activation energy but is NOT consumed — it\'s regenerated.' },
-          { id: 'q3', question: 'Increasing temperature increases reaction rate because:', type: 'multiple-choice', options: ['Particles become smaller', 'More particles have sufficient energy to react', 'Concentration increases', 'Surface area increases'], answer: 1, explanation: 'Higher temperature gives more particles the minimum activation energy, resulting in more effective collisions.' },
-          { id: 'q4', question: 'Crushing a solid into powder increases its reaction rate.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Crushing increases surface area, exposing more particles to react with the other reactant.' }
+          { id: 'q1', question: 'Quel facteur n\'affecte PAS directement la vitesse de réaction ?', type: 'multiple-choice', options: ['Température', 'Concentration', 'Couleur de la solution', 'Surface de contact'], answer: 2, explanation: 'La couleur elle-même n\'affecte pas la vitesse. Les trois autres influencent directement la fréquence et l\'énergie des collisions.' },
+          { id: 'q2', question: 'Un catalyseur est consommé lors d\'une réaction chimique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Un catalyseur accélère une réaction en abaissant l\'énergie d\'activation mais N\'est PAS consommé — il est régénéré.' },
+          { id: 'q3', question: 'L\'augmentation de la température accroît la vitesse de réaction parce que :', type: 'multiple-choice', options: ['Les particules deviennent plus petites', 'Plus de particules ont suffisamment d\'énergie pour réagir', 'La concentration augmente', 'La surface de contact augmente'], answer: 1, explanation: 'Une température plus élevée donne à plus de particules l\'énergie d\'activation minimale, résultant en plus de collisions efficaces.' },
+          { id: 'q4', question: 'Broyer un solide en poudre augmente sa vitesse de réaction.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Broyer augmente la surface de contact, exposant plus de particules à réagir avec l\'autre réactif.' }
         ]
       }
     ]
@@ -378,68 +378,68 @@ export const CURRICULUM: Record<string, GradeLevel> = {
 
   grade11: {
     id: 'grade11',
-    name: 'Grade 11 Chemistry',
-    shortName: 'Grade 11',
+    name: 'Chimie de 1re',
+    shortName: '1re',
     color: '#f59e0b',
     icon: '⚡',
-    description: 'Organic chemistry, electrochemistry, and chemical analysis',
+    description: 'Chimie organique, électrochimie et analyse chimique',
     topics: [
       {
         id: 'organic_chemistry',
-        name: 'Organic Chemistry',
-        description: 'Carbon compounds: hydrocarbons, functional groups, and reactions',
+        name: 'Chimie organique',
+        description: 'Composés carbonés : hydrocarbures, groupes fonctionnels et réactions',
         icon: '🌿',
         theory: {
           sections: [
-            { title: 'Introduction to Organic Chemistry', content: 'Organic chemistry studies carbon-containing compounds. Carbon forms 4 bonds and can bond to itself, creating chains and rings. The vast diversity of organic compounds makes life possible.' },
-            { title: 'Hydrocarbons', content: 'Alkanes (CₙH₂ₙ₊₂): only single C-C bonds, saturated. Alkenes (CₙH₂ₙ): contain C=C double bond. Alkynes (CₙH₂ₙ₋₂): contain C≡C triple bond. Aromatics: contain benzene ring.' },
-            { title: 'Functional Groups', content: 'Functional groups determine reactivity: -OH (alcohol), -COOH (carboxylic acid), -CHO (aldehyde), -CO- (ketone), -NH₂ (amine), -COO- (ester), -CONH- (amide).' },
-            { title: 'Organic Reactions', content: 'Combustion: complete → CO₂ + H₂O. Substitution (alkanes). Addition (alkenes + HX, H₂, Br₂). Esterification: alcohol + acid → ester + water. Fermentation: C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂' }
+            { title: 'Introduction à la chimie organique', content: 'La chimie organique étudie les composés contenant du carbone. Le carbone forme 4 liaisons et peut se lier à lui-même, créant des chaînes et des cycles. La vaste diversité des composés organiques rend la vie possible.' },
+            { title: 'Hydrocarbures', content: 'Alcanes (CₙH₂ₙ₊₂) : seulement des liaisons simples C-C, saturés. Alcènes (CₙH₂ₙ) : contiennent une double liaison C=C. Alcynes (CₙH₂ₙ₋₂) : contiennent une triple liaison C≡C. Aromatiques : contiennent un cycle benzénique.' },
+            { title: 'Groupes fonctionnels', content: 'Les groupes fonctionnels déterminent la réactivité : -OH (alcool), -COOH (acide carboxylique), -CHO (aldéhyde), -CO- (cétone), -NH₂ (amine), -COO- (ester), -CONH- (amide).' },
+            { title: 'Réactions organiques', content: 'Combustion : complète → CO₂ + H₂O. Substitution (alcanes). Addition (alcènes + HX, H₂, Br₂). Estérification : alcool + acide → ester + eau. Fermentation : C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂' }
           ]
         },
         experiments: [{
           id: 'ester_synthesis',
-          name: 'Ester Synthesis (Esterification)',
-          description: 'React ethanol with acetic acid to produce ethyl acetate (fruity odor)',
+          name: 'Synthèse d\'ester (estérification)',
+          description: 'Faire réagir l\'éthanol avec l\'acide acétique pour produire de l\'acétate d\'éthyle (odeur fruitée)',
           chemicals: ['ethanol', 'ch3cooh', 'h2so4'],
           equipment: ['beaker', 'hot_plate', 'condenser'],
-          steps: ['Mix 10 mL ethanol and 10 mL acetic acid', 'Add 2-3 drops H₂SO₄ as catalyst', 'Heat gently for 5-10 minutes', 'Cool and smell carefully by wafting', 'Note fruity odor of ethyl acetate'],
-          expectedObservations: 'Fruity (pear/nail polish) odor of ethyl acetate forms. CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O'
+          steps: ['Mélanger 10 mL d\'éthanol et 10 mL d\'acide acétique', 'Ajouter 2-3 gouttes de H₂SO₄ comme catalyseur', 'Chauffer doucement pendant 5-10 minutes', 'Refroidir et sentir soigneusement par effluvage', 'Noter l\'odeur fruitée de l\'acétate d\'éthyle'],
+          expectedObservations: 'Odeur fruitée (poire/vernis à ongles) de l\'acétate d\'éthyle se forme. CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O'
         }],
         quiz: [
-          { id: 'q1', question: 'Which functional group is characteristic of alcohols?', type: 'multiple-choice', options: ['-COOH', '-OH', '-CHO', '-NH₂'], answer: 1, explanation: 'The hydroxyl group (-OH) bonded to a carbon is the functional group that defines alcohols.' },
-          { id: 'q2', question: 'Alkanes are unsaturated hydrocarbons.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! Alkanes are SATURATED — they contain only single C-C bonds. Alkenes and alkynes are unsaturated.' },
-          { id: 'q3', question: 'What type of reaction produces an ester?', type: 'multiple-choice', options: ['Combustion', 'Addition', 'Esterification', 'Substitution'], answer: 2, explanation: 'Esterification: alcohol + carboxylic acid → ester + water (with acid catalyst, reversible reaction).' },
-          { id: 'q4', question: 'The general formula for alkenes is CₙH₂ₙ.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Alkenes have one C=C double bond, so each double bond reduces 2 H atoms from alkane formula CₙH₂ₙ₊₂.' }
+          { id: 'q1', question: 'Quel groupe fonctionnel est caractéristique des alcools ?', type: 'multiple-choice', options: ['-COOH', '-OH', '-CHO', '-NH₂'], answer: 1, explanation: 'Le groupe hydroxyle (-OH) lié à un carbone est le groupe fonctionnel qui définit les alcools.' },
+          { id: 'q2', question: 'Les alcanes sont des hydrocarbures insaturés.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Les alcanes sont SATURÉS — ils ne contiennent que des liaisons simples C-C. Les alcènes et les alcynes sont insaturés.' },
+          { id: 'q3', question: 'Quel type de réaction produit un ester ?', type: 'multiple-choice', options: ['Combustion', 'Addition', 'Estérification', 'Substitution'], answer: 2, explanation: 'Estérification : alcool + acide carboxylique → ester + eau (avec catalyseur acide, réaction réversible).' },
+          { id: 'q4', question: 'La formule générale des alcènes est CₙH₂ₙ.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Les alcènes ont une double liaison C=C, donc chaque double liaison réduit de 2 les atomes H par rapport à la formule de l\'alcane CₙH₂ₙ₊₂.' }
         ]
       },
       {
         id: 'electrochemistry',
-        name: 'Electrochemistry',
-        description: 'Galvanic cells, electrolysis, electrode potentials, and Faraday\'s Laws',
+        name: 'Électrochimie',
+        description: 'Piles galvaniques, électrolyse, potentiels d\'électrode et lois de Faraday',
         icon: '⚡',
         theory: {
           sections: [
-            { title: 'Galvanic (Voltaic) Cells', content: 'Galvanic cells convert chemical energy to electrical energy through spontaneous redox reactions. The cell has two half-cells connected by a salt bridge. Electrons flow from anode (oxidation) to cathode (reduction).' },
-            { title: 'Standard Electrode Potentials', content: 'E° values measure tendency to be reduced. More positive E° = better oxidizing agent. Cell EMF: E°cell = E°cathode - E°anode. Example: Cu/Zn cell E° = 0.34 - (-0.76) = 1.10 V', formula: 'E°cell = E°cathode - E°anode' },
-            { title: 'Electrolysis', content: 'Electrolysis uses electrical energy to drive non-spontaneous redox reactions. External power source forces electrons to flow in opposite direction. Used in metal plating, water splitting (H₂O → H₂ + O₂).' },
-            { title: "Faraday's Laws", content: 'First Law: mass deposited ∝ quantity of charge. Second Law: mass ∝ molar mass / charge number. Q = It (charge = current × time)', formula: "m = (Q × M) / (n × F) where F = 96485 C/mol" }
+            { title: 'Piles galvaniques (voltaïques)', content: 'Les piles galvaniques convertissent l\'énergie chimique en énergie électrique par des réactions redox spontanées. La pile comporte deux demi-piles reliées par un pont salin. Les électrons circulent de l\'anode (oxydation) vers la cathode (réduction).' },
+            { title: 'Potentiels standard d\'électrode', content: 'Les valeurs E° mesurent la tendance à être réduit. E° plus positif = meilleur agent oxydant. FEM de la pile : E°pile = E°cathode - E°anode. Exemple : pile Cu/Zn E° = 0,34 - (-0,76) = 1,10 V', formula: 'E°pile = E°cathode - E°anode' },
+            { title: 'Électrolyse', content: 'L\'électrolyse utilise l\'énergie électrique pour conduire des réactions redox non spontanées. Une source d\'alimentation externe force les électrons à circuler en sens inverse. Utilisée pour le dépôt électrolytique, l\'électrolyse de l\'eau (H₂O → H₂ + O₂).' },
+            { title: 'Lois de Faraday', content: 'Première loi : la masse déposée ∝ quantité de charge. Deuxième loi : la masse ∝ masse molaire / nombre de charges. Q = It (charge = courant × temps)', formula: 'm = (Q × M) / (n × F) où F = 96485 C/mol' }
           ]
         },
         experiments: [{
           id: 'galvanic_cell_exp',
-          name: 'Zinc-Copper Galvanic Cell',
-          description: 'Build a Zn-Cu galvanic cell and measure its voltage',
+          name: 'Pile galvanique zinc-cuivre',
+          description: 'Construire une pile galvanique Zn-Cu et mesurer sa tension',
           chemicals: ['cuso4', 'h2so4', 'zn', 'cu'],
           equipment: ['galvanic_cell', 'conductivity_meter', 'beaker'],
-          steps: ['Set up two beakers: one with CuSO₄, one with ZnSO₄', 'Place Cu electrode in CuSO₄, Zn in ZnSO₄', 'Connect with salt bridge (saturated KNO₃)', 'Connect voltmeter between electrodes', 'Measure voltage (expect ~1.1 V)', 'Observe copper depositing on Cu electrode'],
-          expectedObservations: 'Voltage reading ~1.1 V. Zn anode slowly dissolves (oxidation). Cu cathode gains mass (reduction: Cu²⁺ → Cu).'
+          steps: ['Installer deux béchers : un avec CuSO₄, un avec ZnSO₄', 'Placer l\'électrode Cu dans CuSO₄, Zn dans ZnSO₄', 'Relier avec un pont salin (KNO₃ saturé)', 'Connecter le voltmètre entre les électrodes', 'Mesurer la tension (environ 1,1 V)', 'Observer le dépôt de cuivre sur l\'électrode Cu'],
+          expectedObservations: 'Lecture de tension ~1,1 V. L\'anode Zn se dissout lentement (oxydation). La cathode Cu gagne de la masse (réduction : Cu²⁺ → Cu).'
         }],
         quiz: [
-          { id: 'q1', question: 'In a galvanic cell, oxidation occurs at the:', type: 'multiple-choice', options: ['Cathode', 'Anode', 'Salt bridge', 'Electrolyte'], answer: 1, explanation: 'AN OX: ANode = OXidation. The anode loses electrons — it is where oxidation occurs.' },
-          { id: 'q2', question: 'Electrolysis converts chemical energy to electrical energy.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! It\'s the reverse — electrolysis uses ELECTRICAL energy to drive chemical reactions (non-spontaneous).' },
-          { id: 'q3', question: 'If E°cathode = +0.34V and E°anode = -0.76V, what is E°cell?', type: 'multiple-choice', options: ['0.42 V', '1.10 V', '-0.42 V', '0.76 V'], answer: 1, explanation: 'E°cell = E°cathode - E°anode = 0.34 - (-0.76) = 0.34 + 0.76 = 1.10 V' },
-          { id: 'q4', question: 'A positive E°cell indicates a spontaneous reaction.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Positive cell potential (E°cell > 0) means the reaction is spontaneous (ΔG < 0).' }
+          { id: 'q1', question: 'Dans une pile galvanique, l\'oxydation se produit à :', type: 'multiple-choice', options: ['La cathode', 'L\'anode', 'Le pont salin', 'L\'électrolyte'], answer: 1, explanation: 'L\'anode = OXydation. L\'anode perd des électrons — c\'est là que se produit l\'oxydation.' },
+          { id: 'q2', question: 'L\'électrolyse convertit l\'énergie chimique en énergie électrique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! C\'est l\'inverse — l\'électrolyse utilise l\'énergie ÉLECTRIQUE pour conduire des réactions chimiques (non spontanées).' },
+          { id: 'q3', question: 'Si E°cathode = +0,34 V et E°anode = -0,76 V, quelle est la valeur de E°pile ?', type: 'multiple-choice', options: ['0,42 V', '1,10 V', '-0,42 V', '0,76 V'], answer: 1, explanation: 'E°pile = E°cathode - E°anode = 0,34 - (-0,76) = 0,34 + 0,76 = 1,10 V' },
+          { id: 'q4', question: 'Un E°pile positif indique une réaction spontanée.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Un potentiel de pile positif (E°pile > 0) signifie que la réaction est spontanée (ΔG < 0).' }
         ]
       }
     ]
@@ -447,136 +447,136 @@ export const CURRICULUM: Record<string, GradeLevel> = {
 
   grade12: {
     id: 'grade12',
-    name: 'Grade 12 Chemistry',
-    shortName: 'Grade 12',
+    name: 'Chimie de Terminale',
+    shortName: 'Term.',
     color: '#ef4444',
     icon: '🎓',
-    description: 'Advanced topics: titration, electrolysis, redox, and analytical chemistry',
+    description: 'Sujets avancés : titrage, électrolyse, redox et chimie analytique',
     topics: [
       {
         id: 'titration',
-        name: 'Titration',
-        description: 'Quantitative acid-base analysis using titration techniques',
+        name: 'Titrage',
+        description: 'Analyse acide-base quantitative par des techniques de titrage',
         icon: '💧',
         theory: {
           sections: [
-            { title: 'What is Titration?', content: 'Titration is a quantitative analytical technique to determine the unknown concentration of a solution. A solution of known concentration (titrant) is carefully added to an unknown solution until the reaction is complete (equivalence point).' },
-            { title: 'Types of Titration', content: 'Acid-base titration: most common, uses indicators. Redox titration: uses KMnO₄ or I₂ (no indicator needed). Complexometric: uses EDTA. Precipitation: forms insoluble product. Back titration: add excess and then titrate the excess.' },
-            { title: 'Equivalence Point vs. Endpoint', content: 'Equivalence point: moles of acid = moles of base (theoretical). Endpoint: when indicator changes color (practical). These should be as close as possible. Choice of indicator depends on pH at equivalence point.' },
-            { title: 'Titration Calculations', content: 'At equivalence point: n(acid) = n(base). Therefore: C_acid × V_acid = C_base × V_base', formula: 'C₁V₁ = C₂V₂ (for 1:1 reactions)' }
+            { title: 'Qu\'est-ce que le titrage ?', content: 'Le titrage est une technique analytique quantitative permettant de déterminer la concentration inconnue d\'une solution. Une solution de concentration connue (titrant) est soigneusement ajoutée à une solution inconnue jusqu\'à ce que la réaction soit complète (point d\'équivalence).' },
+            { title: 'Types de titrage', content: 'Titrage acide-base : le plus courant, utilise des indicateurs. Titrage redox : utilise KMnO₄ ou I₂ (sans indicateur nécessaire). Complexométrique : utilise l\'EDTA. Précipitation : forme un produit insoluble. Titrage en retour : ajouter un excès puis titrer l\'excès.' },
+            { title: 'Point d\'équivalence vs. point de virage', content: 'Point d\'équivalence : moles d\'acide = moles de base (théorique). Point de virage : quand l\'indicateur change de couleur (pratique). Ces deux points doivent être aussi proches que possible. Le choix de l\'indicateur dépend du pH au point d\'équivalence.' },
+            { title: 'Calculs de titrage', content: 'Au point d\'équivalence : n(acide) = n(base). Donc : C_acide × V_acide = C_base × V_base', formula: 'C₁V₁ = C₂V₂ (pour les réactions 1:1)' }
           ]
         },
         experiments: [{
           id: 'titration_exp',
-          name: 'Acid-Base Titration',
-          description: 'Determine concentration of unknown NaOH using standard HCl and phenolphthalein',
+          name: 'Titrage acide-base',
+          description: 'Déterminer la concentration de NaOH inconnu à l\'aide de HCl standard et de phénolphtaléine',
           chemicals: ['hcl', 'naoh', 'phenolphthalein'],
           equipment: ['burette', 'erlenmeyer', 'pipette', 'beaker'],
           steps: [
-            'Rinse burette with standard HCl solution',
-            'Fill burette with standard 0.1 M HCl, record initial volume',
-            'Pipette exactly 25.0 mL unknown NaOH into Erlenmeyer flask',
-            'Add 3 drops phenolphthalein indicator (solution turns pink)',
-            'Add HCl from burette dropwise, swirling after each addition',
-            'Near endpoint, add HCl one drop at a time',
-            'Stop when pink color disappears permanently',
-            'Record final burette reading',
-            'Calculate: C(HCl) × V(HCl) = C(NaOH) × V(NaOH)'
+            'Rincer la burette avec la solution de HCl standard',
+            'Remplir la burette avec 0,1 M HCl standard, noter le volume initial',
+            'Prélever exactement 25,0 mL de NaOH inconnu à la pipette dans le flacon Erlenmeyer',
+            'Ajouter 3 gouttes d\'indicateur phénolphtaléine (la solution devient rose)',
+            'Ajouter HCl depuis la burette goutte à goutte, en agitant après chaque ajout',
+            'Près du point de virage, ajouter HCl une goutte à la fois',
+            'Arrêter quand la couleur rose disparaît définitivement',
+            'Relever la lecture finale de la burette',
+            'Calculer : C(HCl) × V(HCl) = C(NaOH) × V(NaOH)'
           ],
-          expectedObservations: 'Pink phenolphthalein turns colorless at endpoint. Calculate unknown NaOH concentration from HCl volume used.'
+          expectedObservations: 'La phénolphtaléine rose devient incolore au point de virage. Calculer la concentration inconnue de NaOH à partir du volume de HCl utilisé.'
         }],
         quiz: [
-          { id: 'q1', question: 'Phenolphthalein is colorless in acidic and pink in basic solution.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Phenolphthalein is colorless at pH < 8.2 and pink/magenta at pH > 8.2.' },
-          { id: 'q2', question: 'If 20 mL of 0.5M HCl neutralizes NaOH, how many moles of NaOH were present?', type: 'multiple-choice', options: ['0.01 mol', '0.02 mol', '0.04 mol', '0.1 mol'], answer: 0, explanation: 'n(HCl) = C×V = 0.5 × 0.020 = 0.01 mol. Since HCl:NaOH = 1:1, n(NaOH) = 0.01 mol.' },
-          { id: 'q3', question: 'The equivalence point is where indicator changes color.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! The endpoint is where the indicator changes color. The equivalence point is the theoretical point where moles are equal.' },
-          { id: 'q4', question: 'In a back titration, you:', type: 'multiple-choice', options: ['Titrate backwards direction', 'Add excess reagent then titrate the excess', 'Use two indicators', 'Titrate at low temperature'], answer: 1, explanation: 'Back titration adds a known excess of reagent, then titrates the unreacted excess to find how much reacted with the unknown.' }
+          { id: 'q1', question: 'La phénolphtaléine est incolore en milieu acide et rose en solution basique.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La phénolphtaléine est incolore à pH < 8,2 et rose/magenta à pH > 8,2.' },
+          { id: 'q2', question: 'Si 20 mL de HCl à 0,5 M neutralise du NaOH, combien de moles de NaOH étaient présentes ?', type: 'multiple-choice', options: ['0,01 mol', '0,02 mol', '0,04 mol', '0,1 mol'], answer: 0, explanation: 'n(HCl) = C×V = 0,5 × 0,020 = 0,01 mol. Comme HCl:NaOH = 1:1, n(NaOH) = 0,01 mol.' },
+          { id: 'q3', question: 'Le point d\'équivalence est là où l\'indicateur change de couleur.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! Le point de virage est là où l\'indicateur change de couleur. Le point d\'équivalence est le point théorique où les moles sont égales.' },
+          { id: 'q4', question: 'Dans un titrage en retour, on :', type: 'multiple-choice', options: ['Effectuer le titrage en sens inverse', 'Ajouter un excès de réactif puis titrer l\'excès', 'Utiliser deux indicateurs', 'Effectuer le titrage à basse température'], answer: 1, explanation: 'Le titrage en retour ajoute un excès connu de réactif, puis titre l\'excès qui n\'a pas réagi pour déterminer la quantité ayant réagi avec l\'inconnu.' }
         ]
       },
       {
         id: 'redox',
-        name: 'Redox Reactions',
-        description: 'Oxidation-reduction reactions, balancing redox equations, and applications',
+        name: 'Réactions redox',
+        description: 'Réactions d\'oxydoréduction, équilibrage des équations redox et applications',
         icon: '⚖️',
         theory: {
           sections: [
-            { title: 'Oxidation and Reduction', content: 'Oxidation = loss of electrons (OIL). Reduction = gain of electrons (RIG). Mnemonic: OIL RIG. They always occur together (hence "redox"). The reducing agent is oxidized; the oxidizing agent is reduced.' },
-            { title: 'Oxidation States', content: 'Rules for assigning oxidation states: Pure element = 0. Monoatomic ion = charge. O = -2 (except peroxides). H = +1 (except metal hydrides). Sum of OS = molecule charge.' },
-            { title: 'Balancing Redox Equations', content: 'Half-reaction method: 1) Write separate oxidation and reduction half-reactions. 2) Balance atoms. 3) Balance electrons. 4) Combine half-reactions. 5) Check atoms and charges.' },
-            { title: 'Disproportionation', content: 'Special redox where one species is simultaneously oxidized and reduced. Example: Cl₂ + 2NaOH → NaCl + NaOCl + H₂O. Cl₂ (0) → Cl⁻ (-1, reduced) and OCl⁻ (+1, oxidized).' }
+            { title: 'Oxydation et réduction', content: 'Oxydation = perte d\'électrons (OIL). Réduction = gain d\'électrons (RIG). Moyen mnémotechnique : OIL RIG. Elles se produisent toujours ensemble (d\'où « redox »). L\'agent réducteur est oxydé ; l\'agent oxydant est réduit.' },
+            { title: 'États d\'oxydation', content: 'Règles d\'attribution des états d\'oxydation : Élément pur = 0. Ion monoatomique = charge. O = -2 (sauf peroxydes). H = +1 (sauf hydrures métalliques). Somme des EO = charge de la molécule.' },
+            { title: 'Équilibrage des équations redox', content: 'Méthode des demi-réactions : 1) Écrire les demi-réactions d\'oxydation et de réduction séparément. 2) Équilibrer les atomes. 3) Équilibrer les électrons. 4) Combiner les demi-réactions. 5) Vérifier les atomes et les charges.' },
+            { title: 'Dismutation', content: 'Réaction redox spéciale où une espèce est simultanément oxydée et réduite. Exemple : Cl₂ + 2NaOH → NaCl + NaOCl + H₂O. Cl₂ (0) → Cl⁻ (-1, réduit) et OCl⁻ (+1, oxydé).' }
           ]
         },
         experiments: [{
           id: 'kmno4_titration',
-          name: 'Permanganate Redox Titration',
-          description: 'Determine Fe²⁺ concentration using KMnO₄ (self-indicating)',
+          name: 'Titrage redox au permanganate',
+          description: 'Déterminer la concentration de Fe²⁺ en utilisant KMnO₄ (auto-indicateur)',
           chemicals: ['kmno4', 'h2so4', 'fe'],
           equipment: ['burette', 'erlenmeyer', 'beaker'],
-          steps: ['Dissolve iron wire in dilute H₂SO₄ to get Fe²⁺ solution', 'Add excess H₂SO₄ to ensure acidic conditions', 'Fill burette with KMnO₄ solution', 'Add KMnO₄ from burette', 'Purple KMnO₄ is decolorized by Fe²⁺', 'At endpoint, one drop gives permanent pink', 'Calculate Fe²⁺ concentration'],
-          expectedObservations: 'Purple KMnO₄ is instantly decolorized. At endpoint, permanent light pink. MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O'
+          steps: ['Dissoudre du fil de fer dans H₂SO₄ dilué pour obtenir une solution de Fe²⁺', 'Ajouter un excès de H₂SO₄ pour assurer des conditions acides', 'Remplir la burette avec la solution de KMnO₄', 'Ajouter KMnO₄ depuis la burette', 'Le KMnO₄ violet est décoloré par Fe²⁺', 'Au point de virage, une goutte donne un rose permanent', 'Calculer la concentration de Fe²⁺'],
+          expectedObservations: 'Le KMnO₄ violet est instantanément décoloré. Au point de virage, rose clair permanent. MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O'
         }],
         quiz: [
-          { id: 'q1', question: 'OIL RIG stands for:', type: 'multiple-choice', options: ['Oxygen Is Lost, Reduction Is Gained', 'Oxidation Is Loss, Reduction Is Gain', 'Oxide In Liquid, Reduction In Gas', 'Oxidant Is Low, Reductant Is Great'], answer: 1, explanation: 'OIL RIG: Oxidation Is Loss (of electrons), Reduction Is Gain (of electrons). The essential redox mnemonic.' },
-          { id: 'q2', question: 'In MnO₄⁻, the oxidation state of Mn is +7.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! Each O = -2, total from 4 O = -8. Ion charge = -1. So Mn + (-8) = -1, Mn = +7.' },
-          { id: 'q3', question: 'When a substance is oxidized, it:', type: 'multiple-choice', options: ['Gains electrons', 'Loses protons', 'Loses electrons', 'Gains protons'], answer: 2, explanation: 'Oxidation = loss of electrons. The substance loses electrons to the oxidizing agent.' },
-          { id: 'q4', question: 'The reducing agent is the substance that gets reduced.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! The REDUCING agent is OXIDIZED (it loses electrons and causes the other substance to be reduced).' }
+          { id: 'q1', question: 'OIL RIG signifie :', type: 'multiple-choice', options: ['L\'oxygène est perdu, la réduction est gagnée', 'L\'oxydation est une perte, la réduction est un gain', 'L\'oxyde en liquide, la réduction en gaz', 'L\'oxydant est faible, le réducteur est puissant'], answer: 1, explanation: 'OIL RIG : Oxydation est une perte (d\'électrons), Réduction est un gain (d\'électrons). Le mnémotechnique essentiel du redox.' },
+          { id: 'q2', question: 'Dans MnO₄⁻, l\'état d\'oxydation de Mn est +7.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! Chaque O = -2, total des 4 O = -8. Charge de l\'ion = -1. Donc Mn + (-8) = -1, Mn = +7.' },
+          { id: 'q3', question: 'Lorsqu\'une substance est oxydée, elle :', type: 'multiple-choice', options: ['Gagne des électrons', 'Perd des protons', 'Perd des électrons', 'Gagne des protons'], answer: 2, explanation: 'Oxydation = perte d\'électrons. La substance perd des électrons au profit de l\'agent oxydant.' },
+          { id: 'q4', question: 'L\'agent réducteur est la substance qui est réduite.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! L\'agent RÉDUCTEUR est OXYDÉ (il perd des électrons et provoque la réduction de l\'autre substance).' }
         ]
       },
       {
         id: 'electrolysis',
-        name: 'Electrolysis',
-        description: 'Using electricity to drive chemical reactions: applications and Faraday\'s laws',
+        name: 'Électrolyse',
+        description: 'Utiliser l\'électricité pour conduire des réactions chimiques : applications et lois de Faraday',
         icon: '⚡',
         theory: {
           sections: [
-            { title: 'Electrolysis Basics', content: 'Electrolysis uses electrical energy to drive non-spontaneous redox reactions. An external power source forces electrons to flow: cations migrate to cathode (reduction), anions to anode (oxidation).' },
-            { title: 'Products of Electrolysis', content: 'Molten NaCl: cathode → Na metal, anode → Cl₂ gas. Water electrolysis: cathode → H₂, anode → O₂. Aqueous CuSO₄ with Cu electrodes: cathode → Cu deposited, anode → Cu dissolves.' },
-            { title: "Faraday's First Law", content: 'The mass of substance deposited or dissolved at an electrode is proportional to the quantity of charge passed: m ∝ Q = It', formula: 'm = (Q × M)/(n × F) where F = 96485 C/mol' },
-            { title: 'Electroplating', content: 'Electroplating uses electrolysis to deposit a thin layer of metal on an object. Object = cathode, metal source = anode, electrolyte = metal salt solution. Applications: chrome plating, silver plating, gold plating.' }
+            { title: 'Bases de l\'électrolyse', content: 'L\'électrolyse utilise l\'énergie électrique pour conduire des réactions redox non spontanées. Une source d\'alimentation externe force la circulation des électrons : les cations migrent vers la cathode (réduction), les anions vers l\'anode (oxydation).' },
+            { title: 'Produits de l\'électrolyse', content: 'NaCl fondu : cathode → métal Na, anode → gaz Cl₂. Électrolyse de l\'eau : cathode → H₂, anode → O₂. CuSO₄ aqueux avec électrodes Cu : cathode → Cu déposé, anode → Cu dissous.' },
+            { title: 'Première loi de Faraday', content: 'La masse de substance déposée ou dissoute à une électrode est proportionnelle à la quantité de charge passée : m ∝ Q = It', formula: 'm = (Q × M)/(n × F) où F = 96485 C/mol' },
+            { title: 'Électrodépôt', content: 'L\'électrodépôt utilise l\'électrolyse pour déposer une fine couche de métal sur un objet. Objet = cathode, source de métal = anode, électrolyte = solution de sel métallique. Applications : chromage, argenture, dorure.' }
           ]
         },
         experiments: [{
           id: 'water_electrolysis',
-          name: 'Electrolysis of Water',
-          description: 'Split water into hydrogen and oxygen gas using electrolysis',
+          name: 'Électrolyse de l\'eau',
+          description: 'Décomposer l\'eau en hydrogène et en oxygène gazeux par électrolyse',
           chemicals: ['h2o', 'na2co3'],
           equipment: ['electrolysis', 'beaker', 'conductivity_meter'],
-          steps: ['Dissolve Na₂CO₃ in water (improves conductivity)', 'Set up electrolysis apparatus with carbon electrodes', 'Connect to DC power supply (6-12V)', 'Observe bubble formation at both electrodes', 'Cathode: 2H₂O + 2e⁻ → H₂ + 2OH⁻', 'Anode: 2H₂O → O₂ + 4H⁺ + 4e⁻', 'Ratio of H₂:O₂ = 2:1 by volume'],
-          expectedObservations: 'Twice as much gas at cathode (H₂) vs anode (O₂). Overall: 2H₂O → 2H₂ + O₂'
+          steps: ['Dissoudre Na₂CO₃ dans l\'eau (améliore la conductivité)', 'Installer l\'appareil d\'électrolyse avec des électrodes en carbone', 'Connecter à une alimentation CC (6-12 V)', 'Observer la formation de bulles aux deux électrodes', 'Cathode : 2H₂O + 2e⁻ → H₂ + 2OH⁻', 'Anode : 2H₂O → O₂ + 4H⁺ + 4e⁻', 'Rapport H₂:O₂ = 2:1 en volume'],
+          expectedObservations: 'Deux fois plus de gaz à la cathode (H₂) qu\'à l\'anode (O₂). Bilan : 2H₂O → 2H₂ + O₂'
         }],
         quiz: [
-          { id: 'q1', question: 'In electrolysis, what happens at the cathode?', type: 'multiple-choice', options: ['Oxidation', 'Reduction', 'Nothing', 'Neutralization'], answer: 1, explanation: 'At the cathode: cations gain electrons → REDUCTION occurs. (CAThode = CATion reduction)' },
-          { id: 'q2', question: 'Electroplating uses the object to be plated as the anode.', type: 'true-false', options: ['True', 'False'], answer: 1, explanation: 'False! The object to be plated is the CATHODE. The anode is the source metal (e.g., pure copper for copper plating).' },
-          { id: 'q3', question: 'In water electrolysis, what is produced at the cathode?', type: 'multiple-choice', options: ['Oxygen gas', 'Chlorine gas', 'Hydrogen gas', 'Water'], answer: 2, explanation: 'At cathode: 2H₂O + 2e⁻ → H₂↑ + 2OH⁻. Hydrogen gas is produced at the cathode.' },
-          { id: 'q4', question: "Faraday's constant is approximately 96485 C/mol.\"", type: 'true-false', options: ['True', 'False'], answer: 0, explanation: "True! Faraday's constant F = 96485 C/mol represents the charge of one mole of electrons." }
+          { id: 'q1', question: 'En électrolyse, que se passe-t-il à la cathode ?', type: 'multiple-choice', options: ['Oxydation', 'Réduction', 'Rien', 'Neutralisation'], answer: 1, explanation: 'À la cathode : les cations gagnent des électrons → la RÉDUCTION se produit. (CAThode = réduction des CATions)' },
+          { id: 'q2', question: 'En électrodépôt, l\'objet à plaquer sert d\'anode.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 1, explanation: 'Faux ! L\'objet à plaquer est la CATHODE. L\'anode est le métal source (par ex., cuivre pur pour le placage au cuivre).' },
+          { id: 'q3', question: 'Lors de l\'électrolyse de l\'eau, qu\'est-ce qui est produit à la cathode ?', type: 'multiple-choice', options: ['Gaz oxygène', 'Gaz chlore', 'Gaz hydrogène', 'Eau'], answer: 2, explanation: 'À la cathode : 2H₂O + 2e⁻ → H₂↑ + 2OH⁻. Le gaz hydrogène est produit à la cathode.' },
+          { id: 'q4', question: 'La constante de Faraday est approximativement 96485 C/mol.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! La constante de Faraday F = 96485 C/mol représente la charge d\'une mole d\'électrons.' }
         ]
       },
       {
         id: 'galvanic_cells',
-        name: 'Galvanic Cells',
-        description: 'Electrochemical cells that generate electricity from spontaneous redox reactions',
+        name: 'Piles galvaniques',
+        description: 'Cellules électrochimiques qui génèrent de l\'électricité à partir de réactions redox spontanées',
         icon: '🔋',
         theory: {
           sections: [
-            { title: 'Cell Construction', content: 'A galvanic cell has: anode (negative, oxidation), cathode (positive, reduction), salt bridge (maintains electrical neutrality), external circuit (electron flow from anode to cathode).' },
-            { title: 'Standard Cell Notation', content: 'Cell notation: Anode | anode solution || cathode solution | cathode. Example: Zn | Zn²⁺ || Cu²⁺ | Cu (Daniel cell). || represents the salt bridge.' },
-            { title: 'Nernst Equation', content: 'Cell potential varies with concentration. At non-standard conditions:', formula: 'E = E° - (RT/nF)ln(Q) ≈ E° - (0.0592/n)log(Q) at 25°C' },
-            { title: 'Commercial Cells', content: 'Dry cell (Leclanché): Zn anode, MnO₂/C cathode. Alkaline cell: longer life, higher current. Lead-acid battery (car): Pb/PbO₂, rechargeable. Li-ion: high energy density, used in phones/laptops. Fuel cells: H₂ + O₂ → H₂O + electricity.' }
+            { title: 'Construction de la pile', content: 'Une pile galvanique comprend : une anode (négative, oxydation), une cathode (positive, réduction), un pont salin (maintient la neutralité électrique), un circuit externe (flux d\'électrons de l\'anode vers la cathode).' },
+            { title: 'Notation standard des piles', content: 'Notation de pile : Anode | solution anode || solution cathode | cathode. Exemple : Zn | Zn²⁺ || Cu²⁺ | Cu (pile de Daniell). || représente le pont salin.' },
+            { title: 'Équation de Nernst', content: 'Le potentiel de pile varie avec la concentration. Dans des conditions non standard :', formula: 'E = E° - (RT/nF)ln(Q) ≈ E° - (0,0592/n)log(Q) à 25°C' },
+            { title: 'Piles commerciales', content: 'Pile sèche (Leclanché) : anode Zn, cathode MnO₂/C. Pile alcaline : durée de vie plus longue, courant plus élevé. Batterie plomb-acide (voiture) : Pb/PbO₂, rechargeable. Li-ion : haute densité d\'énergie, utilisée dans les téléphones/ordinateurs. Piles à combustible : H₂ + O₂ → H₂O + électricité.' }
           ]
         },
         experiments: [{
           id: 'fruit_battery',
-          name: 'Lemon Battery',
-          description: 'Create a galvanic cell using citric acid in a lemon with Zn and Cu electrodes',
+          name: 'Pile au citron',
+          description: 'Créer une pile galvanique en utilisant l\'acide citrique d\'un citron avec des électrodes Zn et Cu',
           chemicals: ['ch3cooh'],
           equipment: ['galvanic_cell', 'conductivity_meter'],
-          steps: ['Insert zinc (Zn) strip into lemon', 'Insert copper (Cu) strip into same lemon', 'Keep electrodes separate (do not touch inside)', 'Connect voltmeter to electrodes', 'Measure voltage', 'Series-connect multiple lemons for higher voltage'],
-          expectedObservations: 'Voltage ~0.5-1.0 V per lemon. Zn is anode (oxidized), Cu is cathode (reduced). Lemon juice (citric acid) = electrolyte.'
+          steps: ['Insérer une lamelle de zinc (Zn) dans le citron', 'Insérer une lamelle de cuivre (Cu) dans le même citron', 'Garder les électrodes séparées (ne pas se toucher à l\'intérieur)', 'Connecter le voltmètre aux électrodes', 'Mesurer la tension', 'Connecter plusieurs citrons en série pour une tension plus élevée'],
+          expectedObservations: 'Tension ~0,5-1,0 V par citron. Le Zn est l\'anode (oxydé), le Cu est la cathode (réduit). Le jus de citron (acide citrique) = électrolyte.'
         }],
         quiz: [
-          { id: 'q1', question: 'In cell notation Zn|Zn²⁺||Cu²⁺|Cu, which is the anode?', type: 'multiple-choice', options: ['Cu', 'Cu²⁺', 'Zn', 'Zn²⁺'], answer: 2, explanation: 'The anode is written first (left side): Zn. Zinc is oxidized: Zn → Zn²⁺ + 2e⁻' },
-          { id: 'q2', question: 'The standard hydrogen electrode (SHE) has E° = 0.00 V by definition.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! The SHE (2H⁺ + 2e⁻ → H₂) is the reference point E° = 0.000 V for all electrode potentials.' },
-          { id: 'q3', question: 'Which commercial battery is rechargeable?', type: 'multiple-choice', options: ['Leclanché dry cell', 'Alkaline battery', 'Lead-acid battery', 'Zinc-carbon battery'], answer: 2, explanation: 'Lead-acid batteries (car batteries) are rechargeable. Dry cells and alkaline batteries are primary (non-rechargeable) cells.' },
-          { id: 'q4', question: 'The Nernst equation adjusts cell potential for non-standard concentrations.', type: 'true-false', options: ['True', 'False'], answer: 0, explanation: 'True! E = E° - (0.0592/n)log Q allows calculation of EMF at any concentration, not just standard 1 M.' }
+          { id: 'q1', question: 'Dans la notation de pile Zn|Zn²⁺||Cu²⁺|Cu, quelle est l\'anode ?', type: 'multiple-choice', options: ['Cu', 'Cu²⁺', 'Zn', 'Zn²⁺'], answer: 2, explanation: 'L\'anode est écrite en premier (côté gauche) : Zn. Le zinc est oxydé : Zn → Zn²⁺ + 2e⁻' },
+          { id: 'q2', question: 'L\'électrode standard à hydrogène (ESH) a E° = 0,00 V par définition.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! L\'ESH (2H⁺ + 2e⁻ → H₂) est le point de référence E° = 0,000 V pour tous les potentiels d\'électrode.' },
+          { id: 'q3', question: 'Quelle pile commerciale est rechargeable ?', type: 'multiple-choice', options: ['Pile sèche Leclanché', 'Pile alcaline', 'Batterie plomb-acide', 'Pile zinc-carbone'], answer: 2, explanation: 'Les batteries plomb-acide (batteries de voiture) sont rechargeables. Les piles sèches et alcalines sont des piles primaires (non rechargeables).' },
+          { id: 'q4', question: 'L\'équation de Nernst ajuste le potentiel de pile pour des concentrations non standard.', type: 'true-false', options: ['Vrai', 'Faux'], answer: 0, explanation: 'Vrai ! E = E° - (0,0592/n)log Q permet de calculer la FEM à n\'importe quelle concentration, pas seulement à 1 M standard.' }
         ]
       }
     ]

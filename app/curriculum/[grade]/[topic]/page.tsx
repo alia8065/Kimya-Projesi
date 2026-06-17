@@ -231,9 +231,9 @@ export default function TopicPage({ params }: Props) {
   const steps = exp?.steps ?? [];
 
   const SECTIONS = [
-    { id: 'theory'     as Section, label: 'Theory',     icon: <BookOpen className="w-4 h-4" />,    color: '#6366f1' },
-    { id: 'experiment' as Section, label: 'Experiment', icon: <FlaskConical className="w-4 h-4" />, color: '#10b981' },
-    { id: 'ai'         as Section, label: 'AI Tutor',   icon: <Brain className="w-4 h-4" />,       color: '#8b5cf6' },
+    { id: 'theory'     as Section, label: 'Théorie',     icon: <BookOpen className="w-4 h-4" />,    color: '#6366f1' },
+    { id: 'experiment' as Section, label: 'Expérience', icon: <FlaskConical className="w-4 h-4" />, color: '#10b981' },
+    { id: 'ai'         as Section, label: 'Tuteur IA',   icon: <Brain className="w-4 h-4" />,       color: '#8b5cf6' },
     { id: 'quiz'       as Section, label: 'Quiz',       icon: <HelpCircle className="w-4 h-4" />,  color: '#f59e0b' },
   ];
 
@@ -266,7 +266,7 @@ export default function TopicPage({ params }: Props) {
       setTube1Fill(Math.min(70, pct * 0.7));
       setTube2Fill(Math.min(60, pct * 0.6));
       setMainFill(prev => Math.min(prev + 18, 72));
-      log('Reagent added to vessel…');
+      log('Réactif ajouté au récipient…');
     }
     if (s.includes('water') || s.includes('h₂o') || s.includes('h2o')) {
       setTube1Color('rgba(180,220,255,0.4)');
@@ -274,38 +274,38 @@ export default function TopicPage({ params }: Props) {
     }
     if (s.includes('heat') || s.includes('hot') || s.includes('boil')) {
       setMainColor('rgba(239,120,40,0.35)');
-      log('Solution is heating…');
+      log('La solution chauffe…');
     }
     if (s.includes('stir') || s.includes('mix') || s.includes('swirl') || s.includes('shake')) {
-      log('Mixing the solution…');
+      log('Mélange de la solution…');
     }
     if (s.includes('indicator') || s.includes('phenolphthalein') || s.includes('litmus')) {
       setTube2Color('rgba(236,72,153,0.55)');
-      log('Indicator added — watch for colour change!');
+      log('Indicateur ajouté — observez le changement de couleur !');
     }
     if (s.includes('nacl') || s.includes('naoh') || s.includes('titrant') || s.includes('burette') || s.includes('drop')) {
       setBuretteLevel(prev => Math.max(0, prev - 30));
       setDripping(true);
-      log('Adding titrant drop by drop…');
+      log('Ajout du titrant goutte à goutte…');
       await new Promise(r => setTimeout(r, 700));
       setDripping(false);
     }
     if (s.includes('endpoint') || s.includes('colour disappear') || s.includes('permanent') || s.includes('colorless') || s.includes('colourless')) {
       setMainColor('rgba(200,220,255,0.2)');
-      log('Endpoint reached — colour disappears!');
+      log('Point de fin atteint — la couleur disparaît !');
     }
     if (s.includes('pink') || s.includes('magenta') || s.includes('fuchsia')) {
       setMainColor('rgba(236,72,153,0.5)');
       setMainGlow(true);
-      log('Solution turns PINK — endpoint!');
+      log('La solution vire au ROSE — point de fin !');
     }
     if (s.includes('precipitate') || s.includes('cloudy') || s.includes('turbid')) {
       setHasPrecipitate(true);
-      log('Precipitate forming…');
+      log('Formation d\'un précipité…');
     }
     if (s.includes('gas') || s.includes('bubble') || s.includes('fizz') || s.includes('co₂') || s.includes('h₂')) {
       setHasBubbles(true);
-      log('Gas bubbles evolving!');
+      log('Dégagement de bulles de gaz !');
     }
     if (s.includes('blue') || s.includes('copper')) {
       setMainColor('rgba(59,130,246,0.5)');
@@ -315,10 +315,10 @@ export default function TopicPage({ params }: Props) {
     }
     if (s.includes('flame') || s.includes('burn') || s.includes('ignite')) {
       setMainColor('rgba(239,100,20,0.5)');
-      log('Combustion — yellow flame observed!');
+      log('Combustion — flamme jaune observée !');
     }
     if (s.includes('record') || s.includes('calculate') || s.includes('note') || s.includes('observe')) {
-      log('Observation recorded ✓');
+      log('Observation enregistrée ✓');
     }
 
     await new Promise(r => setTimeout(r, 800));
@@ -335,7 +335,7 @@ export default function TopicPage({ params }: Props) {
       if (result.colorChange) setMainColor(LIQUID[result.colorChange.toLowerCase()] ?? 'rgba(200,220,255,0.2)');
       if (result.precipitate) setHasPrecipitate(true);
       if (result.gasProduced) setHasBubbles(true);
-      log('Experiment complete! +25 XP');
+      log('Expérience terminée ! +25 XP');
       completeTopicProgress({ topicId, gradeId, quizScore: topicProgress?.quizScore ?? 0, experimentDone: true });
     }
   }, [isAnimating, completedSteps, steps, exp, addXP, completeTopicProgress, topicId, gradeId, topicProgress]);
@@ -375,7 +375,7 @@ export default function TopicPage({ params }: Props) {
         style={{ background: 'rgba(16,185,129,0.07)' }}>
         <div className="flex items-center gap-2">
           <Zap className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Live Simulation</span>
+          <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Simulation en direct</span>
         </div>
         <div className="flex items-center gap-2">
           {expHasPH && experimentDone && experimentResult?.pHChange !== null && (
@@ -388,19 +388,19 @@ export default function TopicPage({ params }: Props) {
             <span className="text-xs px-2 py-0.5 rounded-full"
               style={{ background: 'rgba(239,68,68,0.1)', color: '#fca5a5', border: '1px solid rgba(239,68,68,0.2)' }}>
               <Thermometer className="w-3 h-3 inline mr-1" />
-              {experimentResult?.isExothermic ? '↑ Exothermic' : '25°C'}
+              {experimentResult?.isExothermic ? '↑ Exothermique' : '25°C'}
             </span>
           )}
           {hasBubbles && (
             <span className="text-xs px-2 py-0.5 rounded-full"
               style={{ background: 'rgba(59,130,246,0.1)', color: '#93c5fd', border: '1px solid rgba(59,130,246,0.2)' }}>
-              <Wind className="w-3 h-3 inline mr-1" />Gas
+              <Wind className="w-3 h-3 inline mr-1" />Gaz
             </span>
           )}
           {hasPrecipitate && (
             <span className="text-xs px-2 py-0.5 rounded-full"
               style={{ background: 'rgba(248,250,252,0.07)', color: '#e2e8f0', border: '1px solid rgba(248,250,252,0.15)' }}>
-              <Droplets className="w-3 h-3 inline mr-1" />Ppt.
+              <Droplets className="w-3 h-3 inline mr-1" />Préc.
             </span>
           )}
         </div>
@@ -449,7 +449,7 @@ export default function TopicPage({ params }: Props) {
               ))}
             </div>
           )}
-          <span className="text-xs text-slate-400 text-center">Reaction vessel</span>
+          <span className="text-xs text-slate-400 text-center">Récipient de réaction</span>
         </div>
 
         {/* Reagent vessel 2 */}
@@ -473,7 +473,7 @@ export default function TopicPage({ params }: Props) {
       <div className="px-4 py-3 min-h-[60px]"
         style={{ background: 'rgba(10,14,26,0.5)', borderTop: '1px solid rgba(16,185,129,0.1)' }}>
         {simLog.length === 0 ? (
-          <p className="text-xs text-slate-600 italic">Click a step&apos;s <strong className="text-slate-500">Do it</strong> button — the simulation updates here</p>
+          <p className="text-xs text-slate-600 italic">Cliquez sur le bouton <strong className="text-slate-500">Effectuer</strong> d&apos;une étape — la simulation se met à jour ici</p>
         ) : (
           <div className="space-y-1">
             {simLog.slice(-3).map((msg, i) => (
@@ -494,7 +494,7 @@ export default function TopicPage({ params }: Props) {
           style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)' }}>
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm font-bold text-white">Experiment Complete!</span>
+            <span className="text-sm font-bold text-white">Expérience terminée !</span>
             <span className="ml-auto text-xs font-bold text-emerald-400">+25 XP</span>
           </div>
           <div className="font-mono text-indigo-300 text-sm mb-2 break-all">{experimentResult.equation}</div>
@@ -525,7 +525,7 @@ export default function TopicPage({ params }: Props) {
             <Link href={`/curriculum/${gradeId}`}
               className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm flex-shrink-0">
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">{grade?.shortName ?? 'Back'}</span>
+              <span className="hidden sm:inline">{grade?.shortName ?? 'Retour'}</span>
             </Link>
             <div className="w-px h-4 bg-slate-600 hidden sm:block" />
             <span className="text-base flex-shrink-0">{topic.icon}</span>
@@ -555,12 +555,12 @@ export default function TopicPage({ params }: Props) {
       {/* Content */}
       <div className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-6">
 
-        {/* ══ THEORY ══════════════════════════════════════════════ */}
+        {/* ══ THÉORIE ══════════════════════════════════════════════ */}
         {activeSection === 'theory' && (
           <div className="max-w-3xl mx-auto">
             <div className="mb-6">
               <div className="text-xs text-indigo-400 font-medium mb-2 flex items-center gap-2">
-                <BookOpen className="w-3.5 h-3.5" /> THEORY
+                <BookOpen className="w-3.5 h-3.5" /> THÉORIE
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white mb-3">{topic.name}</h1>
               <p className="text-slate-400 leading-relaxed">{topic.description}</p>
@@ -599,13 +599,13 @@ export default function TopicPage({ params }: Props) {
               <button onClick={() => setActiveSection('experiment')}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm"
                 style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}>
-                Go to Experiment <ArrowRight className="w-4 h-4" />
+                Aller à l&apos;expérience <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         )}
 
-        {/* ══ EXPERIMENT ══════════════════════════════════════════ */}
+        {/* ══ EXPÉRIENCE ══════════════════════════════════════════ */}
         {activeSection === 'experiment' && exp && (
           <div className="max-w-5xl mx-auto">
 
@@ -613,7 +613,7 @@ export default function TopicPage({ params }: Props) {
             <div className="mb-5 flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="text-xs text-emerald-400 font-medium mb-1 flex items-center gap-1.5">
-                  <FlaskConical className="w-3.5 h-3.5" /> INTERACTIVE EXPERIMENT
+                  <FlaskConical className="w-3.5 h-3.5" /> EXPÉRIENCE INTERACTIVE
                 </div>
                 <h1 className="text-xl sm:text-2xl font-black text-white">{exp.name}</h1>
                 <p className="text-slate-400 text-sm mt-1">{exp.description}</p>
@@ -622,7 +622,7 @@ export default function TopicPage({ params }: Props) {
                 <button onClick={resetExperiment}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs flex-shrink-0 transition-colors"
                   style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)', color: '#94a3b8' }}>
-                  <RotateCcw className="w-3.5 h-3.5" /> Reset
+                  <RotateCcw className="w-3.5 h-3.5" /> Réinitialiser
                 </button>
               )}
             </div>
@@ -639,7 +639,7 @@ export default function TopicPage({ params }: Props) {
                   <div className="px-4 py-3 flex items-center justify-between border-b border-indigo-500/10"
                     style={{ background: 'rgba(15,23,42,0.5)' }}>
                     <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">
-                      Procedure — {completedSteps.size}/{steps.length} done
+                      Procédure — {completedSteps.size}/{steps.length} effectuées
                     </span>
                     <div className="h-1.5 w-28 rounded-full bg-slate-700/50">
                       <div className="h-full rounded-full progress-bar"
@@ -679,7 +679,7 @@ export default function TopicPage({ params }: Props) {
                               className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all disabled:opacity-50"
                               style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)', color: '#fff' }}>
                               <Play className={`w-3 h-3 ${isAnimating && active ? 'animate-spin' : ''}`} />
-                              {isAnimating && active ? '…' : 'Do it'}
+                              {isAnimating && active ? '…' : 'Effectuer'}
                             </button>
                           )}
                           {done && <span className="flex-shrink-0 text-xs text-emerald-400 font-medium">✓</span>}
@@ -695,7 +695,7 @@ export default function TopicPage({ params }: Props) {
                   <div className="rounded-xl p-3"
                     style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(16,185,129,0.2)' }}>
                     <div className="text-xs text-emerald-400 font-medium mb-2 flex items-center gap-1">
-                      <FlaskConical className="w-3 h-3" /> Chemicals
+                      <FlaskConical className="w-3 h-3" /> Produits chimiques
                     </div>
                     <div className="space-y-1">
                       {exp.chemicals.map(id => {
@@ -712,7 +712,7 @@ export default function TopicPage({ params }: Props) {
                   </div>
                   <div className="rounded-xl p-3"
                     style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(99,102,241,0.2)' }}>
-                    <div className="text-xs text-indigo-400 font-medium mb-2">Equipment</div>
+                    <div className="text-xs text-indigo-400 font-medium mb-2">Équipement</div>
                     <div className="space-y-1">
                       {exp.equipment.map(id => {
                         const e = EQUIPMENT.find(eq => eq.id === id);
@@ -739,25 +739,25 @@ export default function TopicPage({ params }: Props) {
               <button onClick={() => setActiveSection('ai')}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white text-sm"
                 style={{ background: 'rgba(139,92,246,0.2)', border: '1px solid rgba(139,92,246,0.3)' }}>
-                <Brain className="w-4 h-4" /> Ask AI Tutor
+                <Brain className="w-4 h-4" /> Demander au tuteur IA
               </button>
               <button onClick={() => setActiveSection('quiz')}
                 className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white text-sm ml-auto"
                 style={{ background: 'linear-gradient(135deg, #f59e0b, #f97316)' }}>
-                <HelpCircle className="w-4 h-4" /> Take Quiz <ArrowRight className="w-4 h-4" />
+                <HelpCircle className="w-4 h-4" /> Passer le quiz <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         )}
 
-        {/* ══ AI TUTOR ════════════════════════════════════════════ */}
+        {/* ══ TUTEUR IA ════════════════════════════════════════════ */}
         {activeSection === 'ai' && (
           <div className="max-w-3xl mx-auto">
             <div className="mb-5">
               <div className="text-xs text-purple-400 font-medium mb-1 flex items-center gap-2">
-                <Brain className="w-3.5 h-3.5" /> AI TUTOR
+                <Brain className="w-3.5 h-3.5" /> TUTEUR IA
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-white">Ask ChemBot About {topic.name}</h1>
+              <h1 className="text-xl sm:text-2xl font-black text-white">Demandez à ChemBot à propos de {topic.name}</h1>
             </div>
             <AIAssistant
               context={{ topic: topic.name, gradeLevel: grade?.name, currentExperiment: exp?.name, reactionResult: experimentResult }}
@@ -767,7 +767,7 @@ export default function TopicPage({ params }: Props) {
               <button onClick={() => setActiveSection('quiz')}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm"
                 style={{ background: 'linear-gradient(135deg, #f59e0b, #f97316)' }}>
-                Take Quiz <ArrowRight className="w-4 h-4" />
+                Passer le quiz <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -797,10 +797,10 @@ export default function TopicPage({ params }: Props) {
                   </div>
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-2">
-                  {quizScore >= 80 ? '🎉 Excellent!' : quizScore >= 60 ? '👍 Good Job!' : '📚 Keep Studying!'}
+                  {quizScore >= 80 ? '🎉 Excellent !' : quizScore >= 60 ? '👍 Bon travail !' : '📚 Continuez à étudier !'}
                 </h2>
                 <p className="text-slate-400 mb-6">
-                  {topic.quiz.filter(q => quizAnswers[q.id] === q.answer).length} / {topic.quiz.length} correct
+                  {topic.quiz.filter(q => quizAnswers[q.id] === q.answer).length} / {topic.quiz.length} correctes
                 </p>
                 <div className="text-left space-y-3 mb-8">
                   {topic.quiz.map(q => {
@@ -813,8 +813,8 @@ export default function TopicPage({ params }: Props) {
                               : <X className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />}
                           <div className="text-sm">
                             <p className="text-white font-medium mb-1">{q.question}</p>
-                            {!ok && q.options && <p className="text-red-300 text-xs mb-1">Your answer: {q.options[quizAnswers[q.id] as number] ?? '—'}</p>}
-                            {q.options && <p className="text-emerald-300 text-xs mb-1">Correct: {q.options[q.answer as number]}</p>}
+                            {!ok && q.options && <p className="text-red-300 text-xs mb-1">Votre réponse : {q.options[quizAnswers[q.id] as number] ?? '—'}</p>}
+                            {q.options && <p className="text-emerald-300 text-xs mb-1">Correct : {q.options[q.answer as number]}</p>}
                             <p className="text-slate-400 text-xs">{q.explanation}</p>
                           </div>
                         </div>
@@ -826,12 +826,12 @@ export default function TopicPage({ params }: Props) {
                   <button onClick={() => { setQuizAnswers({}); setQuizSubmitted(false); setQuizScore(0); }}
                     className="px-5 py-2.5 rounded-xl text-sm font-medium"
                     style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)', color: '#94a3b8' }}>
-                    Retry Quiz
+                    Recommencer le quiz
                   </button>
                   <Link href={`/curriculum/${gradeId}`}
                     className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white text-sm"
                     style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
-                    <Trophy className="w-4 h-4" /> Back to Topics
+                    <Trophy className="w-4 h-4" /> Retour aux sujets
                   </Link>
                 </div>
               </div>
@@ -866,7 +866,7 @@ export default function TopicPage({ params }: Props) {
                   disabled={Object.keys(quizAnswers).length < topic.quiz.length}
                   className="w-full py-3 rounded-xl font-bold text-white transition-all disabled:opacity-50"
                   style={{ background: 'linear-gradient(135deg, #f59e0b, #f97316)' }}>
-                  Submit Quiz ({Object.keys(quizAnswers).length}/{topic.quiz.length} answered)
+                  Soumettre le quiz ({Object.keys(quizAnswers).length}/{topic.quiz.length} réponses)
                 </button>
               </div>
             )}

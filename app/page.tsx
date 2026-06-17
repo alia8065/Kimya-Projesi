@@ -16,19 +16,19 @@ const FLOATING_MOLECULES = [
 ];
 
 const FEATURES = [
-  { icon: <Brain className="w-5 h-5" />, title: "AI Chemistry Tutor", desc: "Get instant explanations and guidance" },
-  { icon: <FlaskConical className="w-5 h-5" />, title: "Realistic Simulations", desc: "Scientifically accurate reactions" },
-  { icon: <BookOpen className="w-5 h-5" />, title: "Full Curriculum", desc: "Grades 9–12 + Preparation class" },
-  { icon: <Award className="w-5 h-5" />, title: "Gamification", desc: "XP, badges, and achievements" },
-  { icon: <Zap className="w-5 h-5" />, title: "Real-time Feedback", desc: "Instant reaction results" },
-  { icon: <Shield className="w-5 h-5" />, title: "Safe Environment", desc: "No real hazards, all learning" },
+  { icon: <Brain className="w-5 h-5" />, title: "Tuteur IA en chimie", desc: "Obtenez des explications et des conseils instantanés" },
+  { icon: <FlaskConical className="w-5 h-5" />, title: "Simulations réalistes", desc: "Réactions scientifiquement précises" },
+  { icon: <BookOpen className="w-5 h-5" />, title: "Programme complet", desc: "3e–Terminale + Classe préparatoire" },
+  { icon: <Award className="w-5 h-5" />, title: "Gamification", desc: "XP, badges et récompenses" },
+  { icon: <Zap className="w-5 h-5" />, title: "Retour en temps réel", desc: "Résultats de réaction instantanés" },
+  { icon: <Shield className="w-5 h-5" />, title: "Environnement sécurisé", desc: "Aucun risque réel, tout pour apprendre" },
 ];
 
 const STATS = [
-  { value: "50+", label: "Chemicals" },
-  { value: "30+", label: "Reactions" },
-  { value: "5", label: "Grade Levels" },
-  { value: "100+", label: "Quiz Questions" },
+  { value: "50+", label: "Produits chimiques" },
+  { value: "30+", label: "Réactions" },
+  { value: "5", label: "Niveaux scolaires" },
+  { value: "100+", label: "Questions de quiz" },
 ];
 
 export default function HomePage() {
@@ -75,19 +75,19 @@ export default function HomePage() {
           </div>
           <div>
             <div className="font-bold text-white text-lg leading-tight">ChemLab AI</div>
-            <div className="text-xs text-indigo-400">Virtual Chemistry Laboratory</div>
+            <div className="text-xs text-indigo-400">Laboratoire de chimie virtuel</div>
           </div>
         </div>
         <nav className="hidden lg:flex items-center gap-6 text-sm text-slate-400">
-          <Link href="/free-lab" className="hover:text-white transition-colors">Free Lab</Link>
-          <Link href="/curriculum" className="hover:text-white transition-colors">Curriculum</Link>
-          <Link href="/dashboard/student" className="hover:text-white transition-colors">Dashboard</Link>
+          <Link href="/free-lab" className="hover:text-white transition-colors">Labo libre</Link>
+          <Link href="/curriculum" className="hover:text-white transition-colors">Programme</Link>
+          <Link href="/dashboard/student" className="hover:text-white transition-colors">Tableau de bord</Link>
         </nav>
         <Link href="/dashboard/student"
           className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all"
           style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.3)' }}>
           <Star className="w-4 h-4 text-indigo-400" />
-          My Progress
+          Ma progression
         </Link>
       </header>
 
@@ -96,17 +96,17 @@ export default function HomePage() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium mb-8"
           style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
           <Zap className="w-3 h-3" />
-          AI-Powered Chemistry Education
+          Éducation chimique propulsée par l'IA
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-tight">
-          <span className="text-white">Virtual </span>
-          <span className="text-gradient-primary">Chemistry</span>
+          <span className="text-white">Laboratoire</span>
+          <span className="text-gradient-primary"> de Chimie</span>
           <br />
-          <span className="text-white">Laboratory</span>
+          <span className="text-white">Virtuel</span>
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Experience the thrill of chemistry experiments in a safe, AI-powered virtual environment.
-          Learn through interaction, not memorization.
+          Vivez le frisson des expériences chimiques dans un environnement virtuel sécurisé propulsé par l'IA.
+          Apprenez par l'interaction, pas par mémorisation.
         </p>
 
         {/* Stats */}
@@ -124,8 +124,8 @@ export default function HomePage() {
       <section className="relative z-10 px-6 pb-20">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-white mb-3">Choose Your Laboratory Mode</h2>
-            <p className="text-slate-400">Two completely separate learning experiences</p>
+            <h2 className="text-2xl font-bold text-white mb-3">Choisissez votre mode de laboratoire</h2>
+            <p className="text-slate-400">Deux expériences d'apprentissage entièrement distinctes</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -156,14 +156,14 @@ export default function HomePage() {
                   OPTION 1
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Free Laboratory</h3>
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Laboratoire libre</h3>
                 <p className="text-slate-400 leading-relaxed mb-8 text-base">
-                  Explore chemistry freely and create your own experiments. Mix chemicals, observe reactions,
-                  and ask our AI tutor anything. No restrictions — pure exploration.
+                  Explorez librement la chimie et créez vos propres expériences. Mélangez des produits chimiques, observez les réactions
+                  et posez toutes vos questions à notre tuteur IA. Sans restrictions — exploration pure.
                 </p>
 
                 <ul className="space-y-3 mb-10">
-                  {['Select any chemicals from database', 'Mix and observe reactions', 'Use all lab equipment', 'AI assistant always available', 'No curriculum restrictions'].map((item, i) => (
+                  {['Sélectionner tout produit chimique de la base de données', 'Mélanger et observer les réactions', 'Utiliser tout l\'équipement de laboratoire', 'Assistant IA toujours disponible', 'Aucune restriction de programme'].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm text-slate-300">
                       <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                         style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.3)' }}>
@@ -177,10 +177,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm"
                     style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
-                    Enter Free Lab
+                    Entrer dans le labo libre
                     <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-xs text-slate-500">Open Exploration</div>
+                  <div className="text-xs text-slate-500">Exploration ouverte</div>
                 </div>
               </div>
             </Link>
@@ -212,14 +212,14 @@ export default function HomePage() {
                   OPTION 2
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Curriculum Laboratory</h3>
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Laboratoire de programme</h3>
                 <p className="text-slate-400 leading-relaxed mb-8 text-base">
-                  Follow chemistry experiments based on your grade level. Structured learning with theory,
-                  interactive experiments, quizzes, and AI guidance — all aligned to the curriculum.
+                  Suivez des expériences chimiques adaptées à votre niveau scolaire. Apprentissage structuré avec théorie,
+                  expériences interactives, quiz et guidance IA — tout aligné sur le programme.
                 </p>
 
                 <ul className="space-y-3 mb-10">
-                  {['Grade-based organized topics', 'Theory + Experiment + Quiz', 'Progress tracking', 'AI tutor for each topic', 'Grades 9-12 + Preparation'].map((item, i) => (
+                  {['Sujets organisés par niveau', 'Théorie + Expérience + Quiz', 'Suivi des progrès', 'Tuteur IA pour chaque sujet', '3e–Terminale + Prépa'].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm text-slate-300">
                       <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                         style={{ background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.3)' }}>
@@ -233,10 +233,10 @@ export default function HomePage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm"
                     style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}>
-                    Select Grade
+                    Choisir un niveau
                     <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-xs text-slate-500">Structured Learning</div>
+                  <div className="text-xs text-slate-500">Apprentissage structuré</div>
                 </div>
               </div>
             </Link>
@@ -247,7 +247,7 @@ export default function HomePage() {
       {/* Features section */}
       <section className="relative z-10 px-6 py-16 border-t border-indigo-500/10">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-white mb-12">Platform Features</h2>
+          <h2 className="text-2xl font-bold text-center text-white mb-12">Fonctionnalités de la plateforme</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {FEATURES.map((f, i) => (
               <div key={i} className="glass-card rounded-xl p-6">
@@ -269,7 +269,7 @@ export default function HomePage() {
           <Atom className="w-4 h-4 text-indigo-400" />
           <span className="font-semibold text-slate-400">ChemLab AI</span>
         </div>
-        <p>AI-Powered Virtual Chemistry Laboratory • Safe Learning Environment</p>
+        <p>Laboratoire de chimie virtuel propulsé par l'IA • Environnement d'apprentissage sécurisé</p>
       </footer>
     </div>
   );

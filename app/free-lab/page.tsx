@@ -222,7 +222,7 @@ export default function FreeLabPage() {
     incrementExperiments();
     addXP(10);
     addDiscoveredReaction([...selectedChemicals].sort().join('+'));
-    addMessage({ role: 'assistant', content: `Reaction: ${result.equation}\n\n${result.description}\n\nObservations: ${result.observations.join(', ')}` });
+    addMessage({ role: 'assistant', content: `Réaction : ${result.equation}\n\n${result.description}\n\nObservations : ${result.observations.join(', ')}` });
     setIsRunning(false);
     setMobileTab('lab');
   }, [selectedChemicals, setCurrentReaction, incrementExperiments, addXP, addDiscoveredReaction, addMessage]);
@@ -237,7 +237,7 @@ export default function FreeLabPage() {
     if (!titrationDone && Math.abs(newPH - 7) < 0.5) {
       setTitrationDone(true);
       addXP(20);
-      addMessage({ role: 'assistant', content: `Equivalence point reached! ${nextVol.toFixed(1)} mL of titrant added. pH = ${newPH.toFixed(2)}. The neutralisation reaction is complete! 🎉` });
+      addMessage({ role: 'assistant', content: `Point d'équivalence atteint ! ${nextVol.toFixed(1)} mL de titrant ajoutés. pH = ${newPH.toFixed(2)}. La réaction de neutralisation est terminée ! 🎉` });
     }
     setTimeout(() => setIsDripping(false), 500);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -250,7 +250,7 @@ export default function FreeLabPage() {
     setBuretteVol(newVol);
     const added = 50 - newVol;
     if (added % 5 === 0 || newVol === 0) {
-      addMessage({ role: 'assistant', content: newVol === 0 ? 'Burette empty — refill to continue.' : `${added} mL of titrant added. ${newVol} mL remaining.` });
+      addMessage({ role: 'assistant', content: newVol === 0 ? 'Burette vide — rechargez pour continuer.' : `${added} mL de titrant ajoutés. ${newVol} mL restants.` });
     }
     setTimeout(() => setIsDripping(false), 500);
   }, [buretteVol, isDripping, addMessage]);
@@ -272,7 +272,7 @@ export default function FreeLabPage() {
         {(['chemicals', 'equipment'] as const).map(t => (
           <button key={t} onClick={() => setChemTab(t)}
             className={`flex-1 py-3 text-sm font-medium transition-colors ${chemTab === t ? 'text-white border-b-2 border-indigo-500' : 'text-slate-400 hover:text-slate-200'}`}>
-            {t === 'chemicals' ? '🧪 Chemicals' : '🔬 Equipment'}
+            {t === 'chemicals' ? '🧪 Produits chimiques' : '🔬 Équipement'}
           </button>
         ))}
       </div>
@@ -282,7 +282,7 @@ export default function FreeLabPage() {
           <div className="p-3 flex-shrink-0">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
-              <input type="text" placeholder="Search chemicals…" value={searchQuery}
+              <input type="text" placeholder="Rechercher des produits chimiques…" value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 text-sm rounded-lg text-white placeholder-slate-500 outline-none"
                 style={{ background: 'rgba(30,41,59,0.8)', border: '1px solid rgba(99,102,241,0.2)' }} />
@@ -349,7 +349,7 @@ export default function FreeLabPage() {
                         border:     isSel ? '1px solid rgba(239,68,68,0.3)' : '1px solid rgba(99,102,241,0.3)',
                         color:      isSel ? '#fca5a5' : '#a5b4fc',
                       }}>
-                      {isSel ? <><X className="w-3 h-3" />Remove</> : <><Plus className="w-3 h-3" />Add to Lab</>}
+                      {isSel ? <><X className="w-3 h-3" />Retirer</> : <><Plus className="w-3 h-3" />Ajouter au labo</>}
                     </button>
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export default function FreeLabPage() {
       {chemTab === 'equipment' && (
         <div className="flex-1 overflow-y-auto p-3 space-y-1.5">
           <p className="text-xs text-slate-500 pb-1 leading-relaxed">
-            Select equipment below, then switch to <strong className="text-slate-400">Lab</strong> view to use it.
+            Sélectionnez l&apos;équipement ci-dessous, puis passez à la vue <strong className="text-slate-400">Labo</strong> pour l&apos;utiliser.
           </p>
           {EQUIPMENT.map(eq => {
             const isSel = selectedEquipment.includes(eq.id);
@@ -384,7 +384,7 @@ export default function FreeLabPage() {
                   </div>
                   {isSel && (
                     <span className={`text-xs font-bold ${isOn ? 'text-emerald-400' : 'text-emerald-700'}`}>
-                      {isOn ? '● ON' : '● ADDED'}
+                      {isOn ? '● ACTIF' : '● AJOUTÉ'}
                     </span>
                   )}
                 </div>
@@ -408,8 +408,8 @@ export default function FreeLabPage() {
           style={{ background: 'rgba(10,14,26,0.7)' }}>
           <div className="flex items-center gap-2 mb-2">
             <Droplets className="w-3.5 h-3.5 text-indigo-400" />
-            <span className="text-xs font-semibold text-slate-300">Miktar (mmol)</span>
-            <span className="text-xs text-slate-600">— her madde için mol sayısını ayarla</span>
+            <span className="text-xs font-semibold text-slate-300">Quantité (mmol)</span>
+            <span className="text-xs text-slate-600">— ajuster le nombre de moles par substance</span>
           </div>
           <div className="flex flex-wrap gap-3">
             {selectedChemicalObjects.map(chem => {
@@ -496,14 +496,14 @@ export default function FreeLabPage() {
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
               style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)' }}>
               <span>⚖️</span>
-              <span className="text-xs text-slate-400">Avg MW</span>
+              <span className="text-xs text-slate-400">PM moy.</span>
               <span className="text-sm font-mono font-bold text-emerald-300">
                 {curMass > 0 ? `${curMass.toFixed(1)} g/mol` : '— g/mol'}
               </span>
             </div>
           )}
           {selectedChemicals.length === 0 && (
-            <span className="text-xs text-slate-600 self-center">Add chemicals to see live readings</span>
+            <span className="text-xs text-slate-600 self-center">Ajoutez des produits chimiques pour voir les mesures en direct</span>
           )}
         </div>
       )}
@@ -512,7 +512,7 @@ export default function FreeLabPage() {
       {hasBurette && selectedChemicals.length >= 1 && (
         <div className="px-4 py-2 flex items-center gap-2 border-b border-indigo-500/10 flex-shrink-0"
           style={{ background: 'rgba(10,14,26,0.5)' }}>
-          <span className="text-xs text-slate-500 mr-1">Lab mode:</span>
+          <span className="text-xs text-slate-500 mr-1">Mode labo :</span>
           {(['reaction', 'titration'] as LabMode[]).map(m => (
             <button key={m} onClick={() => setLabMode(m)}
               className="px-3 py-1 rounded-lg text-xs font-medium capitalize transition-all"
@@ -521,7 +521,7 @@ export default function FreeLabPage() {
                 border: labMode === m ? `1px solid ${m === 'titration' ? 'rgba(16,185,129,0.5)' : 'rgba(99,102,241,0.5)'}` : '1px solid rgba(99,102,241,0.1)',
                 color: labMode === m ? (m === 'titration' ? '#6ee7b7' : '#a5b4fc') : '#64748b',
               }}>
-              {m === 'titration' ? '📏 Titration' : '⚗️ Reaction'}
+              {m === 'titration' ? '📏 Titrage' : '⚗️ Réaction'}
             </button>
           ))}
         </div>
@@ -538,7 +538,7 @@ export default function FreeLabPage() {
             <div className="relative z-10 flex items-end justify-center gap-6 sm:gap-10 mt-2">
               {/* Burette */}
               <div className="flex flex-col items-center gap-1">
-                <span className="text-xs font-mono text-slate-400 mb-1">{buretteVol.toFixed(1)} mL left</span>
+                <span className="text-xs font-mono text-slate-400 mb-1">{buretteVol.toFixed(1)} mL restants</span>
                 <TitBurette level={buretteVol * 2} dripping={isDripping} />
                 <span className="text-xs text-slate-500">Burette</span>
                 <span className="text-xs text-indigo-400 font-mono">
@@ -557,7 +557,7 @@ export default function FreeLabPage() {
 
               {/* pH meter display */}
               <div className="flex flex-col items-center gap-2">
-                <div className="text-xs text-slate-400 mb-1">pH Meter</div>
+                <div className="text-xs text-slate-400 mb-1">pH-mètre</div>
                 <div className="rounded-xl px-4 py-3 text-center"
                   style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)', minWidth: 80 }}>
                   <div className="text-3xl font-black font-mono transition-all duration-500"
@@ -566,7 +566,7 @@ export default function FreeLabPage() {
                   </div>
                   <div className="text-xs text-slate-500 mt-1">pH</div>
                 </div>
-                <div className="text-xs text-slate-400 tabular-nums">{titrantVol.toFixed(1)} mL added</div>
+                <div className="text-xs text-slate-400 tabular-nums">{titrantVol.toFixed(1)} mL ajoutés</div>
                 <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(15,23,42,0.8)' }}>
                   <div className="h-full rounded-full transition-all"
                     style={{ width: `${(titPH / 14) * 100}%`, background: titPH < 7 ? '#ef4444' : '#10b981' }} />
@@ -578,7 +578,7 @@ export default function FreeLabPage() {
             {!indicatorAdded && (
               <div className="relative z-10 text-center text-xs text-amber-400 px-4 py-2 rounded-lg"
                 style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>
-                Step 1: Add an indicator to the flask first
+                Étape 1 : Ajoutez d&apos;abord un indicateur dans la fiole
               </div>
             )}
 
@@ -586,20 +586,20 @@ export default function FreeLabPage() {
             {titrationDone && (
               <div className="relative z-10 w-full max-w-sm mx-auto px-4 py-3 rounded-xl text-center"
                 style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.4)' }}>
-                <div className="text-emerald-400 font-bold text-sm mb-1">🎉 Equivalence Point Reached!</div>
+                <div className="text-emerald-400 font-bold text-sm mb-1">🎉 Point d&apos;équivalence atteint !</div>
                 <div className="text-xs text-slate-300">
-                  Volume used: <span className="font-mono font-bold text-white">{titrantVol.toFixed(1)} mL</span>
+                  Volume utilisé : <span className="font-mono font-bold text-white">{titrantVol.toFixed(1)} mL</span>
                   {' · '}pH = <span className="font-mono font-bold text-white">{titPH.toFixed(2)}</span>
                 </div>
                 <div className="text-xs text-slate-400 mt-1">
-                  Analyte: {getAmt(selectedChemicals[0] ?? '').toFixed(1)} mmol · Titrant used: {titrantVol.toFixed(1)} mL
+                  Analyte : {getAmt(selectedChemicals[0] ?? '').toFixed(1)} mmol · Titrant utilisé : {titrantVol.toFixed(1)} mL
                 </div>
               </div>
             )}
 
             {nearEq && !titrationDone && (
               <div className="relative z-10 text-xs text-amber-300 animate-pulse">
-                ⚠️ Near equivalence point — add drops carefully!
+                ⚠️ Proche du point d&apos;équivalence — ajoutez les gouttes avec précaution !
               </div>
             )}
 
@@ -609,14 +609,14 @@ export default function FreeLabPage() {
                 <button onClick={() => setIndicatorAdded(true)}
                   className="flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-bold text-white transition-all"
                   style={{ background: 'linear-gradient(135deg, #8b5cf6, #6366f1)' }}>
-                  <Droplets className="w-4 h-4" /> Add Indicator (Phenolphthalein)
+                  <Droplets className="w-4 h-4" /> Ajouter l&apos;indicateur (Phénolphtaléine)
                 </button>
               ) : (
                 <>
                   <button onClick={() => addTitrant(0.5)} disabled={buretteVol <= 0 || titrantVol >= 100}
                     className="px-3 py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-40"
                     style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc' }}>
-                    Drop (0.5 mL)
+                    Goutte (0,5 mL)
                   </button>
                   <button onClick={() => addTitrant(1)} disabled={buretteVol <= 0 || titrantVol >= 100}
                     className="px-3 py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-40"
@@ -639,7 +639,7 @@ export default function FreeLabPage() {
                 onClick={() => { setTitrantVol(0); setBuretteVol(50); setTitrationDone(false); setIndicatorAdded(false); setIsDripping(false); }}
                 className="px-3 py-2 rounded-lg text-xs transition-all"
                 style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171' }}>
-                Reset
+                Réinitialiser
               </button>
             </div>
 
@@ -648,7 +648,7 @@ export default function FreeLabPage() {
               {[
                 { label: 'Analyte', value: `${getAmt(selectedChemicals[0] ?? '').toFixed(1)} mmol` },
                 { label: 'Titrant', value: `${titrantVol.toFixed(1)} mL` },
-                { label: 'Eq. vol.', value: `~${eqVol.toFixed(0)} mL` },
+                { label: 'Vol. éq.', value: `~${eqVol.toFixed(0)} mL` },
               ].map(({ label, value }) => (
                 <div key={label} className="rounded-lg p-2"
                   style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
@@ -675,12 +675,12 @@ export default function FreeLabPage() {
                 <button onClick={handleFreeDrip} disabled={buretteVol <= 0}
                   className="text-xs px-3 py-1 rounded-lg mt-1 transition-all disabled:opacity-40"
                   style={{ background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc' }}>
-                  Drip
+                  Goutte
                 </button>
                 {buretteVol <= 0 && (
                   <button onClick={() => setBuretteVol(50)} className="text-xs px-2 py-0.5 rounded mt-1 transition-all"
                     style={{ background: 'rgba(16,185,129,0.15)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.3)' }}>
-                    Refill
+                    Remplir
                   </button>
                 )}
               </div>
@@ -717,7 +717,7 @@ export default function FreeLabPage() {
                   border: isHeating ? '1px solid rgba(239,68,68,0.5)' : '1px solid rgba(99,102,241,0.2)',
                   color: isHeating ? '#fca5a5' : '#94a3b8',
                 }}>
-                🔥 {isHeating ? 'Stop Heat' : 'Start Heat'}
+                🔥 {isHeating ? 'Arrêter la chauffe' : 'Démarrer la chauffe'}
               </button>
             )}
             {hasStirrer && (
@@ -728,7 +728,7 @@ export default function FreeLabPage() {
                   border: isStirring ? '1px solid rgba(6,182,212,0.5)' : '1px solid rgba(99,102,241,0.2)',
                   color: isStirring ? '#67e8f9' : '#94a3b8',
                 }}>
-                🌀 {isStirring ? 'Stop Stirring' : 'Start Stirring'}
+                🌀 {isStirring ? 'Arrêter l\'agitation' : 'Démarrer l\'agitation'}
               </button>
             )}
             <button onClick={handleRunReaction}
@@ -739,12 +739,12 @@ export default function FreeLabPage() {
                 boxShadow:  selectedChemicals.length >= 2 ? '0 0 30px rgba(99,102,241,0.3)' : 'none',
               }}>
               <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
-              {isRunning ? 'Simulating…' : 'Run Reaction'}
+              {isRunning ? 'Simulation…' : 'Lancer la réaction'}
             </button>
           </div>
           {selectedChemicals.length < 2 && !hasBurette && (
             <p className="relative z-10 mt-3 text-slate-500 text-sm text-center">
-              Add at least 2 chemicals to run a reaction
+              Ajoutez au moins 2 produits chimiques pour lancer une réaction
             </p>
           )}
         </div>
@@ -810,9 +810,9 @@ export default function FreeLabPage() {
       style={{ background: 'rgba(10,14,26,0.98)' }}>
       <div className="flex">
         {([
-          { id: 'chemicals' as MobileTab, label: 'Chemicals', icon: <Beaker className="w-5 h-5" />, badge: undefined as number | undefined },
-          { id: 'lab'       as MobileTab, label: 'Lab',       icon: <FlaskConical className="w-5 h-5" />, badge: selectedChemicals.length > 0 ? selectedChemicals.length : undefined },
-          { id: 'ai'        as MobileTab, label: 'AI Tutor',  icon: <Bot className="w-5 h-5" />, badge: undefined as number | undefined },
+          { id: 'chemicals' as MobileTab, label: 'Produits chimiques', icon: <Beaker className="w-5 h-5" />, badge: undefined as number | undefined },
+          { id: 'lab'       as MobileTab, label: 'Labo',              icon: <FlaskConical className="w-5 h-5" />, badge: selectedChemicals.length > 0 ? selectedChemicals.length : undefined },
+          { id: 'ai'        as MobileTab, label: 'Tuteur IA',         icon: <Bot className="w-5 h-5" />, badge: undefined as number | undefined },
         ]).map(tab => (
           <button key={tab.id} onClick={() => setMobileTab(tab.id)}
             className="relative flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors"
@@ -842,7 +842,7 @@ export default function FreeLabPage() {
         style={{ background: 'rgba(15,23,42,0.98)', backdropFilter: 'blur(16px)' }}>
         <div className="flex items-center gap-3 min-w-0">
           <Link href="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm flex-shrink-0">
-            <ArrowLeft className="w-4 h-4" /><span className="hidden sm:inline">Home</span>
+            <ArrowLeft className="w-4 h-4" /><span className="hidden sm:inline">Accueil</span>
           </Link>
           <div className="w-px h-4 bg-slate-600 hidden sm:block" />
           <div className="flex items-center gap-2">
@@ -850,11 +850,11 @@ export default function FreeLabPage() {
               style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
               <FlaskConical className="w-4 h-4 text-white" />
             </div>
-            <span className="font-semibold text-white text-sm">Free Laboratory</span>
+            <span className="font-semibold text-white text-sm">Laboratoire libre</span>
             {labMode === 'titration' && (
               <span className="px-2 py-0.5 rounded-full text-xs text-emerald-300 font-bold"
                 style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' }}>
-                TITRATION
+                TITRAGE
               </span>
             )}
           </div>
@@ -864,14 +864,14 @@ export default function FreeLabPage() {
           <button onClick={() => setLeftOpen(v => !v)}
             className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-colors"
             style={{ background: leftOpen ? 'rgba(99,102,241,0.2)' : 'rgba(30,41,59,0.4)', color: leftOpen ? '#a5b4fc' : '#64748b', border: '1px solid rgba(99,102,241,0.15)' }}>
-            <Settings2 className="w-3.5 h-3.5" /> Chemicals
+            <Settings2 className="w-3.5 h-3.5" /> Produits chimiques
           </button>
           <button onClick={() => setRightOpen(v => !v)}
             className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-colors"
             style={{ background: rightOpen ? 'rgba(99,102,241,0.2)' : 'rgba(30,41,59,0.4)', color: rightOpen ? '#a5b4fc' : '#64748b', border: '1px solid rgba(99,102,241,0.15)' }}>
-            <Bot className="w-3.5 h-3.5" /> AI
+            <Bot className="w-3.5 h-3.5" /> IA
           </button>
-          <span className="text-xs text-slate-500 hidden sm:inline">{selectedChemicals.length} chem.</span>
+          <span className="text-xs text-slate-500 hidden sm:inline">{selectedChemicals.length} prod.</span>
           <button
             onClick={() => { selectedChemicals.forEach(id => removeChemical(id)); setCurrentReaction(null); setTitrantVol(0); setTitrationDone(false); setIndicatorAdded(false); }}
             className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-red-400 hover:text-red-300 transition-colors"

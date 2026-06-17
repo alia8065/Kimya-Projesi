@@ -37,7 +37,7 @@ export default function GradePage({ params }: Props) {
           <div className="flex items-center gap-3">
             <Link href="/curriculum" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm">
               <ArrowLeft className="w-4 h-4" />
-              Grades
+              Niveaux
             </Link>
             <div className="w-px h-4 bg-slate-600" />
             <span className="text-2xl">{gradeData.icon}</span>
@@ -74,8 +74,8 @@ export default function GradePage({ params }: Props) {
             style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(99,102,241,0.15)' }}>
             <div className="flex-1">
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-slate-400">Overall Progress</span>
-                <span className="text-white font-semibold">{completedTopics.length}/{gradeData.topics.length} topics</span>
+                <span className="text-slate-400">Progression globale</span>
+                <span className="text-white font-semibold">{completedTopics.length}/{gradeData.topics.length} sujets</span>
               </div>
               <div className="h-2 rounded-full bg-slate-700/50">
                 <div className="h-full rounded-full progress-bar"
@@ -122,7 +122,7 @@ export default function GradePage({ params }: Props) {
                         {topic.icon}
                       </div>
                       <div>
-                        <div className="text-xs text-slate-500 mb-0.5">Topic {index + 1}</div>
+                        <div className="text-xs text-slate-500 mb-0.5">Sujet {index + 1}</div>
                         <h3 className="font-bold text-white text-sm">{topic.name}</h3>
                       </div>
                     </div>
@@ -139,24 +139,24 @@ export default function GradePage({ params }: Props) {
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
                       style={{ background: 'rgba(99,102,241,0.1)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.2)' }}>
                       <BookOpen className="w-3 h-3" />
-                      {topic.theory.sections.length} theory sections
+                      {topic.theory.sections.length} sections théoriques
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
                       style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.2)' }}>
                       <FlaskConical className="w-3 h-3" />
-                      {topic.experiments.length} experiment{topic.experiments.length !== 1 ? 's' : ''}
+                      {topic.experiments.length} expérience{topic.experiments.length !== 1 ? 's' : ''}
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
                       style={{ background: 'rgba(245,158,11,0.1)', color: '#fcd34d', border: '1px solid rgba(245,158,11,0.2)' }}>
                       <HelpCircle className="w-3 h-3" />
-                      {topic.quiz.length} quiz questions
+                      {topic.quiz.length} questions de quiz
                     </div>
                   </div>
 
                   {/* Score if completed */}
                   {topicProgress?.quizScore !== undefined && (
                     <div className="mt-3 pt-3 border-t border-slate-700/50 flex items-center justify-between">
-                      <span className="text-xs text-slate-400">Quiz Score</span>
+                      <span className="text-xs text-slate-400">Score du quiz</span>
                       <span className="text-xs font-bold"
                         style={{ color: topicProgress.quizScore >= 80 ? '#6ee7b7' : topicProgress.quizScore >= 60 ? '#fcd34d' : '#fca5a5' }}>
                         {topicProgress.quizScore}%

@@ -42,20 +42,20 @@ export default function AIAssistant({ context, className = "", isOpen = true, on
       });
 
       const data = await res.json();
-      addMessage({ role: "assistant", content: data.response || "I couldn't process that. Please try again." });
+      addMessage({ role: "assistant", content: data.response || "Je n'ai pas pu traiter cela. Veuillez réessayer." });
       addXP(5);
     } catch {
-      addMessage({ role: "assistant", content: "Connection error. Please check your network and try again." });
+      addMessage({ role: "assistant", content: "Erreur de connexion. Vérifiez votre réseau et réessayez." });
     } finally {
       setLoading(false);
     }
   };
 
   const QUICK_QUESTIONS = [
-    "What happened in this reaction?",
-    "Why did the color change?",
-    "What is the oxidation state?",
-    "How do I balance this equation?",
+    "Que s'est-il passé dans cette réaction ?",
+    "Pourquoi la couleur a-t-elle changé ?",
+    "Quel est l'état d'oxydation ?",
+    "Comment équilibrer cette équation ?",
   ];
 
   if (!isOpen) {
@@ -84,12 +84,12 @@ export default function AIAssistant({ context, className = "", isOpen = true, on
           </div>
           <div>
             <div className="text-sm font-semibold text-white">ChemBot AI</div>
-            <div className="text-xs text-indigo-400">Chemistry Tutor</div>
+            <div className="text-xs text-indigo-400">Tuteur de chimie</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-400 pulse-glow" />
-          <span className="text-xs text-emerald-400">Online</span>
+          <span className="text-xs text-emerald-400">En ligne</span>
           {onToggle && (
             <button onClick={onToggle} className="ml-2 text-slate-400 hover:text-white">
               <X className="w-4 h-4" />
@@ -103,7 +103,7 @@ export default function AIAssistant({ context, className = "", isOpen = true, on
         {chatHistory.length === 0 ? (
           <div className="text-center py-6">
             <Bot className="w-10 h-10 text-indigo-400 mx-auto mb-3" />
-            <p className="text-slate-400 text-sm">Ask me anything about chemistry!</p>
+            <p className="text-slate-400 text-sm">Posez-moi n&apos;importe quelle question sur la chimie !</p>
             <div className="mt-4 space-y-2">
               {QUICK_QUESTIONS.map((q, i) => (
                 <button
@@ -168,7 +168,7 @@ export default function AIAssistant({ context, className = "", isOpen = true, on
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask about chemistry..."
+            placeholder="Posez une question sur la chimie..."
             className="flex-1 px-3 py-2 rounded-lg text-sm text-white placeholder-slate-500 outline-none focus:border-indigo-500"
             style={{ background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(99,102,241,0.2)' }}
           />

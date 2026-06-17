@@ -23,306 +23,306 @@ export const EQUIPMENT: Equipment[] = [
   // ─── Glassware ──────────────────────────────────────────────────────────────
   {
     id: 'beaker',
-    name: 'Beaker',
+    name: 'Bêcher',
     description:
-      'A cylindrical glass container with a flat bottom and a small beak for pouring. Used to hold, mix, and heat liquids. Not suitable for accurate volume measurements.',
+      'Un récipient en verre cylindrique à fond plat et à bec verseur. Utilisé pour contenir, mélanger et chauffer des liquides. Ne convient pas aux mesures précises de volume.',
     icon: '🧪',
     category: 'glassware',
     maxVolume: '50 mL – 4000 mL',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Use a stirring rod to mix contents. Place on wire gauze when heating over Bunsen burner. Do not heat empty.',
-    uses: ['Mixing solutions', 'Heating liquids', 'General reactions', 'Holding reagents'],
+      'Utiliser une tige en verre pour mélanger le contenu. Placer sur une toile métallique lors du chauffage sur bec Bunsen. Ne pas chauffer à vide.',
+    uses: ['Mélange de solutions', 'Chauffage de liquides', 'Réactions courantes', 'Stockage de réactifs'],
   },
   {
     id: 'erlenmeyer',
-    name: 'Erlenmeyer Flask',
+    name: 'Fiole d\'Erlenmeyer',
     description:
-      'A conical flask with a flat bottom, conical body, and narrow cylindrical neck. Excellent for swirling solutions (e.g., titrations) without spilling.',
+      'Une fiole conique à fond plat, corps conique et col cylindrique étroit. Excellente pour agiter les solutions par rotation (p. ex. lors de titrages) sans renverser.',
     icon: '⚗️',
     category: 'glassware',
     maxVolume: '50 mL – 2000 mL',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Ideal for titrations – allows swirling without splashing. Can be clamped and heated gently.',
-    uses: ['Titration', 'Swirling reactions', 'Storing solutions', 'Reflux setups'],
+      'Idéale pour les titrages – permet de faire tourner sans éclabousser. Peut être fixée et chauffée doucement.',
+    uses: ['Titrage', 'Réactions par agitation rotative', 'Stockage de solutions', 'Montages à reflux'],
   },
   {
     id: 'test_tube',
-    name: 'Test Tube',
+    name: 'Tube à essai',
     description:
-      'A small glass tube closed at one end, used to hold, mix, heat, or perform small-scale chemical reactions.',
+      'Un petit tube en verre fermé à une extrémité, utilisé pour contenir, mélanger, chauffer ou réaliser des réactions chimiques à petite échelle.',
     icon: '🧫',
     category: 'glassware',
     maxVolume: '10–25 mL',
-    material: 'Borosilicate glass or soda-lime glass',
+    material: 'Verre borosilicate ou verre sodocalcique',
     usageNotes:
-      'Hold in a test-tube holder when heating. Point away from yourself and others when heating.',
-    uses: ['Small-scale reactions', 'Heating small samples', 'Observation', 'Qualitative tests'],
+      'Tenir avec une pince à tube lors du chauffage. Orienter l\'ouverture à l\'écart de soi-même et des autres lors du chauffage.',
+    uses: ['Réactions à petite échelle', 'Chauffage de petits échantillons', 'Observation', 'Tests qualitatifs'],
   },
   {
     id: 'volumetric_flask',
-    name: 'Volumetric Flask',
+    name: 'Fiole jaugée',
     description:
-      'A flat-bottomed flask with a long neck calibrated at a single exact volume mark. Used to prepare solutions of precisely known concentration.',
+      'Une fiole à fond plat avec un long col étalonné à un seul trait de jauge exact. Utilisée pour préparer des solutions de concentration précisément connue.',
     icon: '🫙',
     category: 'glassware',
     maxVolume: '25 mL – 2000 mL',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Read the meniscus at eye level. Fill to just below the mark, then use a dropper to add solvent to the calibration mark. Do not heat.',
-    uses: ['Preparing standard solutions', 'Precise dilutions', 'Quantitative analysis'],
+      'Lire le ménisque à hauteur des yeux. Remplir juste en dessous du trait, puis utiliser un compte-gouttes pour ajouter le solvant jusqu\'au trait de jauge. Ne pas chauffer.',
+    uses: ['Préparation de solutions étalons', 'Dilutions précises', 'Analyse quantitative'],
   },
   {
     id: 'burette',
     name: 'Burette',
     description:
-      'A long graduated glass tube with a stopcock at the bottom, used to deliver precisely measured volumes of solution during titrations.',
+      'Un long tube en verre gradué muni d\'un robinet en bas, utilisé pour délivrer des volumes précisément mesurés de solution lors des titrages.',
     icon: '📏',
     category: 'glassware',
-    maxVolume: '25 mL or 50 mL (0.1 mL graduation)',
-    material: 'Borosilicate glass',
+    maxVolume: '25 mL ou 50 mL (graduation 0,1 mL)',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Rinse with the solution before filling. Read the bottom of the meniscus at eye level. Remove air bubbles before starting.',
-    uses: ['Titration', 'Precise volume delivery', 'Endpoint detection'],
+      'Rincer avec la solution avant de remplir. Lire le bas du ménisque à hauteur des yeux. Éliminer les bulles d\'air avant de commencer.',
+    uses: ['Titrage', 'Délivrance précise de volume', 'Détection du point d\'équivalence'],
   },
   {
     id: 'graduated_cylinder',
-    name: 'Graduated Cylinder',
+    name: 'Éprouvette graduée',
     description:
-      'A cylindrical vessel with graduated markings used to measure volumes of liquids with moderate precision.',
+      'Un récipient cylindrique avec des graduations utilisé pour mesurer les volumes de liquides avec une précision modérée.',
     icon: '📐',
     category: 'glassware',
     maxVolume: '10 mL – 2000 mL',
-    material: 'Glass or polypropylene',
-    usageNotes: 'Always read at the bottom of the meniscus, at eye level.',
-    uses: ['Volume measurement', 'Preparation of approximate solutions', 'Density determination'],
+    material: 'Verre ou polypropylène',
+    usageNotes: 'Toujours lire au bas du ménisque, à hauteur des yeux.',
+    uses: ['Mesure de volume', 'Préparation de solutions approximatives', 'Détermination de la densité'],
   },
   {
     id: 'watch_glass',
-    name: 'Watch Glass',
+    name: 'Verre de montre',
     description:
-      'A concave/flat circular glass dish used to hold solids during weighing, to cover beakers, or as a small evaporating surface.',
+      'Une coupelle en verre circulaire concave/plate utilisée pour contenir des solides lors de la pesée, pour couvrir des bêchers, ou comme petite surface d\'évaporation.',
     icon: '🔵',
     category: 'glassware',
-    material: 'Borosilicate glass',
-    usageNotes: 'Place over a beaker to reduce evaporation. Use to weigh solid chemicals.',
-    uses: ['Evaporation', 'Covering beakers', 'Weighing small amounts', 'Holding solids'],
+    material: 'Verre borosilicate',
+    usageNotes: 'Placer sur un bêcher pour réduire l\'évaporation. Utiliser pour peser des produits chimiques solides.',
+    uses: ['Évaporation', 'Couverture de bêchers', 'Pesée de petites quantités', 'Contenance de solides'],
   },
   {
     id: 'separatory_funnel',
-    name: 'Separatory Funnel',
+    name: 'Ampoule à décanter',
     description:
-      'A pear-shaped funnel with a stopcock at the bottom, used to separate two immiscible liquids based on density differences.',
+      'Un entonnoir en forme de poire muni d\'un robinet en bas, utilisé pour séparer deux liquides non miscibles en fonction de leurs différences de densité.',
     icon: '⚗️',
     category: 'separation',
     maxVolume: '50 mL – 2000 mL',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Vent frequently when using with volatile solvents. Allow layers to separate completely before draining.',
-    uses: ['Liquid-liquid extraction', 'Separating immiscible layers', 'Organic synthesis workup'],
+      'Dégazer fréquemment lors de l\'utilisation de solvants volatils. Laisser les phases se séparer complètement avant de vidanger.',
+    uses: ['Extraction liquide-liquide', 'Séparation de phases non miscibles', 'Traitement en synthèse organique'],
   },
   {
     id: 'crucible',
-    name: 'Crucible',
+    name: 'Creuset',
     description:
-      'A small, heat-resistant container (ceramic or porcelain) used to heat substances to very high temperatures, e.g., for ignition, ash testing, or high-temperature reactions.',
+      'Un petit récipient résistant à la chaleur (céramique ou porcelaine) utilisé pour chauffer des substances à très haute température, par exemple pour la calcination, les tests de cendres ou les réactions à haute température.',
     icon: '🏺',
     category: 'heating',
-    material: 'Porcelain, alumina, or silica',
+    material: 'Porcelaine, alumine ou silice',
     usageNotes:
-      'Always preheat before use to remove moisture. Use crucible tongs. Allow to cool in a desiccator before weighing.',
-    uses: ['High-temperature reactions', 'Combustion analysis', 'Calcination', 'Gravimetric analysis'],
+      'Toujours préchauffer avant utilisation pour éliminer l\'humidité. Utiliser des pinces à creuset. Laisser refroidir dans un dessiccateur avant de peser.',
+    uses: ['Réactions à haute température', 'Analyse par combustion', 'Calcination', 'Analyse gravimétrique'],
   },
 
   // ─── Measurement ────────────────────────────────────────────────────────────
   {
     id: 'pipette',
-    name: 'Volumetric Pipette',
+    name: 'Pipette jaugée',
     description:
-      'A glass tube calibrated to deliver an exact volume of liquid. Used when highly accurate volume transfer is required (e.g., 25.00 mL).',
+      'Un tube en verre étalonné pour délivrer un volume exact de liquide. Utilisée lorsqu\'un transfert de volume très précis est requis (p. ex. 25,00 mL).',
     icon: '💧',
     category: 'measurement',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Use a pipette bulb or filler – never pipette by mouth. Do not blow out the last drop.',
-    uses: ['Accurate liquid transfer', 'Titration preparation', 'Sampling', 'Standard solution preparation'],
+      'Utiliser une poire ou un dispositif d\'aspiration – ne jamais pipeter à la bouche. Ne pas souffler la dernière goutte.',
+    uses: ['Transfert précis de liquide', 'Préparation de titrages', 'Prélèvement d\'échantillons', 'Préparation de solutions étalons'],
   },
   {
     id: 'balance',
-    name: 'Analytical Balance',
+    name: 'Balance analytique',
     description:
-      'A precision balance capable of measuring mass to ±0.0001 g (4 decimal places). Enclosed in a draft shield to prevent air currents affecting readings.',
+      'Une balance de précision capable de mesurer la masse à ±0,0001 g (4 décimales). Enfermée dans un caisson anti-souffle pour éviter que les courants d\'air n\'affectent les lectures.',
     icon: '⚖️',
     category: 'measurement',
     usageNotes:
-      'Always close the draft shield before reading. Zero (tare) the balance with the container. Never weigh directly on the pan.',
-    uses: ['Mass measurement', 'Weighing reagents', 'Stoichiometry calculations', 'Gravimetric analysis'],
+      'Toujours fermer le caisson avant de lire. Tarer la balance avec le récipient. Ne jamais peser directement sur le plateau.',
+    uses: ['Mesure de masse', 'Pesée de réactifs', 'Calculs stœchiométriques', 'Analyse gravimétrique'],
   },
   {
     id: 'thermometer',
-    name: 'Thermometer',
+    name: 'Thermomètre',
     description:
-      'A temperature-measuring instrument. Laboratory thermometers range from -10°C to 300°C. Used to monitor reaction temperatures and boiling points.',
+      'Un instrument de mesure de la température. Les thermomètres de laboratoire vont de -10°C à 300°C. Utilisé pour surveiller les températures de réaction et les points d\'ébullition.',
     icon: '🌡️',
     category: 'measurement',
     usageNotes:
-      'Do not stir with a thermometer. Allow time for thermal equilibration before reading.',
-    uses: ['Temperature measurement', 'Monitoring exothermic reactions', 'Boiling point determination', 'Heating curves'],
+      'Ne pas agiter avec un thermomètre. Laisser le temps à l\'équilibre thermique de s\'établir avant de lire.',
+    uses: ['Mesure de température', 'Surveillance des réactions exothermiques', 'Détermination du point d\'ébullition', 'Courbes de chauffage'],
   },
   {
     id: 'ph_meter',
-    name: 'pH Meter',
+    name: 'pH-mètre',
     description:
-      'An electronic instrument used to measure the pH of a solution with high precision (±0.01 pH). Consists of a reference electrode, glass pH electrode, and display unit.',
+      'Un instrument électronique utilisé pour mesurer le pH d\'une solution avec une grande précision (±0,01 pH). Comprend une électrode de référence, une électrode en verre et une unité d\'affichage.',
     icon: '📊',
     category: 'measurement',
     usageNotes:
-      'Always calibrate with standard buffer solutions (pH 4, 7, 10) before use. Rinse electrode with distilled water between measurements. Store in KCl solution.',
-    uses: ['pH measurement', 'Titration endpoint monitoring', 'Buffer preparation', 'Water quality testing'],
+      'Toujours étalonner avec des solutions tampon étalons (pH 4, 7, 10) avant utilisation. Rincer l\'électrode à l\'eau distillée entre les mesures. Conserver dans une solution de KCl.',
+    uses: ['Mesure du pH', 'Surveillance du point d\'équivalence lors du titrage', 'Préparation de tampons', 'Test de qualité de l\'eau'],
   },
   {
     id: 'conductivity_meter',
-    name: 'Conductivity Meter',
+    name: 'Conductimètre',
     description:
-      'Measures the electrical conductivity of a solution, indicating the concentration of dissolved ions. Used in water quality testing and electrolyte studies.',
+      'Mesure la conductivité électrique d\'une solution, indiquant la concentration en ions dissous. Utilisé pour le contrôle de la qualité de l\'eau et les études sur les électrolytes.',
     icon: '⚡',
     category: 'measurement',
     usageNotes:
-      'Calibrate with a standard KCl solution. Rinse probe with distilled water between measurements.',
-    uses: ['Ion concentration measurement', 'Purity testing', 'Electrolyte characterization', 'Titration monitoring'],
+      'Étalonner avec une solution étalon de KCl. Rincer la sonde à l\'eau distillée entre les mesures.',
+    uses: ['Mesure de la concentration en ions', 'Tests de pureté', 'Caractérisation des électrolytes', 'Surveillance de titrage'],
   },
 
   // ─── Heating ────────────────────────────────────────────────────────────────
   {
     id: 'hot_plate',
-    name: 'Hot Plate',
+    name: 'Plaque chauffante',
     description:
-      'An electric heating device with a flat ceramic or metal top surface for heating containers. Many include a magnetic stirrer function.',
+      'Un appareil de chauffage électrique à surface plane en céramique ou en métal pour chauffer des récipients. Beaucoup incluent une fonction d\'agitation magnétique.',
     icon: '🔥',
     category: 'heating',
     usageNotes:
-      'Never place flammable materials near a hot plate. Use heat-resistant gloves. Hot plate surfaces can retain heat long after switch-off.',
-    uses: ['Heating solutions', 'Evaporation', 'Dissolution', 'Distillation setup'],
+      'Ne jamais placer de matières inflammables près d\'une plaque chauffante. Utiliser des gants résistants à la chaleur. La surface de la plaque peut rester chaude longtemps après extinction.',
+    uses: ['Chauffage de solutions', 'Évaporation', 'Dissolution', 'Montage de distillation'],
   },
   {
     id: 'bunsen_burner',
-    name: 'Bunsen Burner',
+    name: 'Bec Bunsen',
     description:
-      'A gas burner producing a hot, controllable flame for heating in the laboratory. Temperature varies from ~300°C (yellow flame) to ~1500°C (blue cone flame).',
+      'Un brûleur à gaz produisant une flamme chaude et contrôlable pour le chauffage en laboratoire. La température varie de ~300°C (flamme jaune) à ~1500°C (cône bleu).',
     icon: '🕯️',
     category: 'heating',
     usageNotes:
-      'Use the blue cone flame for maximum heat. Never leave unattended when lit. Keep away from flammable solvents. Tie back hair and loose clothing.',
-    uses: ['Heating', 'Flame tests', 'Sterilization', 'Combustion', 'Bending glass tubing'],
+      'Utiliser le cône bleu pour une chaleur maximale. Ne jamais laisser sans surveillance lorsqu\'il est allumé. Éloigner des solvants inflammables. Attacher les cheveux et les vêtements amples.',
+    uses: ['Chauffage', 'Tests à la flamme', 'Stérilisation', 'Combustion', 'Cintrage de tubes en verre'],
   },
   {
     id: 'magnetic_stirrer',
-    name: 'Magnetic Stirrer',
+    name: 'Agitateur magnétique',
     description:
-      'A device using a rotating magnetic field to spin a small magnetic stir bar (flea) placed inside a liquid container, providing continuous stirring.',
+      'Un appareil utilisant un champ magnétique rotatif pour faire tourner un petit barreau aimanté placé dans un récipient contenant un liquide, assurant une agitation continue.',
     icon: '🌀',
     category: 'heating',
     usageNotes:
-      'Place the stir bar in the container before adding liquid. Start at low speed and gradually increase.',
-    uses: ['Continuous mixing', 'Dissolution', 'Reaction monitoring', 'Titration stirring'],
+      'Placer le barreau aimanté dans le récipient avant d\'ajouter le liquide. Démarrer à vitesse lente et augmenter progressivement.',
+    uses: ['Mélange continu', 'Dissolution', 'Surveillance de réaction', 'Agitation lors du titrage'],
   },
   {
     id: 'condenser',
-    name: 'Reflux Condenser',
+    name: 'Réfrigérant à reflux',
     description:
-      'A glass condenser mounted vertically above a round-bottom flask to condense vapors and return liquid to the flask, allowing reactions to proceed at boiling point without losing solvent.',
+      'Un condenseur en verre monté verticalement au-dessus d\'un ballon à fond rond pour condenser les vapeurs et les renvoyer dans le ballon, permettant aux réactions de se dérouler à ébullition sans perte de solvant.',
     icon: '🌡️',
     category: 'heating',
-    material: 'Borosilicate glass',
+    material: 'Verre borosilicate',
     usageNotes:
-      'Connect cooling water in at the bottom and out at the top. Ensure water flow before heating. Add boiling chips.',
-    uses: ['Reflux reactions', 'Distillation', 'Vapor condensation', 'Organic synthesis'],
+      'Brancher l\'eau de refroidissement par le bas et la sortir par le haut. S\'assurer du débit d\'eau avant de chauffer. Ajouter des pierres ponces.',
+    uses: ['Réactions à reflux', 'Distillation', 'Condensation des vapeurs', 'Synthèse organique'],
   },
 
   // ─── Electrical ─────────────────────────────────────────────────────────────
   {
     id: 'electrolysis',
-    name: 'Electrolysis Apparatus',
+    name: 'Appareil d\'électrolyse',
     description:
-      'Equipment for performing electrolysis: includes electrodes (carbon/platinum/copper), an electrolyte container, and connections to a power supply.',
+      'Équipement pour réaliser l\'électrolyse : comprend des électrodes (carbone/platine/cuivre), un récipient pour l\'électrolyte et des connexions à une alimentation électrique.',
     icon: '🔋',
     category: 'electrical',
     usageNotes:
-      'Always connect power supply AFTER electrodes are in solution. Never touch electrodes while connected. Ensure adequate ventilation if gases are produced.',
-    uses: ['Electrolysis', 'Metal deposition', 'Gas production', 'Chlor-alkali demonstrations'],
+      'Toujours connecter l\'alimentation APRÈS avoir immergé les électrodes dans la solution. Ne jamais toucher les électrodes lorsqu\'elles sont connectées. Assurer une ventilation suffisante si des gaz sont produits.',
+    uses: ['Électrolyse', 'Dépôt métallique', 'Production de gaz', 'Démonstrations chlore-soude'],
   },
   {
     id: 'galvanic_cell',
-    name: 'Galvanic Cell Kit',
+    name: 'Kit de pile galvanique',
     description:
-      'A kit for constructing electrochemical cells (batteries) to measure standard electrode potentials. Includes metal electrodes, salt bridge, beakers, and connecting wires.',
+      'Un kit pour construire des piles électrochimiques (batteries) afin de mesurer les potentiels standard d\'électrode. Comprend des électrodes métalliques, un pont salin, des bêchers et des fils de connexion.',
     icon: '⚡',
     category: 'electrical',
     usageNotes:
-      'Connect voltmeter in parallel. Ensure good electrical contact. Salt bridge must be fresh. Record cell potential to ±0.01 V.',
-    uses: ['Voltage measurement', 'Electrochemistry experiments', 'Oxidation-reduction reactions', 'Standard potential determination'],
+      'Connecter le voltmètre en parallèle. Assurer un bon contact électrique. Le pont salin doit être frais. Enregistrer la tension de la pile à ±0,01 V.',
+    uses: ['Mesure de tension', 'Expériences d\'électrochimie', 'Réactions d\'oxydoréduction', 'Détermination du potentiel standard'],
   },
 
   // ─── Safety ─────────────────────────────────────────────────────────────────
   {
     id: 'safety_goggles',
-    name: 'Safety Goggles',
+    name: 'Lunettes de protection',
     description:
-      'Protective eyewear with sealed sides to prevent chemical splashes, flying debris, and fumes from reaching the eyes. Different from safety glasses – goggles have side shields.',
+      'Lunettes de protection avec côtés fermés pour empêcher les projections chimiques, les débris et les vapeurs d\'atteindre les yeux. Différentes des lunettes de sécurité simples – les lunettes de protection ont des écrans latéraux.',
     icon: '🥽',
     category: 'safety',
     usageNotes:
-      'Must be worn at ALL times in the laboratory. Clean with mild soap and water. Replace if cracked or scratched.',
-    uses: ['Eye protection', 'Splash prevention', 'Fume protection'],
+      'Doivent être portées EN PERMANENCE dans le laboratoire. Nettoyer avec du savon doux et de l\'eau. Remplacer si fissurées ou rayées.',
+    uses: ['Protection des yeux', 'Prévention des projections', 'Protection contre les vapeurs'],
   },
   {
     id: 'lab_coat',
-    name: 'Laboratory Coat',
+    name: 'Blouse de laboratoire',
     description:
-      'A protective full-length garment worn to protect skin and clothing from chemical splashes, spills, and contamination.',
+      'Un vêtement de protection pleine longueur porté pour protéger la peau et les vêtements des projections chimiques, des déversements et des contaminations.',
     icon: '🥼',
     category: 'safety',
     usageNotes:
-      'Must be 100% cotton or chemically resistant material. Keep buttoned at all times. Replace immediately if contaminated.',
-    uses: ['Skin protection', 'Contamination prevention', 'Clothing protection'],
+      'Doit être en coton 100% ou en matériau chimiquement résistant. Garder boutonnée en permanence. Remplacer immédiatement en cas de contamination.',
+    uses: ['Protection de la peau', 'Prévention des contaminations', 'Protection des vêtements'],
   },
   {
     id: 'fume_hood',
-    name: 'Fume Hood',
+    name: 'Hotte aspirante',
     description:
-      'A ventilated enclosure for handling toxic, corrosive, or volatile chemicals. Draws vapors and fumes away from the worker and exhausts them through a filtration system.',
+      'Une enceinte ventilée pour la manipulation de produits chimiques toxiques, corrosifs ou volatils. Aspire les vapeurs et les émanations à l\'écart de l\'opérateur et les évacue par un système de filtration.',
     icon: '🏠',
     category: 'safety',
     usageNotes:
-      'Keep sash at the marked safe height. Work at least 6 inches inside the hood. Never block the baffles. Check airflow indicator before use.',
-    uses: ['Handling volatile chemicals', 'Working with toxic fumes', 'Corrosive acid handling', 'Gas evolution reactions'],
+      'Maintenir la vitre à la hauteur de sécurité indiquée. Travailler à au moins 15 cm à l\'intérieur de la hotte. Ne jamais obstruer les déflecteurs. Vérifier l\'indicateur de débit d\'air avant utilisation.',
+    uses: ['Manipulation de produits chimiques volatils', 'Travail avec des vapeurs toxiques', 'Manipulation d\'acides corrosifs', 'Réactions dégageant des gaz'],
   },
 
   // ─── General / Support ──────────────────────────────────────────────────────
   {
     id: 'ring_stand',
-    name: 'Ring Stand and Clamps',
+    name: 'Support universel et pinces',
     description:
-      'A metal support stand with adjustable rings and clamps used to hold and support laboratory glassware (e.g., burettes, condensers, flasks) at a desired height during experiments.',
+      'Un support métallique avec des anneaux et des pinces réglables utilisé pour tenir et supporter la verrerie de laboratoire (p. ex. burettes, réfrigérants, fioles) à la hauteur souhaitée pendant les expériences.',
     icon: '🗼',
     category: 'general',
-    material: 'Steel',
+    material: 'Acier',
     usageNotes:
-      'Ensure the stand is stable before attaching heavy equipment. Tighten all clamps securely.',
-    uses: ['Supporting burettes', 'Holding condensers', 'Organizing lab setup', 'Holding separatory funnels'],
+      'S\'assurer que le support est stable avant de fixer des équipements lourds. Serrer toutes les pinces solidement.',
+    uses: ['Support de burettes', 'Maintien des réfrigérants', 'Organisation du montage', 'Maintien des ampoules à décanter'],
   },
   {
     id: 'filter_funnel',
-    name: 'Filter Funnel',
+    name: 'Entonnoir filtrant',
     description:
-      'A conical glass or plastic funnel used with filter paper to separate insoluble solids from liquids by filtration.',
+      'Un entonnoir conique en verre ou en plastique utilisé avec du papier filtre pour séparer des solides insolubles de liquides par filtration.',
     icon: '🔻',
     category: 'separation',
-    material: 'Borosilicate glass or polypropylene',
+    material: 'Verre borosilicate ou polypropylène',
     usageNotes:
-      'Fold filter paper into a cone. Wet the filter paper with solvent before filtering. Ensure the funnel is supported securely.',
-    uses: ['Gravity filtration', 'Separating precipitates', 'Purification of solids', 'Removing suspended particles'],
+      'Plier le papier filtre en cône. Mouiller le papier filtre avec le solvant avant de filtrer. S\'assurer que l\'entonnoir est solidement fixé.',
+    uses: ['Filtration par gravité', 'Séparation de précipités', 'Purification de solides', 'Élimination de particules en suspension'],
   },
 ];
 

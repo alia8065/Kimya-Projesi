@@ -35,7 +35,7 @@ export default function CurriculumPage() {
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm">
             <ArrowLeft className="w-4 h-4" />
-            Home
+            Accueil
           </Link>
           <div className="w-px h-4 bg-slate-600" />
           <div className="flex items-center gap-2">
@@ -43,11 +43,11 @@ export default function CurriculumPage() {
               style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}>
               <BookOpen className="w-4 h-4 text-white" />
             </div>
-            <span className="font-semibold text-white">Curriculum Laboratory</span>
+            <span className="font-semibold text-white">Laboratoire de programme</span>
           </div>
         </div>
         <Link href="/dashboard/student" className="text-sm text-slate-400 hover:text-white transition-colors">
-          My Progress →
+          Ma progression →
         </Link>
       </header>
 
@@ -56,11 +56,11 @@ export default function CurriculumPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium mb-6"
             style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: '#6ee7b7' }}>
             <BookOpen className="w-3 h-3" />
-            Curriculum Laboratory
+            Laboratoire de programme
           </div>
-          <h1 className="text-4xl font-black text-white mb-4">Select Your Grade Level</h1>
+          <h1 className="text-4xl font-black text-white mb-4">Choisissez votre niveau scolaire</h1>
           <p className="text-slate-400 max-w-xl mx-auto">
-            Choose your grade to access structured chemistry experiments, theory, and quizzes aligned to your curriculum.
+            Choisissez votre niveau pour accéder aux expériences chimiques structurées, à la théorie et aux quiz alignés sur votre programme.
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function CurriculumPage() {
                       {grade.topics.length > 4 && (
                         <span className="px-2 py-0.5 rounded-full text-xs text-slate-500"
                           style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                          +{grade.topics.length - 4} more
+                          +{grade.topics.length - 4} de plus
                         </span>
                       )}
                     </div>
@@ -131,7 +131,7 @@ export default function CurriculumPage() {
                       <div className="flex-1 h-1.5 rounded-full bg-slate-700/50">
                         <div className="h-full rounded-full progress-bar" style={{ width: `${progressPct}%` }} />
                       </div>
-                      <span className="text-xs text-slate-400 whitespace-nowrap">{completed}/{total} topics</span>
+                      <span className="text-xs text-slate-400 whitespace-nowrap">{completed}/{total} sujets</span>
                     </div>
                   </div>
 
@@ -148,10 +148,10 @@ export default function CurriculumPage() {
           style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)' }}>
           <div className="text-2xl">💡</div>
           <div>
-            <div className="font-semibold text-white text-sm mb-1">How Curriculum Lab Works</div>
+            <div className="font-semibold text-white text-sm mb-1">Comment fonctionne le Labo de programme</div>
             <div className="text-slate-400 text-xs leading-relaxed">
-              Each topic follows a structured path: <strong className="text-slate-300">Theory</strong> → <strong className="text-slate-300">Interactive Experiment</strong> → <strong className="text-slate-300">AI Tutor</strong> → <strong className="text-slate-300">Quiz</strong>. 
-              Complete all sections to earn XP and badges. Your progress is saved automatically.
+              Chaque sujet suit un parcours structuré : <strong className="text-slate-300">Théorie</strong> → <strong className="text-slate-300">Expérience interactive</strong> → <strong className="text-slate-300">Tuteur IA</strong> → <strong className="text-slate-300">Quiz</strong>.
+              Complétez toutes les sections pour gagner des XP et des badges. Votre progression est sauvegardée automatiquement.
             </div>
           </div>
         </div>

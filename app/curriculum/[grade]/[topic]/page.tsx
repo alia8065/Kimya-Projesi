@@ -1,11 +1,11 @@
 "use client";
 
-import { use, useState, useCallback, useRef, useEffect } from "react";
+import { use, useState, useCallback } from "react";
 import Link from "next/link";
 import {
   ArrowLeft, BookOpen, FlaskConical, Brain, HelpCircle,
   CheckCircle, ChevronRight, Play, Check, X, Trophy, ArrowRight,
-  Droplets, Wind, Thermometer, Zap, RotateCcw,
+  Droplets, Wind, Thermometer, RotateCcw, Zap,
 } from "lucide-react";
 import { CURRICULUM, getTopic } from "@/lib/curriculum";
 import { CHEMICALS } from "@/lib/chemicals";
@@ -21,269 +21,334 @@ interface Props {
 
 type Section = 'theory' | 'experiment' | 'ai' | 'quiz';
 
-/* ── Colour palette for liquid fills ─────────────────────── */
-const LIQUID_COLORS: Record<string, string> = {
-  colorless:      'rgba(180,210,255,0.18)',
-  blue:           'rgba(59,130,246,0.55)',
-  'deep blue':    'rgba(29,78,216,0.65)',
-  purple:         'rgba(147,51,234,0.55)',
-  violet:         'rgba(139,92,246,0.55)',
-  green:          'rgba(16,185,129,0.45)',
-  yellow:         'rgba(234,179,8,0.45)',
-  orange:         'rgba(249,115,22,0.45)',
-  red:            'rgba(239,68,68,0.45)',
-  brown:          'rgba(120,53,15,0.55)',
-  pink:           'rgba(236,72,153,0.45)',
-  white:          'rgba(240,240,255,0.25)',
-  'pale blue':    'rgba(147,197,253,0.35)',
+const LIQUID: Record<string, string> = {
+  colorless:   'rgba(200,220,255,0.2)',
+  blue:        'rgba(59,130,246,0.55)',
+  'deep blue': 'rgba(29,78,216,0.65)',
+  purple:      'rgba(147,51,234,0.55)',
+  violet:      'rgba(139,92,246,0.55)',
+  green:       'rgba(16,185,129,0.45)',
+  yellow:      'rgba(234,179,8,0.45)',
+  orange:      'rgba(249,115,22,0.45)',
+  red:         'rgba(239,68,68,0.45)',
+  brown:       'rgba(120,53,15,0.55)',
+  pink:        'rgba(236,72,153,0.5)',
+  white:       'rgba(240,240,255,0.3)',
+  'pale blue': 'rgba(147,197,253,0.35)',
 };
 
-/* ── Mini Flask SVG Component ─────────────────────────────── */
+/* ── Animated Erlenmeyer Flask ─────────────────────────────────────── */
 function SimFlask({
-  label,
-  color = 'rgba(180,210,255,0.18)',
-  fillPct = 60,
-  hasBubbles = false,
-  hasPrecipitate = false,
-  isActive = false,
+  id, color = 'rgba(200,220,255,0.15)', fillPct = 0,
+  bubbles = false, precipitate = false, glow = false,
 }: {
-  label: string;
-  color?: string;
-  fillPct?: number;
-  hasBubbles?: boolean;
-  hasPrecipitate?: boolean;
-  isActive?: boolean;
+  id: string; color?: string; fillPct?: number;
+  bubbles?: boolean; precipitate?: boolean; glow?: boolean;
 }) {
-  const fillY = 110 - (fillPct * 0.65);
+  const safeId = id.replace(/[^a-zA-Z0-9]/g, '-');
+  const fillY  = 112 - Math.min(fillPct, 100) * 0.72;
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative" style={{ width: 80, height: 100 }}>
-        <svg viewBox="0 0 80 100" width="80" height="100"
-          style={{ filter: isActive ? 'drop-shadow(0 0 12px rgba(99,102,241,0.6))' : 'none', transition: 'filter 0.3s' }}>
-          <path d="M28 8 L28 40 L6 82 Q6 92 16 92 L64 92 Q74 92 74 82 L52 40 L52 8 Z"
-            fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.5)" strokeWidth="2" />
-          <rect x="24" y="3" width="32" height="10" rx="3"
-            fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.5)" strokeWidth="2" />
-          <clipPath id={`flask-clip-${label}`}>
-            <path d="M29 8 L29 40 L8 82 Q8 90 16 90 L64 90 Q72 90 72 82 L51 40 L51 8 Z" />
-          </clipPath>
-          {fillPct > 0 && (
-            <rect x="0" y={fillY} width="80" height="100"
-              fill={color}
-              clipPath={`url(#flask-clip-${label})`}
-              style={{ transition: 'fill 1s ease, y 0.8s ease' }} />
-          )}
-          {hasPrecipitate && (
-            <rect x="12" y="84" width="56" height="6" rx="2"
-              fill="rgba(255,255,255,0.35)" stroke="rgba(255,255,255,0.5)" strokeWidth="1"
-              clipPath={`url(#flask-clip-${label})`} />
-          )}
-          {hasBubbles && [20, 35, 50, 65].map((cx, i) => (
-            <circle key={i} cx={cx} cy={fillY + 5} r="2.5"
-              fill="rgba(255,255,255,0.45)"
-              className="bubble" style={{ animationDelay: `${i * 0.3}s` }} />
-          ))}
-        </svg>
-      </div>
-      <span className="text-xs text-slate-400 text-center leading-tight">{label}</span>
-    </div>
+    <svg viewBox="0 0 90 130" width="90" height="130"
+      style={{ filter: glow ? 'drop-shadow(0 0 14px rgba(99,102,241,0.7))' : 'drop-shadow(0 0 6px rgba(99,102,241,0.2))', transition: 'filter 0.5s' }}>
+      <defs>
+        <clipPath id={`f-${safeId}`}>
+          <path d="M32 8 L32 46 L7 95 Q7 114 18 114 L72 114 Q83 114 83 95 L58 46 L58 8 Z" />
+        </clipPath>
+      </defs>
+      {/* Neck */}
+      <rect x="27" y="3" width="36" height="12" rx="4"
+        fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.5)" strokeWidth="2" />
+      {/* Body */}
+      <path d="M32 8 L32 46 L7 95 Q7 114 18 114 L72 114 Q83 114 83 95 L58 46 L58 8 Z"
+        fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.5)" strokeWidth="2" />
+      {/* Liquid */}
+      {fillPct > 0 && (
+        <rect x="0" y={fillY} width="90" height="130"
+          fill={color} clipPath={`url(#f-${safeId})`}
+          style={{ transition: 'fill 1s ease, y 0.7s ease' }} />
+      )}
+      {/* Precipitate layer */}
+      {precipitate && (
+        <rect x="12" y="107" width="66" height="7" rx="3"
+          fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth="1"
+          clipPath={`url(#f-${safeId})`} />
+      )}
+      {/* Bubbles */}
+      {bubbles && [18, 32, 50, 66].map((cx, i) => (
+        <circle key={i} cx={cx} cy={fillY + 8} r="3"
+          fill="rgba(255,255,255,0.45)"
+          className="bubble" style={{ animationDelay: `${i * 0.35}s` }} />
+      ))}
+      {/* Glass shine */}
+      <path d="M36 12 L36 44 L18 80" stroke="rgba(255,255,255,0.12)" strokeWidth="2" fill="none" strokeLinecap="round" />
+    </svg>
   );
 }
 
-/* ── Beaker SVG ──────────────────────────────────────────── */
+/* ── Animated Beaker ──────────────────────────────────────────────── */
 function SimBeaker({
-  label, color = 'rgba(180,210,255,0.18)', fillPct = 50, isActive = false,
-}: { label: string; color?: string; fillPct?: number; isActive?: boolean }) {
-  const fillY = 90 - fillPct * 0.6;
+  id, color = 'rgba(200,220,255,0.15)', fillPct = 0, glow = false,
+}: {
+  id: string; color?: string; fillPct?: number; glow?: boolean;
+}) {
+  const safeId = id.replace(/[^a-zA-Z0-9]/g, '-');
+  const fillY  = 82 - Math.min(fillPct, 100) * 0.62;
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div style={{ width: 72, height: 90 }}>
-        <svg viewBox="0 0 72 90" width="72" height="90"
-          style={{ filter: isActive ? 'drop-shadow(0 0 10px rgba(16,185,129,0.5))' : 'none', transition: 'filter 0.3s' }}>
-          <path d="M6 4 L66 4 L66 82 Q66 88 60 88 L12 88 Q6 88 6 82 Z"
-            fill="rgba(99,102,241,0.05)" stroke="rgba(99,102,241,0.4)" strokeWidth="2" />
-          <clipPath id={`beaker-clip-${label}`}>
-            <path d="M7 4 L65 4 L65 82 Q65 87 60 87 L12 87 Q7 87 7 82 Z" />
-          </clipPath>
-          {fillPct > 0 && (
-            <rect x="0" y={fillY} width="72" height="90"
-              fill={color}
-              clipPath={`url(#beaker-clip-${label})`}
-              style={{ transition: 'fill 1s ease, y 0.8s ease' }} />
-          )}
-          {[20, 30, 40, 50, 60].map(y => (
-            <line key={y} x1="62" y1={y} x2="70" y2={y}
-              stroke="rgba(99,102,241,0.3)" strokeWidth="1" />
-          ))}
-        </svg>
-      </div>
-      <span className="text-xs text-slate-400 text-center leading-tight">{label}</span>
-    </div>
+    <svg viewBox="0 0 80 100" width="80" height="100"
+      style={{ filter: glow ? 'drop-shadow(0 0 14px rgba(16,185,129,0.7))' : 'drop-shadow(0 0 6px rgba(16,185,129,0.2))', transition: 'filter 0.5s' }}>
+      <defs>
+        <clipPath id={`b-${safeId}`}>
+          <path d="M8 6 L72 6 L72 85 Q72 93 64 93 L16 93 Q8 93 8 85 Z" />
+        </clipPath>
+      </defs>
+      {/* Body */}
+      <path d="M8 6 L72 6 L72 85 Q72 93 64 93 L16 93 Q8 93 8 85 Z"
+        fill="rgba(16,185,129,0.05)" stroke="rgba(16,185,129,0.45)" strokeWidth="2" />
+      {/* Liquid */}
+      {fillPct > 0 && (
+        <rect x="0" y={fillY} width="80" height="100"
+          fill={color} clipPath={`url(#b-${safeId})`}
+          style={{ transition: 'fill 1s ease, y 0.7s ease' }} />
+      )}
+      {/* Graduation marks */}
+      {[20, 35, 50, 65].map(y => (
+        <g key={y}>
+          <line x1="68" y1={y} x2="76" y2={y} stroke="rgba(16,185,129,0.4)" strokeWidth="1" />
+        </g>
+      ))}
+      {/* Spout */}
+      <path d="M60 6 L72 6 L78 0" stroke="rgba(16,185,129,0.45)" strokeWidth="2" fill="none" />
+      {/* Shine */}
+      <path d="M14 10 L14 80" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeLinecap="round" />
+    </svg>
   );
 }
 
-/* ── Burette SVG ─────────────────────────────────────────── */
-function SimBurette({ dripping = false, liquidLevel = 100 }: { dripping?: boolean; liquidLevel?: number }) {
+/* ── Burette ──────────────────────────────────────────────────────── */
+function SimBurette({ level = 100, dripping = false }: { level?: number; dripping?: boolean }) {
+  const fillH = Math.min(level, 100) * 1.2;
+  const fillY = 4 + (120 - fillH);
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div style={{ width: 30, height: 160 }}>
-        <svg viewBox="0 0 30 160" width="30" height="160">
-          <rect x="8" y="4" width="14" height="130" rx="3"
-            fill="rgba(99,102,241,0.05)" stroke="rgba(99,102,241,0.5)" strokeWidth="1.5" />
-          <clipPath id="burette-clip">
-            <rect x="9" y="4" width="12" height="130" rx="2" />
-          </clipPath>
-          <rect x="9" y={4 + (100 - liquidLevel) * 1.3} width="12" height="130"
-            fill="rgba(59,130,246,0.5)" clipPath="url(#burette-clip)"
-            style={{ transition: 'y 0.8s ease' }} />
-          <rect x="10" y="134" width="10" height="8" rx="2"
-            fill="rgba(99,102,241,0.3)" stroke="rgba(99,102,241,0.5)" strokeWidth="1" />
-          <line x1="15" y1="142" x2="15" y2="152"
-            stroke="rgba(99,102,241,0.5)" strokeWidth="1.5" />
-          {dripping && (
-            <circle cx="15" cy="158" r="3" fill="rgba(59,130,246,0.8)" className="bubble" />
-          )}
-        </svg>
-      </div>
-      <span className="text-xs text-slate-400">Burette</span>
-    </div>
+    <svg viewBox="0 0 44 200" width="44" height="200">
+      <defs>
+        <clipPath id="bur-main">
+          <rect x="15" y="4" width="14" height="120" rx="3" />
+        </clipPath>
+      </defs>
+      {/* Body */}
+      <rect x="15" y="4" width="14" height="120" rx="3"
+        fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.55)" strokeWidth="1.5" />
+      {/* Liquid */}
+      <rect x="15.5" y={fillY} width="13" height={fillH}
+        fill="rgba(59,130,246,0.5)" clipPath="url(#bur-main)"
+        style={{ transition: 'all 0.6s ease' }} />
+      {/* Grad marks */}
+      {[24, 48, 72, 96].map((y, i) => (
+        <g key={y}>
+          <line x1="22" y1={y} x2="29" y2={y} stroke="rgba(99,102,241,0.45)" strokeWidth="1" />
+          <text x="31" y={y + 3} fontSize="6" fill="rgba(148,163,184,0.7)">{(i + 1) * 25}</text>
+        </g>
+      ))}
+      {/* Stopcock */}
+      <rect x="13" y="124" width="18" height="7" rx="3"
+        fill="rgba(99,102,241,0.3)" stroke="rgba(99,102,241,0.6)" strokeWidth="1.2" />
+      {/* Tip */}
+      <path d="M18 131 L26 131 L22 160 Z"
+        fill="rgba(99,102,241,0.25)" stroke="rgba(99,102,241,0.5)" strokeWidth="1" />
+      {/* Drip */}
+      {dripping && (
+        <ellipse cx="22" cy="164" rx="3" ry="4.5"
+          fill="rgba(59,130,246,0.75)"
+          style={{ animation: 'bubble-rise 0.6s ease-in forwards' }} />
+      )}
+    </svg>
   );
 }
 
-/* ── Main Page ──────────────────────────────────────────── */
+/* ── Test Tube ────────────────────────────────────────────────────── */
+function SimTestTube({ color = 'rgba(200,220,255,0.15)', fillPct = 0 }: { color?: string; fillPct?: number }) {
+  const fillY = 100 - fillPct * 0.7;
+  return (
+    <svg viewBox="0 0 40 120" width="40" height="120">
+      <defs>
+        <clipPath id="tt-main">
+          <path d="M12 4 L28 4 L28 88 Q28 104 20 104 Q12 104 12 88 Z" />
+        </clipPath>
+      </defs>
+      <path d="M12 4 L28 4 L28 88 Q28 104 20 104 Q12 104 12 88 Z"
+        fill="rgba(245,158,11,0.06)" stroke="rgba(245,158,11,0.5)" strokeWidth="1.5" />
+      {fillPct > 0 && (
+        <rect x="0" y={fillY} width="40" height="120"
+          fill={color} clipPath="url(#tt-main)"
+          style={{ transition: 'fill 1s, y 0.7s' }} />
+      )}
+      <rect x="8" y="0" width="24" height="6" rx="3"
+        fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.5)" strokeWidth="1" />
+    </svg>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════ */
 export default function TopicPage({ params }: Props) {
   const { grade: gradeId, topic: topicId } = use(params);
   const topic = getTopic(gradeId, topicId);
   if (!topic) notFound();
 
-  const [activeSection, setActiveSection] = useState<Section>('theory');
+  const [activeSection, setActiveSection]   = useState<Section>('theory');
   const [currentTheorySection, setCurrentTheorySection] = useState(0);
 
   /* Experiment state */
-  const [currentStep, setCurrentStep]       = useState(-1);   // -1 = not started
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
+  const [currentStep, setCurrentStep]       = useState(-1);
   const [experimentDone, setExperimentDone] = useState(false);
   const [experimentResult, setExperimentResult] = useState<ReturnType<typeof simulateReaction> | null>(null);
-
-  /* Visual simulation state */
-  const [flaskColor, setFlaskColor]         = useState('rgba(180,210,255,0.12)');
-  const [flaskFill, setFlaskFill]           = useState(0);
-  const [hasBubbles, setHasBubbles]         = useState(false);
-  const [hasPrecipitate, setHasPrecipitate] = useState(false);
-  const [buretteFill, setBuretteFill]       = useState(100);
-  const [dripping, setDripping]             = useState(false);
-  const [simMessage, setSimMessage]         = useState('');
   const [isAnimating, setIsAnimating]       = useState(false);
 
+  /* Visual simulation state */
+  const [mainColor, setMainColor]     = useState('rgba(200,220,255,0.15)');
+  const [mainFill, setMainFill]       = useState(0);
+  const [tube1Color, setTube1Color]   = useState('rgba(200,220,255,0.15)');
+  const [tube1Fill, setTube1Fill]     = useState(0);
+  const [tube2Color, setTube2Color]   = useState('rgba(200,220,255,0.15)');
+  const [tube2Fill, setTube2Fill]     = useState(0);
+  const [buretteLevel, setBuretteLevel] = useState(100);
+  const [dripping, setDripping]       = useState(false);
+  const [hasBubbles, setHasBubbles]   = useState(false);
+  const [hasPrecipitate, setHasPrecipitate] = useState(false);
+  const [mainGlow, setMainGlow]       = useState(false);
+  const [simLog, setSimLog]           = useState<string[]>([]);
+
   /* Quiz state */
-  const [quizAnswers, setQuizAnswers]       = useState<Record<string, number | null>>({});
-  const [quizSubmitted, setQuizSubmitted]   = useState(false);
-  const [quizScore, setQuizScore]           = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, number | null>>({});
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [quizScore, setQuizScore]     = useState(0);
 
   const { addXP, completeTopicProgress, getTopicProgress } = useLabStore();
-  const topicProgress = getTopicProgress(gradeId, topicId);
+  const topicProgress  = getTopicProgress(gradeId, topicId);
 
-  const grade   = CURRICULUM[gradeId];
-  const exp     = topic.experiments[0];
-  const steps   = exp?.steps ?? [];
+  const grade = CURRICULUM[gradeId];
+  const exp   = topic.experiments[0];
+  const steps = exp?.steps ?? [];
 
-  const SECTIONS: { id: Section; label: string; icon: React.ReactNode; color: string }[] = [
-    { id: 'theory',     label: 'Theory',     icon: <BookOpen className="w-4 h-4" />,    color: '#6366f1' },
-    { id: 'experiment', label: 'Experiment', icon: <FlaskConical className="w-4 h-4" />, color: '#10b981' },
-    { id: 'ai',         label: 'AI Tutor',   icon: <Brain className="w-4 h-4" />,       color: '#8b5cf6' },
-    { id: 'quiz',       label: 'Quiz',       icon: <HelpCircle className="w-4 h-4" />,  color: '#f59e0b' },
+  const SECTIONS = [
+    { id: 'theory'     as Section, label: 'Theory',     icon: <BookOpen className="w-4 h-4" />,    color: '#6366f1' },
+    { id: 'experiment' as Section, label: 'Experiment', icon: <FlaskConical className="w-4 h-4" />, color: '#10b981' },
+    { id: 'ai'         as Section, label: 'AI Tutor',   icon: <Brain className="w-4 h-4" />,       color: '#8b5cf6' },
+    { id: 'quiz'       as Section, label: 'Quiz',       icon: <HelpCircle className="w-4 h-4" />,  color: '#f59e0b' },
   ];
 
-  /* Perform a step — animate the simulation */
-  const doStep = useCallback(async (stepIdx: number) => {
-    if (isAnimating || completedSteps.has(stepIdx)) return;
+  /* Detect equipment type for this experiment */
+  const expHasBurette  = exp?.equipment.some(e => e === 'burette')  ?? false;
+  const expHasHeat     = exp?.equipment.some(e => ['hot_plate', 'bunsen_burner'].includes(e)) ?? false;
+  const expHasPH       = exp?.equipment.some(e => e === 'ph_meter') ?? false;
+  const expHasTherm    = exp?.equipment.some(e => e === 'thermometer') ?? false;
+
+  /* Determine simulation vessel type */
+  const useFlask = exp?.equipment.some(e => ['erlenmeyer', 'volumetric_flask'].includes(e)) ?? false;
+
+  /* Log helper */
+  const log = (msg: string) =>
+    setSimLog(prev => [...prev.slice(-4), msg]);
+
+  /* Perform a step */
+  const doStep = useCallback(async (idx: number) => {
+    if (isAnimating || completedSteps.has(idx)) return;
     setIsAnimating(true);
-    setCurrentStep(stepIdx);
+    setCurrentStep(idx);
+    setMainGlow(true);
 
-    const totalSteps = steps.length;
-    const progress   = (stepIdx + 1) / totalSteps;
+    const s   = steps[idx].toLowerCase();
+    const tot = steps.length;
+    const pct = ((idx + 1) / tot) * 100;
 
-    /* Update flask fill gradually */
-    setFlaskFill(Math.min(70, progress * 70));
-
-    /* Step-specific visual changes */
-    const stepText = steps[stepIdx].toLowerCase();
-
-    if (stepText.includes('fill') || stepText.includes('add') || stepText.includes('dissolve') || stepText.includes('pipette')) {
-      setFlaskFill(prev => Math.min(prev + 20, 70));
-      setSimMessage('Adding reagent…');
+    /* Tube fills when reagents added */
+    if (s.includes('fill') || s.includes('add') || s.includes('dissolve') || s.includes('pipette') || s.includes('measure')) {
+      setTube1Fill(Math.min(70, pct * 0.7));
+      setTube2Fill(Math.min(60, pct * 0.6));
+      setMainFill(prev => Math.min(prev + 18, 72));
+      log('Reagent added to vessel…');
     }
-    if (stepText.includes('heat') || stepText.includes('hot')) {
-      setSimMessage('Heating solution…');
-      setFlaskColor('rgba(239,120,40,0.35)');
+    if (s.includes('water') || s.includes('h₂o') || s.includes('h2o')) {
+      setTube1Color('rgba(180,220,255,0.4)');
+      setMainFill(prev => Math.min(prev + 20, 72));
     }
-    if (stepText.includes('stir') || stepText.includes('mix') || stepText.includes('swirl')) {
-      setSimMessage('Mixing…');
+    if (s.includes('heat') || s.includes('hot') || s.includes('boil')) {
+      setMainColor('rgba(239,120,40,0.35)');
+      log('Solution is heating…');
     }
-    if (stepText.includes('indicator') || stepText.includes('pink') || stepText.includes('colour') || stepText.includes('color')) {
-      setFlaskColor('rgba(236,72,153,0.35)');
-      setSimMessage('Indicator added — solution turns pink…');
+    if (s.includes('stir') || s.includes('mix') || s.includes('swirl') || s.includes('shake')) {
+      log('Mixing the solution…');
     }
-    if (stepText.includes('nacl') || stepText.includes('naoh') || stepText.includes('titrant') || stepText.includes('burette')) {
-      setBuretteFill(prev => Math.max(0, prev - 25));
+    if (s.includes('indicator') || s.includes('phenolphthalein') || s.includes('litmus')) {
+      setTube2Color('rgba(236,72,153,0.55)');
+      log('Indicator added — watch for colour change!');
+    }
+    if (s.includes('nacl') || s.includes('naoh') || s.includes('titrant') || s.includes('burette') || s.includes('drop')) {
+      setBuretteLevel(prev => Math.max(0, prev - 30));
       setDripping(true);
-      setSimMessage('Adding titrant drop by drop…');
-      await new Promise(r => setTimeout(r, 600));
+      log('Adding titrant drop by drop…');
+      await new Promise(r => setTimeout(r, 700));
       setDripping(false);
     }
-    if (stepText.includes('endpoint') || stepText.includes('colour disappear') || stepText.includes('permanent') || stepText.includes('colorless')) {
-      setFlaskColor('rgba(180,210,255,0.12)');
-      setSimMessage('Endpoint reached — colour disappears!');
+    if (s.includes('endpoint') || s.includes('colour disappear') || s.includes('permanent') || s.includes('colorless') || s.includes('colourless')) {
+      setMainColor('rgba(200,220,255,0.2)');
+      log('Endpoint reached — colour disappears!');
     }
-    if (stepText.includes('precipitate') || stepText.includes('white') || stepText.includes('blue')) {
+    if (s.includes('pink') || s.includes('magenta') || s.includes('fuchsia')) {
+      setMainColor('rgba(236,72,153,0.5)');
+      setMainGlow(true);
+      log('Solution turns PINK — endpoint!');
+    }
+    if (s.includes('precipitate') || s.includes('cloudy') || s.includes('turbid')) {
       setHasPrecipitate(true);
-      setSimMessage('Precipitate forming…');
+      log('Precipitate forming…');
     }
-    if (stepText.includes('gas') || stepText.includes('bubble') || stepText.includes('fizz') || stepText.includes('co₂')) {
+    if (s.includes('gas') || s.includes('bubble') || s.includes('fizz') || s.includes('co₂') || s.includes('h₂')) {
       setHasBubbles(true);
-      setSimMessage('Gas evolving — bubbles visible!');
+      log('Gas bubbles evolving!');
+    }
+    if (s.includes('blue') || s.includes('copper')) {
+      setMainColor('rgba(59,130,246,0.5)');
+    }
+    if (s.includes('yellow') || s.includes('iodine')) {
+      setMainColor('rgba(234,179,8,0.5)');
+    }
+    if (s.includes('flame') || s.includes('burn') || s.includes('ignite')) {
+      setMainColor('rgba(239,100,20,0.5)');
+      log('Combustion — yellow flame observed!');
+    }
+    if (s.includes('record') || s.includes('calculate') || s.includes('note') || s.includes('observe')) {
+      log('Observation recorded ✓');
     }
 
     await new Promise(r => setTimeout(r, 800));
-
-    setCompletedSteps(prev => new Set([...prev, stepIdx]));
+    setCompletedSteps(prev => new Set([...prev, idx]));
+    setMainGlow(false);
     setIsAnimating(false);
-    setSimMessage('');
 
-    /* Last step → run reaction engine & mark done */
-    if (stepIdx === totalSteps - 1) {
+    /* Last step — complete experiment */
+    if (idx === tot - 1) {
       const result = simulateReaction(exp.chemicals);
       setExperimentResult(result);
       setExperimentDone(true);
       addXP(25);
-
-      /* Apply reaction result to simulation */
-      if (result.colorChange) {
-        setFlaskColor(LIQUID_COLORS[result.colorChange.toLowerCase()] ?? 'rgba(180,210,255,0.18)');
-      }
+      if (result.colorChange) setMainColor(LIQUID[result.colorChange.toLowerCase()] ?? 'rgba(200,220,255,0.2)');
       if (result.precipitate) setHasPrecipitate(true);
       if (result.gasProduced) setHasBubbles(true);
-
-      completeTopicProgress({
-        topicId,
-        gradeId,
-        quizScore: topicProgress?.quizScore ?? 0,
-        experimentDone: true,
-      });
+      log('Experiment complete! +25 XP');
+      completeTopicProgress({ topicId, gradeId, quizScore: topicProgress?.quizScore ?? 0, experimentDone: true });
     }
   }, [isAnimating, completedSteps, steps, exp, addXP, completeTopicProgress, topicId, gradeId, topicProgress]);
 
   const resetExperiment = () => {
-    setCurrentStep(-1);
-    setCompletedSteps(new Set());
-    setExperimentDone(false);
-    setExperimentResult(null);
-    setFlaskColor('rgba(180,210,255,0.12)');
-    setFlaskFill(0);
-    setHasBubbles(false);
-    setHasPrecipitate(false);
-    setBuretteFill(100);
-    setDripping(false);
+    setCompletedSteps(new Set()); setCurrentStep(-1);
+    setExperimentDone(false); setExperimentResult(null);
+    setMainColor('rgba(200,220,255,0.15)'); setMainFill(0);
+    setTube1Color('rgba(200,220,255,0.15)'); setTube1Fill(0);
+    setTube2Color('rgba(200,220,255,0.15)'); setTube2Fill(0);
+    setBuretteLevel(100); setDripping(false);
+    setHasBubbles(false); setHasPrecipitate(false);
+    setMainGlow(false); setSimLog([]);
   };
 
   /* Quiz handlers */
@@ -291,32 +356,168 @@ export default function TopicPage({ params }: Props) {
     if (quizSubmitted) return;
     setQuizAnswers(prev => ({ ...prev, [qId]: idx }));
   };
-
   const submitQuiz = () => {
     let correct = 0;
     topic.quiz.forEach(q => { if (quizAnswers[q.id] === q.answer) correct++; });
     const score = Math.round((correct / topic.quiz.length) * 100);
-    setQuizScore(score);
-    setQuizSubmitted(true);
+    setQuizScore(score); setQuizSubmitted(true);
     addXP(score >= 80 ? 50 : score >= 60 ? 30 : 15);
-    completeTopicProgress({
-      topicId, gradeId,
-      quizScore: score,
-      experimentDone: experimentDone || !!topicProgress?.experimentDone,
-    });
+    completeTopicProgress({ topicId, gradeId, quizScore: score, experimentDone: experimentDone || !!topicProgress?.experimentDone });
   };
 
-  /* Detect equipment */
-  const hasBurette   = exp?.equipment.includes('burette')   ?? false;
-  const hasHotPlate  = exp?.equipment.includes('hot_plate') ?? false;
-  const hasPHMeter   = exp?.equipment.includes('ph_meter')  ?? false;
-  const hasTherm     = exp?.equipment.includes('thermometer') ?? false;
+  /* ── Simulation panel (reused in both column and stacked layouts) ── */
+  const SimPanel = (
+    <div className="rounded-2xl overflow-hidden"
+      style={{ background: 'rgba(6,9,18,0.95)', border: '1px solid rgba(16,185,129,0.25)' }}>
 
+      {/* Header */}
+      <div className="px-4 py-2.5 border-b border-emerald-500/15 flex items-center justify-between"
+        style={{ background: 'rgba(16,185,129,0.07)' }}>
+        <div className="flex items-center gap-2">
+          <Zap className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Live Simulation</span>
+        </div>
+        <div className="flex items-center gap-2">
+          {expHasPH && experimentDone && experimentResult?.pHChange !== null && (
+            <span className="text-xs px-2 py-0.5 rounded-full font-mono"
+              style={{ background: 'rgba(99,102,241,0.15)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.3)' }}>
+              pH {experimentResult!.pHChange}
+            </span>
+          )}
+          {expHasTherm && (
+            <span className="text-xs px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(239,68,68,0.1)', color: '#fca5a5', border: '1px solid rgba(239,68,68,0.2)' }}>
+              <Thermometer className="w-3 h-3 inline mr-1" />
+              {experimentResult?.isExothermic ? '↑ Exothermic' : '25°C'}
+            </span>
+          )}
+          {hasBubbles && (
+            <span className="text-xs px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(59,130,246,0.1)', color: '#93c5fd', border: '1px solid rgba(59,130,246,0.2)' }}>
+              <Wind className="w-3 h-3 inline mr-1" />Gas
+            </span>
+          )}
+          {hasPrecipitate && (
+            <span className="text-xs px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(248,250,252,0.07)', color: '#e2e8f0', border: '1px solid rgba(248,250,252,0.15)' }}>
+              <Droplets className="w-3 h-3 inline mr-1" />Ppt.
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Vessel canvas */}
+      <div className="relative px-6 py-8 flex items-end justify-center gap-4 sm:gap-8"
+        style={{ minHeight: 220, background: 'radial-gradient(ellipse at 50% 80%, rgba(16,185,129,0.06) 0%, transparent 70%)' }}>
+
+        {/* Grid background */}
+        <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
+
+        {/* Burette (only when experiment uses one) */}
+        {expHasBurette && (
+          <div className="flex flex-col items-center gap-1 relative z-10">
+            <span className="text-xs text-slate-500 font-mono mb-1">{buretteLevel.toFixed(0)} mL</span>
+            <SimBurette level={buretteLevel} dripping={dripping} />
+          </div>
+        )}
+
+        {/* Reagent vessel 1 */}
+        {exp && exp.chemicals.length > 0 && (
+          <div className="flex flex-col items-center gap-2 relative z-10">
+            {useFlask
+              ? <SimFlask id={`r1-${topicId}`} color={tube1Color} fillPct={tube1Fill} />
+              : <SimTestTube color={tube1Color} fillPct={tube1Fill} />
+            }
+            <span className="text-xs text-slate-500 text-center max-w-[60px] leading-tight">
+              {CHEMICALS.find(c => c.id === exp.chemicals[0])?.formula ?? exp.chemicals[0]}
+            </span>
+          </div>
+        )}
+
+        {/* Main reaction vessel */}
+        <div className="flex flex-col items-center gap-2 relative z-10">
+          {useFlask
+            ? <SimFlask id={`main-${topicId}`} color={mainColor} fillPct={mainFill}
+                bubbles={hasBubbles} precipitate={hasPrecipitate} glow={mainGlow} />
+            : <SimBeaker id={`main-${topicId}`} color={mainColor} fillPct={mainFill} glow={mainGlow} />
+          }
+          {/* Flame under vessel when heating */}
+          {expHasHeat && completedSteps.size > 0 && (
+            <div className="flex gap-0.5 -mt-1">
+              {['🔥','🔥','🔥'].map((f, i) => (
+                <span key={i} className="text-lg animate-pulse" style={{ animationDuration: `${0.3 + i * 0.1}s` }}>{f}</span>
+              ))}
+            </div>
+          )}
+          <span className="text-xs text-slate-400 text-center">Reaction vessel</span>
+        </div>
+
+        {/* Reagent vessel 2 */}
+        {exp && exp.chemicals.length > 1 && (
+          <div className="flex flex-col items-center gap-2 relative z-10">
+            {useFlask
+              ? <SimFlask id={`r2-${topicId}`} color={tube2Color} fillPct={tube2Fill} />
+              : <SimTestTube color={tube2Color} fillPct={tube2Fill} />
+            }
+            <span className="text-xs text-slate-500 text-center max-w-[60px] leading-tight">
+              {CHEMICALS.find(c => c.id === exp.chemicals[1])?.formula ?? exp.chemicals[1]}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Lab bench surface */}
+      <div className="h-2" style={{ background: 'linear-gradient(180deg, rgba(30,41,59,0.6), rgba(15,23,42,0.4))' }} />
+
+      {/* Activity log */}
+      <div className="px-4 py-3 min-h-[60px]"
+        style={{ background: 'rgba(10,14,26,0.5)', borderTop: '1px solid rgba(16,185,129,0.1)' }}>
+        {simLog.length === 0 ? (
+          <p className="text-xs text-slate-600 italic">Click a step&apos;s <strong className="text-slate-500">Do it</strong> button — the simulation updates here</p>
+        ) : (
+          <div className="space-y-1">
+            {simLog.slice(-3).map((msg, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs"
+                style={{ color: i === simLog.slice(-3).length - 1 ? '#6ee7b7' : '#475569' }}>
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ background: i === simLog.slice(-3).length - 1 ? '#10b981' : '#334155' }} />
+                {msg}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Experiment complete banner */}
+      {experimentDone && experimentResult && (
+        <div className="mx-4 mb-4 mt-2 rounded-xl p-4"
+          style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)' }}>
+          <div className="flex items-center gap-2 mb-2">
+            <CheckCircle className="w-4 h-4 text-emerald-400" />
+            <span className="text-sm font-bold text-white">Experiment Complete!</span>
+            <span className="ml-auto text-xs font-bold text-emerald-400">+25 XP</span>
+          </div>
+          <div className="font-mono text-indigo-300 text-sm mb-2 break-all">{experimentResult.equation}</div>
+          <p className="text-slate-300 text-xs leading-relaxed mb-3">{exp.expectedObservations}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {experimentResult.observations.map((obs, i) => (
+              <span key={i} className="px-2 py-0.5 rounded-full text-xs"
+                style={{ background: 'rgba(16,185,129,0.15)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.3)' }}>
+                {obs}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  /* ── Render ─────────────────────────────────────────────────────── */
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#0a0e1a', color: '#e2e8f0' }}>
       <div className="fixed inset-0 grid-bg opacity-20 pointer-events-none" />
 
-      {/* ── Header ─────────────────────────────────────────── */}
+      {/* Header */}
       <header className="relative z-10 border-b border-indigo-500/15 px-4 py-3"
         style={{ background: 'rgba(10,14,26,0.98)', backdropFilter: 'blur(16px)' }}>
         <div className="flex items-center justify-between gap-2">
@@ -334,7 +535,6 @@ export default function TopicPage({ params }: Props) {
             )}
           </div>
 
-          {/* Section tabs — scroll on mobile */}
           <div className="flex items-center gap-0.5 overflow-x-auto">
             {SECTIONS.map(s => (
               <button key={s.id} onClick={() => setActiveSection(s.id)}
@@ -352,10 +552,10 @@ export default function TopicPage({ params }: Props) {
         </div>
       </header>
 
-      {/* ── Content ─────────────────────────────────────────── */}
+      {/* Content */}
       <div className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-6">
 
-        {/* ══ THEORY ══════════════════════════════════════════ */}
+        {/* ══ THEORY ══════════════════════════════════════════════ */}
         {activeSection === 'theory' && (
           <div className="max-w-3xl mx-auto">
             <div className="mb-6">
@@ -365,7 +565,6 @@ export default function TopicPage({ params }: Props) {
               <h1 className="text-2xl sm:text-3xl font-black text-white mb-3">{topic.name}</h1>
               <p className="text-slate-400 leading-relaxed">{topic.description}</p>
             </div>
-
             <div className="space-y-3">
               {topic.theory.sections.map((section, i) => (
                 <div key={i}
@@ -396,7 +595,6 @@ export default function TopicPage({ params }: Props) {
                 </div>
               ))}
             </div>
-
             <div className="mt-8 flex justify-end">
               <button onClick={() => setActiveSection('experiment')}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm"
@@ -407,10 +605,12 @@ export default function TopicPage({ params }: Props) {
           </div>
         )}
 
-        {/* ══ EXPERIMENT ══════════════════════════════════════ */}
+        {/* ══ EXPERIMENT ══════════════════════════════════════════ */}
         {activeSection === 'experiment' && exp && (
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-5 flex items-start justify-between gap-4">
+          <div className="max-w-5xl mx-auto">
+
+            {/* Title row */}
+            <div className="mb-5 flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="text-xs text-emerald-400 font-medium mb-1 flex items-center gap-1.5">
                   <FlaskConical className="w-3.5 h-3.5" /> INTERACTIVE EXPERIMENT
@@ -420,229 +620,122 @@ export default function TopicPage({ params }: Props) {
               </div>
               {(currentStep >= 0 || experimentDone) && (
                 <button onClick={resetExperiment}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs text-slate-300 hover:text-white flex-shrink-0 transition-colors"
-                  style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)' }}>
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs flex-shrink-0 transition-colors"
+                  style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)', color: '#94a3b8' }}>
                   <RotateCcw className="w-3.5 h-3.5" /> Reset
                 </button>
               )}
             </div>
 
-            {/* ── SIMULATION AREA ── */}
-            <div className="rounded-2xl overflow-hidden mb-5"
-              style={{ background: 'rgba(8,12,22,0.9)', border: '1px solid rgba(99,102,241,0.2)' }}>
+            {/* Two-column layout: steps LEFT, simulation RIGHT */}
+            <div className="lg:grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 
-              {/* Top bar — equipment readings */}
-              <div className="flex items-center gap-3 px-4 py-2 border-b border-indigo-500/10 flex-wrap"
-                style={{ background: 'rgba(15,23,42,0.6)' }}>
-                <span className="text-xs font-medium text-slate-400">Lab Instruments</span>
-                {hasPHMeter && (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
-                    style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
-                    pH: {experimentDone && experimentResult?.pHChange !== null ? experimentResult!.pHChange : '—'}
-                  </div>
-                )}
-                {hasTherm && (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
-                    style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#fca5a5' }}>
-                    <Thermometer className="w-3 h-3" />
-                    {experimentDone && experimentResult?.isExothermic ? '↑ Exothermic' : 'Room temp'}
-                  </div>
-                )}
-                {hasBubbles && (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
-                    style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', color: '#93c5fd' }}>
-                    <Wind className="w-3 h-3" /> Gas evolving
-                  </div>
-                )}
-                {hasPrecipitate && (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs"
-                    style={{ background: 'rgba(248,250,252,0.05)', border: '1px solid rgba(248,250,252,0.15)', color: '#e2e8f0' }}>
-                    <Droplets className="w-3 h-3" /> Precipitate
-                  </div>
-                )}
-              </div>
+              {/* ── LEFT: steps + chemicals + equipment ── */}
+              <div className="space-y-5">
 
-              {/* Main sim canvas */}
-              <div className="flex items-end justify-center gap-6 sm:gap-10 px-6 py-8 relative min-h-[200px]">
-                {/* Background grid */}
-                <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
-
-                {/* Burette if applicable */}
-                {hasBurette && (
-                  <SimBurette dripping={dripping} liquidLevel={buretteFill} />
-                )}
-
-                {/* Reagent flasks — one per chemical */}
-                {exp.chemicals.slice(0, 2).map((chemId, i) => {
-                  const chem = CHEMICALS.find(c => c.id === chemId);
-                  const isInStep = currentStep >= 0 && steps[currentStep]?.toLowerCase().includes(chemId.replace('_', ''));
-                  return (
-                    <SimFlask
-                      key={chemId}
-                      label={chem ? `${chem.formula}` : chemId}
-                      color={LIQUID_COLORS[chem?.color?.toLowerCase() ?? ''] ?? 'rgba(180,210,255,0.18)'}
-                      fillPct={currentStep >= 0 ? 65 : 0}
-                      isActive={isInStep}
-                    />
-                  );
-                })}
-
-                {/* Main reaction beaker — in the center */}
-                <div className="flex flex-col items-center gap-1 relative">
-                  <SimBeaker
-                    label="Reaction vessel"
-                    color={flaskColor}
-                    fillPct={flaskFill}
-                    isActive={currentStep >= 0}
-                  />
-                  {/* Bubble animation overlay */}
-                  {hasBubbles && (
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 text-xs text-blue-300 animate-bounce">
-                      💨↑
+                {/* Step-by-step procedure */}
+                <div className="rounded-xl overflow-hidden"
+                  style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
+                  <div className="px-4 py-3 flex items-center justify-between border-b border-indigo-500/10"
+                    style={{ background: 'rgba(15,23,42,0.5)' }}>
+                    <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">
+                      Procedure — {completedSteps.size}/{steps.length} done
+                    </span>
+                    <div className="h-1.5 w-28 rounded-full bg-slate-700/50">
+                      <div className="h-full rounded-full progress-bar"
+                        style={{ width: `${steps.length > 0 ? (completedSteps.size / steps.length) * 100 : 0}%` }} />
                     </div>
-                  )}
+                  </div>
+                  <div className="p-3 sm:p-4 space-y-2">
+                    {steps.map((step, i) => {
+                      const done   = completedSteps.has(i);
+                      const active = currentStep === i && !done;
+                      const locked = i > 0 && !completedSteps.has(i - 1) && !done;
+                      return (
+                        <div key={i} className="flex gap-3 items-start p-3 rounded-xl transition-all"
+                          style={{
+                            background: done   ? 'rgba(16,185,129,0.08)'
+                                      : active ? 'rgba(99,102,241,0.12)'
+                                      :          'rgba(30,41,59,0.35)',
+                            border:    done   ? '1px solid rgba(16,185,129,0.3)'
+                                      : active ? '1px solid rgba(99,102,241,0.4)'
+                                      : locked ? '1px solid rgba(30,41,59,0.3)'
+                                      :          '1px solid rgba(99,102,241,0.15)',
+                          }}>
+                          {/* Step number / check */}
+                          <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold ${
+                            done ? 'bg-emerald-500 text-white' : active ? 'bg-indigo-500 text-white' : 'text-slate-500'
+                          }`}
+                            style={!done && !active ? { background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)' } : {}}>
+                            {done ? <Check className="w-3.5 h-3.5" /> : i + 1}
+                          </div>
+                          {/* Text */}
+                          <p className={`flex-1 text-sm leading-relaxed ${done ? 'text-slate-400 line-through decoration-slate-600' : 'text-slate-200'}`}>
+                            {step}
+                          </p>
+                          {/* Action */}
+                          {!done && !locked && (
+                            <button onClick={() => doStep(i)} disabled={isAnimating}
+                              className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all disabled:opacity-50"
+                              style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)', color: '#fff' }}>
+                              <Play className={`w-3 h-3 ${isAnimating && active ? 'animate-spin' : ''}`} />
+                              {isAnimating && active ? '…' : 'Do it'}
+                            </button>
+                          )}
+                          {done && <span className="flex-shrink-0 text-xs text-emerald-400 font-medium">✓</span>}
+                          {locked && <span className="flex-shrink-0 text-xs text-slate-600">🔒</span>}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {/* Status message */}
-                {simMessage && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full text-xs text-emerald-300 whitespace-nowrap"
-                    style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' }}>
-                    {simMessage}
-                  </div>
-                )}
-              </div>
-
-              {/* Reaction result banner */}
-              {experimentDone && experimentResult && (
-                <div className="mx-4 mb-4 rounded-xl p-4"
-                  style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)' }}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-400" />
-                    <span className="text-sm font-bold text-white">Experiment Complete!</span>
-                    <span className="text-xs text-emerald-400 ml-auto">+25 XP</span>
-                  </div>
-                  <div className="font-mono text-indigo-300 text-sm mb-2 break-all">{experimentResult.equation}</div>
-                  <p className="text-slate-300 text-xs leading-relaxed mb-3">{exp.expectedObservations}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {experimentResult.observations.map((obs, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-full text-xs"
-                        style={{ background: 'rgba(16,185,129,0.15)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.3)' }}>
-                        {obs}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* ── STEP-BY-STEP PROCEDURE ── */}
-            <div className="rounded-xl overflow-hidden mb-5"
-              style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(99,102,241,0.15)' }}>
-              <div className="px-4 py-3 border-b border-indigo-500/10 flex items-center justify-between"
-                style={{ background: 'rgba(15,23,42,0.5)' }}>
-                <span className="text-xs font-medium text-slate-400">
-                  PROCEDURE — {completedSteps.size}/{steps.length} steps done
-                </span>
-                <div className="h-1.5 rounded-full bg-slate-700/50 w-28">
-                  <div className="h-full rounded-full progress-bar"
-                    style={{ width: `${steps.length > 0 ? (completedSteps.size / steps.length) * 100 : 0}%` }} />
-                </div>
-              </div>
-
-              <div className="p-3 sm:p-4 space-y-2">
-                {steps.map((step, i) => {
-                  const done    = completedSteps.has(i);
-                  const active  = currentStep === i && !done;
-                  const locked  = i > 0 && !completedSteps.has(i - 1) && !done;
-
-                  return (
-                    <div key={i}
-                      className="flex gap-3 items-start p-3 rounded-xl transition-all"
-                      style={{
-                        background: done    ? 'rgba(16,185,129,0.08)'
-                                  : active  ? 'rgba(99,102,241,0.12)'
-                                  :           'rgba(30,41,59,0.35)',
-                        border:    done    ? '1px solid rgba(16,185,129,0.3)'
-                                  : active  ? '1px solid rgba(99,102,241,0.4)'
-                                  : locked  ? '1px solid rgba(30,41,59,0.3)'
-                                  :           '1px solid rgba(99,102,241,0.15)',
-                      }}>
-
-                      {/* Step number / check */}
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
-                        done ? 'bg-emerald-500 text-white' : active ? 'bg-indigo-500 text-white' : 'text-slate-500'
-                      }`}
-                        style={!done && !active ? { background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(99,102,241,0.2)' } : {}}>
-                        {done ? <Check className="w-3.5 h-3.5" /> : i + 1}
-                      </div>
-
-                      {/* Text */}
-                      <p className={`text-sm leading-relaxed flex-1 ${done ? 'text-slate-400' : 'text-slate-200'}`}>
-                        {step}
-                      </p>
-
-                      {/* Do It button */}
-                      {!done && !locked && (
-                        <button
-                          onClick={() => doStep(i)}
-                          disabled={isAnimating}
-                          className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all disabled:opacity-50"
-                          style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)', color: '#fff' }}>
-                          <Play className={`w-3 h-3 ${isAnimating && active ? 'animate-spin' : ''}`} />
-                          {isAnimating && active ? '…' : 'Do it'}
-                        </button>
-                      )}
-                      {done && (
-                        <span className="flex-shrink-0 text-xs text-emerald-400 font-medium">✓ Done</span>
-                      )}
-                      {locked && (
-                        <span className="flex-shrink-0 text-xs text-slate-600">Locked</span>
-                      )}
+                {/* Chemicals & Equipment */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl p-3"
+                    style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(16,185,129,0.2)' }}>
+                    <div className="text-xs text-emerald-400 font-medium mb-2 flex items-center gap-1">
+                      <FlaskConical className="w-3 h-3" /> Chemicals
                     </div>
-                  );
-                })}
+                    <div className="space-y-1">
+                      {exp.chemicals.map(id => {
+                        const c = CHEMICALS.find(ch => ch.id === id);
+                        return (
+                          <div key={id} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                            <span className="text-xs text-slate-300 truncate">{c?.name ?? id}</span>
+                            <span className="text-xs text-slate-500 font-mono ml-auto">({c?.formula ?? id})</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="rounded-xl p-3"
+                    style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(99,102,241,0.2)' }}>
+                    <div className="text-xs text-indigo-400 font-medium mb-2">Equipment</div>
+                    <div className="space-y-1">
+                      {exp.equipment.map(id => {
+                        const e = EQUIPMENT.find(eq => eq.id === id);
+                        return (
+                          <div key={id} className="flex items-center gap-2">
+                            <span className="text-sm">{e?.icon ?? '🔬'}</span>
+                            <span className="text-xs text-slate-300 truncate">{e?.name ?? id}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── RIGHT (desktop) / BELOW (mobile): simulation ── */}
+              <div className="mt-6 lg:mt-0 lg:sticky lg:top-4">
+                {SimPanel}
               </div>
             </div>
 
-            {/* Required chemicals & equipment info */}
-            <div className="grid sm:grid-cols-2 gap-4 mb-5">
-              <div className="rounded-xl p-4" style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(16,185,129,0.2)' }}>
-                <div className="text-xs text-emerald-400 font-medium mb-3 flex items-center gap-1.5">
-                  <FlaskConical className="w-3.5 h-3.5" /> CHEMICALS
-                </div>
-                <div className="space-y-1.5">
-                  {exp.chemicals.map(chemId => {
-                    const chem = CHEMICALS.find(c => c.id === chemId);
-                    if (!chem) return null;
-                    return (
-                      <div key={chemId} className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" />
-                        <span className="text-sm text-slate-300">{chem.name}</span>
-                        <span className="text-xs text-slate-500 font-mono ml-auto">({chem.formula})</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="rounded-xl p-4" style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(99,102,241,0.2)' }}>
-                <div className="text-xs text-indigo-400 font-medium mb-3">EQUIPMENT</div>
-                <div className="space-y-1.5">
-                  {exp.equipment.map((eqId, i) => {
-                    const eq = EQUIPMENT.find(e => e.id === eqId);
-                    return (
-                      <div key={i} className="flex items-center gap-2">
-                        <span className="text-base">{eq?.icon ?? '🔬'}</span>
-                        <span className="text-sm text-slate-300">{eq?.name ?? eqId.replace(/_/g, ' ')}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Next actions */}
-            <div className="flex flex-wrap gap-3">
+            {/* Nav buttons */}
+            <div className="flex flex-wrap gap-3 mt-6">
               <button onClick={() => setActiveSection('ai')}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white text-sm"
                 style={{ background: 'rgba(139,92,246,0.2)', border: '1px solid rgba(139,92,246,0.3)' }}>
@@ -657,7 +750,7 @@ export default function TopicPage({ params }: Props) {
           </div>
         )}
 
-        {/* ══ AI TUTOR ════════════════════════════════════════ */}
+        {/* ══ AI TUTOR ════════════════════════════════════════════ */}
         {activeSection === 'ai' && (
           <div className="max-w-3xl mx-auto">
             <div className="mb-5">
@@ -667,12 +760,7 @@ export default function TopicPage({ params }: Props) {
               <h1 className="text-xl sm:text-2xl font-black text-white">Ask ChemBot About {topic.name}</h1>
             </div>
             <AIAssistant
-              context={{
-                topic: topic.name,
-                gradeLevel: grade?.name,
-                currentExperiment: exp?.name,
-                reactionResult: experimentResult,
-              }}
+              context={{ topic: topic.name, gradeLevel: grade?.name, currentExperiment: exp?.name, reactionResult: experimentResult }}
               className="h-[480px]"
             />
             <div className="mt-5 flex justify-end">
@@ -685,7 +773,7 @@ export default function TopicPage({ params }: Props) {
           </div>
         )}
 
-        {/* ══ QUIZ ════════════════════════════════════════════ */}
+        {/* ══ QUIZ ════════════════════════════════════════════════ */}
         {activeSection === 'quiz' && (
           <div className="max-w-3xl mx-auto">
             <div className="mb-6">
@@ -714,24 +802,18 @@ export default function TopicPage({ params }: Props) {
                 <p className="text-slate-400 mb-6">
                   {topic.quiz.filter(q => quizAnswers[q.id] === q.answer).length} / {topic.quiz.length} correct
                 </p>
-
                 <div className="text-left space-y-3 mb-8">
                   {topic.quiz.map(q => {
                     const ok = quizAnswers[q.id] === q.answer;
                     return (
                       <div key={q.id} className="rounded-xl p-4"
-                        style={{
-                          background: ok ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
-                          border: ok ? '1px solid rgba(16,185,129,0.25)' : '1px solid rgba(239,68,68,0.25)',
-                        }}>
+                        style={{ background: ok ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)', border: ok ? '1px solid rgba(16,185,129,0.25)' : '1px solid rgba(239,68,68,0.25)' }}>
                         <div className="flex items-start gap-3">
                           {ok ? <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                               : <X className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />}
                           <div className="text-sm">
                             <p className="text-white font-medium mb-1">{q.question}</p>
-                            {!ok && q.options && (
-                              <p className="text-red-300 text-xs mb-1">Your answer: {q.options[quizAnswers[q.id] as number] ?? '—'}</p>
-                            )}
+                            {!ok && q.options && <p className="text-red-300 text-xs mb-1">Your answer: {q.options[quizAnswers[q.id] as number] ?? '—'}</p>}
                             {q.options && <p className="text-emerald-300 text-xs mb-1">Correct: {q.options[q.answer as number]}</p>}
                             <p className="text-slate-400 text-xs">{q.explanation}</p>
                           </div>
@@ -740,7 +822,6 @@ export default function TopicPage({ params }: Props) {
                     );
                   })}
                 </div>
-
                 <div className="flex justify-center gap-3 flex-wrap">
                   <button onClick={() => { setQuizAnswers({}); setQuizSubmitted(false); setQuizScore(0); }}
                     className="px-5 py-2.5 rounded-xl text-sm font-medium"
@@ -775,8 +856,7 @@ export default function TopicPage({ params }: Props) {
                             border:     quizAnswers[q.id] === idx ? '1px solid rgba(99,102,241,0.5)' : '1px solid rgba(99,102,241,0.1)',
                             color:      quizAnswers[q.id] === idx ? '#a5b4fc' : '#94a3b8',
                           }}>
-                          <span className="font-medium mr-2">{String.fromCharCode(65 + idx)}.</span>
-                          {opt}
+                          <span className="font-medium mr-2">{String.fromCharCode(65 + idx)}.</span>{opt}
                         </button>
                       ))}
                     </div>

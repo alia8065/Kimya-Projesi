@@ -66,24 +66,28 @@ export default function FreeLabPage() {
   const hasConductivity = selectedEquipment.includes('conductivity_meter');
   const hasBalance    = selectedEquipment.includes('balance');
 
-  // Live instrument readings
+  // Live instrument readings (show defaults when no chemicals)
   function calcPH(): number {
+    if (selectedChemicals.length === 0) return 7.0;
     if (currentReaction?.pHChange !== null && currentReaction?.pHChange !== undefined) {
       return currentReaction.pHChange as number;
     }
     const vals = selectedChemicals
       .map(id => CHEMICALS.find(c => c.id === id)?.properties.pH)
       .filter((v): v is number => v !== undefined);
-    return vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 7;
+    return vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 7.0;
   }
   function calcTemp(): number {
     let t = 25;
-    if (currentReaction?.isExothermic) t += 35;
-    else if (currentReaction && selectedChemicals.length > 0) t -= 5;
+    if (selectedChemicals.length > 0) {
+      if (currentReaction?.isExothermic) t += 35;
+      else if (currentReaction) t -= 5;
+    }
     if (isHeating) t += 25;
     return Math.min(500, Math.max(0, Math.round(t)));
   }
   function calcConductivity(): number {
+    if (selectedChemicals.length === 0) return 0;
     const ionic = selectedChemicals.filter(id => {
       const c = CHEMICALS.find(ch => ch.id === id);
       return c && ['acid', 'base', 'salt'].includes(c.category);
@@ -91,6 +95,7 @@ export default function FreeLabPage() {
     return ionic * 280;
   }
   function calcMass(): number {
+    if (selectedChemicals.length === 0) return 0;
     return selectedChemicals
       .map(id => CHEMICALS.find(c => c.id === id)?.molecularWeight ?? 0)
       .reduce((a, b) => a + b, 0);
@@ -101,7 +106,7 @@ export default function FreeLabPage() {
   const cond = calcConductivity();
   const mass = calcMass();
 
-  const showInstruments = (hasPH || hasThermo || hasConductivity || hasBalance) && selectedChemicals.length > 0;
+  const showInstruments = hasPH || hasThermo || hasConductivity || hasBalance;
 
   const filteredChemicals = CHEMICALS.filter(c => {
     const q = searchQuery.toLowerCase();
@@ -293,7 +298,7 @@ export default function FreeLabPage() {
         </div>
       )}
 
-      {/* Instrument readings bar */}
+      {/* Instrument readings bar — shown whenever an instrument is selected */}
       {showInstruments && (
         <div className="px-4 py-2 flex flex-wrap gap-2 border-b border-indigo-500/10 flex-shrink-0"
           style={{ background: 'rgba(10,14,26,0.6)' }}>
@@ -336,8 +341,13 @@ export default function FreeLabPage() {
               style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)' }}>
               <span className="text-sm">⚖️</span>
               <span className="text-xs text-slate-400">Avg MW</span>
-              <span className="text-sm font-mono font-bold text-emerald-300">{mass.toFixed(1)} g/mol</span>
+              <span className="text-sm font-mono font-bold text-emerald-300">
+                {mass > 0 ? `${mass.toFixed(1)} g/mol` : '— g/mol'}
+              </span>
             </div>
+          )}
+          {selectedChemicals.length === 0 && (
+            <span className="text-xs text-slate-500 self-center ml-1">Add chemicals to get live readings</span>
           )}
         </div>
       )}
